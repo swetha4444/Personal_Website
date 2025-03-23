@@ -1,14 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import MatrixBackground from './components/particles';
-import MatrixRain from './components/matrixRain'
+import MatrixBackground from './backgrounds/particles';
+import MatrixRain from './backgrounds/matrixRain'
 
 function App() {
   return (
     <div>
       {/* <MatrixBackground  id="matrix-bg"/> */}
       <MatrixRain/>
-      <h1 className="text-white">hello</h1>
      
     </div>
   );
