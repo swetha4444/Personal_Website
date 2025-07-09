@@ -11,23 +11,27 @@ const projects = [
 		description:
 			"A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
 		link: "#",
+		tags: ["3D", "Blender", "Three.js"],
 	},
 	{
 		title: "Matrix Rain Background",
 		description:
 			"Animated Matrix code rain effect with React and Canvas.",
 		link: "#",
+		tags: ["React", "Canvas", "Animation"],
 	},
 	{
 		title: "AI Chatbot",
 		description: "Conversational AI assistant with a Matrix-inspired UI.",
 		link: "#",
+		tags: ["AI", "Chatbot", "UI"],
 	},
 	{
 		title: "Portfolio Hallway",
 		description:
 			"A 3D hallway portfolio experience built with Blender and react-three-fiber.",
 		link: "#",
+		tags: ["3D", "Portfolio", "react-three-fiber"],
 	},
 ];
 
@@ -90,36 +94,21 @@ export default function Projects() {
         <div className="relative min-h-screen w-screen overflow-hidden">
             <MatrixRain />
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-screen h-screen">
-                <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl p-0">
-                    <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-8 text-center matrix-font tracking-widest drop-shadow-lg">
-                        Projects{" "}
-                        <span className="text-green-300 text-lg ml-2">
-                            (Channel {page + 1}/{projects.length})
-                        </span>
+                <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl ">
+                    <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-8 text-center matrix-font tracking-widest drop-shadow-lg p-2">
+                        Projects
                     </h1>
-                    <div className="flex-1 flex items-center justify-center w-full h-full relative">
-                        {/* Left Arrow */}
-                        <button
-                            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-black/60 rounded-full p-4 text-[#5dff4e] hover:bg-[#5dff4e]/20 transition"
-                            onClick={() => paginate(-1)}
-                            aria-label="Previous Project"
-                        >
-                            <FaChevronLeft size={32} />
-                        </button>
+                    <div className="flex-1 flex flex-col items-center justify-center w-full h-full relative">
                         {/* TV Frame */}
-                        <div className="w-full max-w-xl mx-auto flex items-center justify-center h-[400px]">
-                            <div className="relative w-full h-full flex items-center justify-center">
+                        <div className="w-full max-w-xl mx-auto flex flex-col items-center justify-center">
+                            <div className="relative w-full h-[400px] flex items-center justify-center">
                                 {/* TV Outer Frame */}
                                 <div className="absolute inset-0 rounded-[2.5rem] border-8 border-[#222] bg-gradient-to-b from-[#222] to-[#111] shadow-[0_0_60px_#5dff4e44] z-0" />
                                 {/* TV Inner Bezel */}
                                 <div className="absolute inset-4 rounded-[2rem] border-4 border-[#5dff4e] bg-black z-0" />
                                 {/* TV Stand */}
                                 <div className="absolute bottom-[-32px] left-1/2 -translate-x-1/2 w-32 h-6 bg-[#19a535] rounded-b-2xl shadow-lg z-0" />
-                                {/* TV Buttons */}
-                                <div className="absolute right-8 bottom-8 flex flex-col gap-2 z-10">
-                                    <div className="w-4 h-4 rounded-full bg-[#5dff4e] opacity-60" />
-                                    <div className="w-4 h-4 rounded-full bg-[#5dff4e] opacity-30" />
-                                </div>
+                           
                                 {/* Animated Project Card as TV Screen */}
                                 <div className="absolute inset-8 rounded-[1.5rem] overflow-hidden flex items-center justify-center z-10 bg-black">
                                     <AnimatePresence initial={false} custom={direction}>
@@ -138,9 +127,13 @@ export default function Projects() {
                                             }}
                                             className="matrix-font w-full h-full flex flex-col items-center justify-center relative"
                                         >
+                                            {/* Channel number inside TV */}
+                                            <div className="absolute top-4 right-6 bg-[#111] bg-opacity-70 px-4 py-1 rounded-full border border-[#5dff4e] text-[#5dff4e] text-sm font-mono z-20 shadow">
+                                                CH {page + 1}/{projects.length}
+                                            </div>
                                             {/* Static pixel animation overlay */}
                                             <StaticPixelOverlay />
-                                            {/* TV static effect (optional, can keep both for extra effect) */}
+                                            {/* TV static effect */}
                                             <motion.div
                                                 className="absolute inset-0 pointer-events-none"
                                                 style={{
@@ -164,6 +157,40 @@ export default function Projects() {
                                             <p className="text-green-200 text-center mb-6 z-10">
                                                 {projects[page].description}
                                             </p>
+                                            <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
+                                              {projects[page].tags.map((tag, idx) => (
+                                                <span
+                                                  key={tag}
+                                                  className={`px-4 py-1 rounded-full text-xs font-mono font-bold border transition relative
+                                                    ${idx % 2 === 0
+                                                      ? "bg-gradient-to-b from-blue-200 via-blue-400 to-blue-600 border-blue-300 text-blue-900"
+                                                      : "bg-gradient-to-b from-red-200 via-red-400 to-red-600 border-red-300 text-red-900"
+                                                    }
+                                                    ring-2 ring-black/20
+                                                    hover:scale-110
+                                                    opacity-80
+                                                  `}
+                                                  style={{
+                                                    boxShadow:
+                                                      (idx % 2 === 0
+                                                        ? "0 8px 32px 0 #60a5faCC, 0 2px 0 0 #fff3 inset"
+                                                        : "0 8px 32px 0 #fca5a5CC, 0 2px 0 0 #fff3 inset")
+                                                        + ", 0 1.5px 8px 0 rgba(0,0,0,0.25)",
+                                                    transform: `perspective(400px) rotateY(${idx % 2 === 0 ? "-28deg" : "28deg"})`,
+                                                    opacity: 0.8,
+                                                  }}
+                                                >
+                                                  {/* White highlight for 3D shine */}
+                                                  <span
+                                                    className="absolute left-2 top-1 w-2/3 h-1 rounded-full opacity-30 pointer-events-none"
+                                                    style={{
+                                                      background: "linear-gradient(90deg, #fff, transparent)"
+                                                    }}
+                                                  />
+                                                  {tag}
+                                                </span>
+                                              ))}
+                                            </div>
                                             <a
                                                 href={projects[page].link}
                                                 className="mt-2 px-8 py-3 rounded bg-[#5dff4e] text-black font-bold shadow flex items-center gap-2 hover:bg-[#00ff00] transition-colors duration-200 z-10"
@@ -176,15 +203,37 @@ export default function Projects() {
                                     </AnimatePresence>
                                 </div>
                             </div>
+                            
+                            {/* Mouse Controller */}
+                            <div className="relative flex flex-col items-center mt-8">
+                                {/* Mouse body */}
+                                <div className="w-32 h-20 mt-4 bg-[#222] rounded-b-full rounded-t-[2rem] border-4 border-[#5dff4e] shadow-[0_0_24px_#5dff4e66] flex items-end justify-center relative z-10">
+                                    {/* Mouse buttons */}
+                                    <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-6 z-20">
+                                        <button
+                                            onClick={() => paginate(-1)}
+                                            aria-label="Previous Channel"
+                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
+                                            style={{ boxShadow: "0 0 8px #5dff4e88" }}
+                                        >
+                                            <FaChevronLeft size={20} />
+                                        </button>
+                                        <button
+                                            onClick={() => paginate(1)}
+                                            aria-label="Next Channel"
+                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
+                                            style={{ boxShadow: "0 0 8px #5dff4e88" }}
+                                        >
+                                            <FaChevronRight size={20} />
+                                        </button>
+                                    </div>
+                                    {/* Mouse wheel */}
+                                    <div className="absolute top-10 left-1/2 -translate-x-1/2 w-4 h-6 bg-[#5dff4e] rounded-full opacity-60" />
+                                </div>
+                                {/* Mouse cable */}
+                                <div className="w-2 h-10 bg-gradient-to-b from-[#5dff4e] to-[#222] rounded-b-full -mt-2" />
+                            </div>
                         </div>
-                        {/* Right Arrow */}
-                        <button
-                            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-black/60 rounded-full p-4 text-[#5dff4e] hover:bg-[#5dff4e]/20 transition"
-                            onClick={() => paginate(1)}
-                            aria-label="Next Project"
-                        >
-                            <FaChevronRight size={32} />
-                        </button>
                     </div>
                     {/* Channel dots */}
                     <div className="flex justify-center mt-8 gap-2">
@@ -198,7 +247,7 @@ export default function Projects() {
                         ))}
                     </div>
                     <div className="text-green-400 text-xs mt-4 opacity-70 text-center">
-                        Tip: Use <span className="font-bold">←</span> / <span className="font-bold">→</span> or click arrows to change channel
+                        Tip: Use <span className="font-bold">←</span> / <span className="font-bold">→</span> or use the mouse below to change channel
                     </div>
                 </MatrixSection>
             </main>
