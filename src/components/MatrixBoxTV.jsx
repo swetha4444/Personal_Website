@@ -4,7 +4,7 @@ import React from "react";
  * MatrixBoxTV - A boxy, green, retro TV frame component.
  * Children are rendered as the TV "screen" content.
  */
-export default function MatrixBoxTV({ children, style, ...props }) {
+export default function MatrixBoxTV({ children, style, rotateY = -14, ...props }) {
   return (
     <div
       className="relative w-full h-[420px] flex items-center justify-center"
@@ -18,7 +18,7 @@ export default function MatrixBoxTV({ children, style, ...props }) {
       <div
         className="relative"
         style={{
-          transform: "rotateY(-14deg) rotateX(4deg) scale(1.02)",
+          transform: `rotateY(${rotateY}deg) rotateX(4deg) scale(1.02)`,
           transition: "transform 0.3s cubic-bezier(.4,2,.6,1)",
           width: "100%",
           height: "100%",
