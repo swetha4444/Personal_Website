@@ -310,7 +310,7 @@ export default function Projects() {
                
                     </div>
                     <div className="text-green-400 text-xs mt-4 opacity-70 text-center">
-                        Tip: Use <span className="font-bold">←</span> / <span className="font-bold">→</span> or use the mouse below to go to next project
+                        Tip: Use <span className="font-bold">←</span> / <span className="font-bold">→</span> or use the knob below the TV to go to next project
                     </div>
                 </MatrixSection>
             </main>
