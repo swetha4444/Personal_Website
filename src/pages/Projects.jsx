@@ -211,27 +211,31 @@ export default function Projects() {
                                       </span>
                                     ))}
                                   </div>
-                                  <div className="flex justify-center mb-4 z-20">
+                                  <div className="absolute bottom-6 right-6 z-30 group">
                                     <button
                                       onClick={() => setPopupOpen(true)}
-                                      className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] font-mono text-base shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
+                                      className="flex items-center justify-center w-12 h-12 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
                                       style={{
                                         boxShadow: "0 2px 12px #5dff4e99, 0 1.5px 0 0 #fff4 inset",
-                                        letterSpacing: "0.14em",
-                                        textShadow: "0 0 6px #5dff4e, 0 1px 0 #000",
-                                        borderBottomWidth: "3px",
-                                        borderTopWidth: "1.5px",
-                                        borderLeftWidth: "1.5px",
-                                        borderRightWidth: "1.5px",
-                                        fontFamily: "monospace",
                                       }}
-                                      target="_blank"
-                                      rel="noopener noreferrer"
+                                      aria-label="View more details"
                                     >
-                                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5dff4e] mr-1 shadow-[0_0_6px_#5dff4e]" />
-                                      VIEW PROJECT
-                                      <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5dff4e] ml-1 shadow-[0_0_6px_#5dff4e]" />
+                                      {/* Fullscreen/expand icon */}
+                                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5dff4e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+                                        <path d="M4 8V4h4" />
+                                        <path d="M20 8V4h-4" />
+                                        <path d="M4 16v4h4" />
+                                        <path d="M20 16v4h-4" />
+                                        <path d="M16 4l4 4" />
+                                        <path d="M8 4L4 8" />
+                                        <path d="M16 20l4-4" />
+                                        <path d="M8 20l-4-4" />
+                                      </svg>
                                     </button>
+                                    {/* Tooltip */}
+                                    <div className="absolute right-14 bottom-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition bg-[#181c1f] border border-[#5dff4e] text-[#5dff4e] text-xs font-mono rounded px-3 py-1 shadow-lg whitespace-nowrap z-40">
+                                      View more details
+                                    </div>
                                   </div>
                                 </motion.div>
                               </AnimatePresence>

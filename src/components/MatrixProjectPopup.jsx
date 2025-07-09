@@ -2,6 +2,7 @@ import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaExternalLinkAlt, FaTimes } from "react-icons/fa";
 import MatrixRain from "../backgrounds/matrixRain";
+import StaticPixelOverlay from "./StaticPixelOverlay";
 
 export default function MatrixProjectPopup({ open, onClose, project }) {
   if (!open || !project) return null;
@@ -9,19 +10,23 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
   return (
     <AnimatePresence>
       <motion.div
-        initial={{ opacity: 0, scale: 0.98, filter: "blur(8px)" }}
+        initial={{ opacity: 0, scale: 0.7, filter: "blur(8px)" }}
         animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-        exit={{ opacity: 0, scale: 0.98, filter: "blur(8px)" }}
-        transition={{ duration: 0.22, ease: [0.4, 0.8, 0.6, 1] }}
+        exit={{ opacity: 0, scale: 0.7, filter: "blur(8px)" }}
+        transition={{ duration: 0.28, ease: [0.4, 0.8, 0.6, 1] }}
         className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
       >
         <motion.div
-          initial={{ y: 60, opacity: 0 }}
+          initial={{ y: 40, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 60, opacity: 0 }}
+          exit={{ y: 40, opacity: 0 }}
           transition={{ type: "spring", stiffness: 400, damping: 40 }}
-          className="relative bg-gradient-to-br from-[#0a1e0a] via-[#181c1f] to-[#0a1e0a] border-4 border-[#5dff4e] rounded-3xl shadow-[0_0_64px_#5dff4e66] p-8 max-w-lg w-full mx-4 flex flex-col items-center"
+          className="relative w-full max-w-3xl h-[80vh] p-8 flex flex-col items-center justify-center bg-gradient-to-br from-[#0a1e0a] via-[#181c1f] to-[#0a1e0a] border-4 border-[#5dff4e] rounded-[2rem] shadow-[0_0_64px_#5dff4e66] overflow-hidden"
         >
+          {/* Static overlay */}
+          <div className="absolute inset-0 pointer-events-none z-0">
+            <StaticPixelOverlay />
+          </div>
           {/* X Close Button */}
           <button
             onClick={onClose}
@@ -30,17 +35,10 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
           >
             <FaTimes />
           </button>
-          {/* Matrix rain effect */}
-          <div className="absolute inset-0 pointer-events-none z-0">
-            {/* <MatrixRain /> */}
-          </div>
-          {/* Project Title */}
           <h2 className="text-2xl font-bold text-[#5dff4e] mb-2 matrix-font z-10 text-center drop-shadow">
             {project.title}
           </h2>
-          {/* Project Description */}
           <p className="text-green-200 mb-4 text-center z-10">{project.description}</p>
-          {/* Tags */}
           <div className="flex flex-wrap gap-2 mb-4 z-10 justify-center">
             {project.tags &&
               project.tags.map((tag) => (
@@ -52,7 +50,6 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
                 </span>
               ))}
           </div>
-          {/* External Link */}
           <a
             href={project.link}
             target="_blank"
