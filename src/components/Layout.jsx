@@ -7,9 +7,16 @@ export default function Layout({ children }) {
 
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = 0.2;
-      audioRef.current.play().catch(() => {});
+      audioRef.current.volume = 0.2; // Set volume to 20%
     }
+    const playAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.play().catch(() => {});
+      }
+      window.removeEventListener("click", playAudio);
+    };
+    window.addEventListener("click", playAudio);
+    return () => window.removeEventListener("click", playAudio);
   }, []);
 
   return (
