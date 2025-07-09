@@ -36,13 +36,13 @@ const projects = [
 ];
 
 const tvVariants = {
-	enter: (direction) => ({
+	enter: {
 		scale: 0.2,
 		opacity: 0,
-		x: direction > 0 ? 100 : -100,
+		x: 0,
 		filter: "blur(8px)",
 		transition: { duration: 0.22, ease: [0.4, 0.8, 0.6, 1] }
-	}),
+	},
 	center: {
 		scale: 1,
 		opacity: 1,
@@ -50,13 +50,13 @@ const tvVariants = {
 		filter: "blur(0px)",
 		transition: { duration: 0.32, type: "spring", bounce: 0.18, stiffness: 700, damping: 40 }
 	},
-	exit: (direction) => ({
+	exit: {
 		scale: 0.2,
 		opacity: 0,
-		x: direction < 0 ? 100 : -100,
+		x: 0,
 		filter: "blur(8px)",
 		transition: { duration: 0.22, ease: [0.4, 0.8, 0.6, 1] }
-	}),
+	},
 };
 
 export default function Projects() {
