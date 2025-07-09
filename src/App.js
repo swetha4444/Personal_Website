@@ -3,11 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
+import Menu from './pages/Menu'; // Import the new Menu page
 
 function App() {
   return (
     <Router>
-            <audio
+      <audio
         src={process.env.PUBLIC_URL + "music/matrix-bg.mp3"}
         autoPlay
         loop
@@ -17,7 +18,9 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/Personal_Website" element={<Home />} />
+          <Route path="/Personal_Website/menu" element={<Menu />} /> {/* Add this route */}
           <Route path="/Personal_Website/projects" element={<Projects />} />
+          {/* Add other routes for /about, /work, /research here */}
         </Routes>
       </Layout>
     </Router>
