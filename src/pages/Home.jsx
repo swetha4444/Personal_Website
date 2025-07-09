@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <main className="relative z-10 flex flex-col items-center justify-center min-h-screen">
-      <MatrixSection>
+      <MatrixSection className="max-w-xl mx-auto p-8">
         <h1 className="text-4xl md:text-5xl font-extrabold text-[#5dff4e] mb-4 text-center matrix-font">
           SWETHA SASEENDRAN
         </h1>

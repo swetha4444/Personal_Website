@@ -4,7 +4,7 @@ export default function MatrixSection({ children, className = "", ...props }) {
   return (
     <section
       className={
-        "bg-black/70 border border-[#5dff4e]/30 rounded-xl p-8 mt-24 shadow-lg max-w-xl mx-auto " +
+        "bg-black/70 border border-[#5dff4e]/30 rounded-xl shadow-lg " +
         className
       }
       {...props}
