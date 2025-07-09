@@ -1,15 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
-import MatrixBackground from './backgrounds/particles';
-import MatrixRain from './backgrounds/matrixRain'
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Layout from './components/Layout';
+import Home from './pages/Home';
+import Projects from './pages/Projects';
 
 function App() {
   return (
-    <div>
-      {/* <MatrixBackground  id="matrix-bg"/> */}
-      <MatrixRain/>
-     
-    </div>
+    <Router>
+            <audio
+        src={process.env.PUBLIC_URL + "music/matrix-bg.mp3"}
+        autoPlay
+        loop
+        controls={false}
+        style={{ display: "none" }}
+      />
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 

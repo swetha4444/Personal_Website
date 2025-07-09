@@ -1,6 +1,7 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 
 
 
@@ -8,6 +9,12 @@
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.matrix-font {
+  font-family: 'Share Tech Mono', monospace;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 8px #5dff4e, 0 0 2px #5dff4e;
 }
 
 /* body {
