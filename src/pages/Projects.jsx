@@ -4,6 +4,7 @@ import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa
 import MatrixSection from "../components/MatrixSection";
 import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "../components/StaticPixelOverlay";
+import MatrixProjectPopup from "../components/MatrixProjectPopup";
 
 const projects = [
 	{
@@ -71,6 +72,7 @@ const playKnobTurn = () => {
 
 export default function Projects() {
     const [[page, direction], setPage] = useState([0, 0]);
+    const [popupOpen, setPopupOpen] = useState(false);
 
     const playClick = useCallback(() => {
         const audio = new Audio(process.env.PUBLIC_URL + "/music/click.mp3");
@@ -210,8 +212,8 @@ export default function Projects() {
                                     ))}
                                   </div>
                                   <div className="flex justify-center mb-4 z-20">
-                                    <a
-                                      href={projects[page].link}
+                                    <button
+                                      onClick={() => setPopupOpen(true)}
                                       className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] font-mono text-base shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
                                       style={{
                                         boxShadow: "0 2px 12px #5dff4e99, 0 1.5px 0 0 #fff4 inset",
@@ -229,7 +231,7 @@ export default function Projects() {
                                       <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5dff4e] mr-1 shadow-[0_0_6px_#5dff4e]" />
                                       VIEW PROJECT
                                       <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5dff4e] ml-1 shadow-[0_0_6px_#5dff4e]" />
-                                    </a>
+                                    </button>
                                   </div>
                                 </motion.div>
                               </AnimatePresence>
@@ -286,6 +288,11 @@ export default function Projects() {
                     </div>
                 </MatrixSection>
             </main>
+            <MatrixProjectPopup
+              open={popupOpen}
+              onClose={() => setPopupOpen(false)}
+              project={projects[page]}
+            />
         </div>
     );
 }
