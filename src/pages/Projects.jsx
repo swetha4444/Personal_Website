@@ -7,6 +7,7 @@ import StaticPixelOverlay from "../components/StaticPixelOverlay";
 import MatrixProjectPopup from "../components/MatrixProjectPopup";
 import SentinelleScene from "../components/SentinelleScene"; // Add this import at the top
 import RetroComputerModel from "../components/RetroComputerScene"; // Add this import at the top
+import MatrixBoxTV from "../components/MatrixBoxTV";
 
 const projects = [
 	{
@@ -134,154 +135,119 @@ export default function Projects() {
                           </div>
                           {/* Right: TV Frame and controls */}
                           <div className="flex flex-col items-center justify-center flex-1">
-                            <div
-  className="relative w-full h-[420px] flex items-center justify-center"
-  style={{
-    perspective: "1200px",
-    perspectiveOrigin: "60% 40%",
-  }}
->
-  <div
-    className="relative"
-    style={{
-      transform: "rotateY(-14deg) rotateX(4deg) scale(1.02)",
-      transition: "transform 0.3s cubic-bezier(.4,2,.6,1)",
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    {/* --- TV Frame layers as before --- */}
-    <div className="absolute inset-0 rounded-[3rem] border-[12px] border-[#2a2a2a] bg-gradient-to-b from-[#232323] to-[#0d0d0d] shadow-[0_0_80px_#5dff4e33] z-0" />
-    <div className="absolute inset-2 rounded-[2.7rem] border-[6px] border-[#35984c] bg-gradient-to-b from-[#4de079] to-[#0a6129] z-0" />
-    <div className="absolute inset-6 rounded-[2.2rem] border-4 border-[#5dff4e] bg-black z-0" />
-    <div
-      className="absolute inset-8 rounded-[2rem] pointer-events-none z-10"
-      style={{
-        background: "linear-gradient(120deg, #fff2 10%, #fff1 30%, transparent 70%)",
-        opacity: 0.18,
-        mixBlendMode: "screen",
-      }}
-    />
-    <div className="absolute bottom-[-36px] left-1/2 -translate-x-1/2 w-36 h-8 bg-[#2a2a2a] rounded-b-3xl shadow-lg z-0 border-t-4 border-[#59b941]" />
-    {/* TV Screen */}
-    <div className="absolute inset-10 rounded-[1.7rem] overflow-hidden flex items-center justify-center z-20 bg-black border-2 border-[#5dff4e]">
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={page}
-          custom={direction}
-          variants={tvVariants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          transition={{
-            type: "spring",
-            stiffness: 900,
-            damping: 50,
-            duration: 0.18,
-          }}
-          className="matrix-font w-full h-full flex flex-col items-center justify-center relative"
-        >
-          {/* Channel number inside TV */}
-          <div className="absolute top-4 right-6 bg-[#111] bg-opacity-70 px-4 py-1 rounded-full border border-[#5dff4e] text-[#5dff4e] text-sm font-mono z-20 shadow">
-            CH {page + 1}/{projects.length}
-          </div>
-          {/* Static pixel animation overlay */}
-          <StaticPixelOverlay />
-          {/* TV static effect */}
-          <motion.div
-            className="absolute inset-0 pointer-events-none"
-            style={{
-              background:
-                "repeating-linear-gradient(0deg, #5dff4e11 0px, #5dff4e22 2px, transparent 4px, transparent 8px)",
-              opacity: 0.15,
-              zIndex: 1,
-            }}
-            animate={{
-              backgroundPositionY: ["0%", "100%"],
-            }}
-            transition={{
-              repeat: Infinity,
-              duration: 1.2,
-              ease: "linear",
-            }}
-          />
-          <h2 className="text-3xl text-[#5dff4e] font-bold mb-4 tracking-wider drop-shadow text-center z-10">
-            {projects[page].title}
-          </h2>
-          <p className="text-green-200 text-center mb-6 z-10">
-            {projects[page].description}
-          </p>
-          <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
-            {projects[page].tags.map((tag, idx) => (
-              <span
-                key={tag}
-                className={`px-4 py-1 rounded-full text-xs font-mono font-bold border transition relative
-                  ${idx % 2 === 0
-                    ? "bg-gradient-to-b from-blue-200 via-blue-400 to-blue-600 border-blue-300 text-blue-900"
-                    : "bg-gradient-to-b from-red-200 via-red-400 to-red-600 border-red-300 text-red-900"
-                  }
-                  ring-2 ring-black/20
-                  hover:scale-110
-                  opacity-80
-                `}
-                style={{
-                  boxShadow:
-                    (idx % 2 === 0
-                      ? "0 8px 32px 0 #60a5faCC, 0 2px 0 0 #fff3 inset"
-                      : "0 8px 32px 0 #fca5a5CC, 0 2px 0 0 #fff3 inset")
-                      + ", 0 1.5px 8px 0 rgba(0,0,0,0.25)",
-                  transform: `perspective(400px) rotateY(${idx % 2 === 0 ? "-28deg" : "28deg"})`,
-                  opacity: 0.8,
-                }}
-              >
-                {/* White highlight for 3D shine */}
-                <span
-                  className="absolute left-2 top-1 w-2/3 h-1 rounded-full opacity-30 pointer-events-none"
-                  style={{
-                    background: "linear-gradient(90deg, #fff, transparent)"
-                  }}
-                />
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="absolute bottom-6 right-6 z-30 group">
-            <button
-              onClick={() => {
-                playKnobTurn2();
-                setPopupOpen(true);
-              }}
-              className="flex items-center justify-center w-12 h-12 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
-              style={{
-                boxShadow: "0 2px 12px #5dff4e99, 0 1.5px 0 0 #fff4 inset",
-              }}
-              aria-label="View more details"
-            >
-              {/* Fullscreen/expand icon */}
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5dff4e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
-                <path d="M4 8V4h4" />
-                <path d="M20 8V4h-4" />
-                <path d="M4 16v4h4" />
-                <path d="M20 16v4h-4" />
-                <path d="M16 4l4 4" />
-                <path d="M8 4L4 8" />
-                <path d="M16 20l4-4" />
-                <path d="M8 20l-4-4" />
-              </svg>
-            </button>
-            {/* Tooltip */}
-            <div className="absolute right-14 bottom-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition bg-[#181c1f] border border-[#5dff4e] text-[#5dff4e] text-xs font-mono rounded px-3 py-1 shadow-lg whitespace-nowrap z-40">
-              View more details
-            </div>
-          </div>
-        </motion.div>
-      </AnimatePresence>
-    </div>
-  </div>
-</div>
+                            <MatrixBoxTV>
+                              <AnimatePresence initial={false} custom={direction}>
+                                <motion.div
+                                  key={page}
+                                  custom={direction}
+                                  variants={tvVariants}
+                                  initial="enter"
+                                  animate="center"
+                                  exit="exit"
+                                  transition={{
+                                    type: "spring",
+                                    stiffness: 900,
+                                    damping: 50,
+                                    duration: 0.18,
+                                  }}
+                                  className="matrix-font w-full h-full flex flex-col items-center justify-center relative"
+                                >
+                                  {/* Channel number inside TV */}
+                                  <div className="absolute top-4 right-6 bg-[#111] bg-opacity-70 px-4 py-1 rounded-full border border-[#5dff4e] text-[#5dff4e] text-sm font-mono z-20 shadow">
+                                    CH {page + 1}/{projects.length}
+                                  </div>
+                                  {/* Static pixel animation overlay */}
+                                  <StaticPixelOverlay />
+                                  {/* TV static effect */}
+                                  <motion.div
+                                    className="absolute inset-0 pointer-events-none"
+                                    style={{
+                                      background:
+                                        "repeating-linear-gradient(0deg, #5dff4e11 0px, #5dff4e22 2px, transparent 4px, transparent 8px)",
+                                      opacity: 0.15,
+                                      zIndex: 1,
+                                    }}
+                                    animate={{
+                                      backgroundPositionY: ["0%", "100%"],
+                                    }}
+                                    transition={{
+                                      repeat: Infinity,
+                                      duration: 1.2,
+                                      ease: "linear",
+                                    }}
+                                  />
+                                  <h2 className="text-3xl text-[#5dff4e] font-bold mb-4 tracking-wider drop-shadow text-center z-10">
+                                    {projects[page].title}
+                                  </h2>
+                                  <p className="text-green-200 text-center mb-6 z-10">
+                                    {projects[page].description}
+                                  </p>
+                                  <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
+                                    {projects[page].tags.map((tag, idx) => (
+                                      <span
+                                        key={tag}
+                                        className={`px-4 py-1 rounded-full text-xs font-mono font-bold border transition relative
+                                          ${idx % 2 === 0
+                                            ? "bg-gradient-to-b from-blue-200 via-blue-400 to-blue-600 border-blue-300 text-blue-900"
+                                            : "bg-gradient-to-b from-red-200 via-red-400 to-red-600 border-red-300 text-red-900"
+                                          }
+                                          ring-2 ring-black/20
+                                          hover:scale-110
+                                          opacity-80
+                                        `}
+                                        style={{
+                                          boxShadow:
+                                            (idx % 2 === 0
+                                              ? "0 8px 32px 0 #60a5faCC, 0 2px 0 0 #fff3 inset"
+                                              : "0 8px 32px 0 #fca5a5CC, 0 2px 0 0 #fff3 inset")
+                                              + ", 0 1.5px 8px 0 rgba(0,0,0,0.25)",
+                                          transform: `perspective(400px) rotateY(${idx % 2 === 0 ? "-28deg" : "28deg"})`,
+                                          opacity: 0.8,
+                                        }}
+                                      >
+                                        {/* White highlight for 3D shine */}
+                                        <span
+                                          className="absolute left-2 top-1 w-2/3 h-1 rounded-full opacity-30 pointer-events-none"
+                                          style={{
+                                            background: "linear-gradient(90deg, #fff, transparent)"
+                                          }}
+                                        />
+                                        {tag}
+                                      </span>
+                                    ))}
+                                  </div>
+                                  <div className="absolute bottom-6 right-6 z-30 group">
+                                    <button
+                                      onClick={() => {
+                                        playKnobTurn2();
+                                        setPopupOpen(true);
+                                      }}
+                                      className="flex items-center justify-center w-12 h-12 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
+                                      style={{
+                                        boxShadow: "0 2px 12px #5dff4e99, 0 1.5px 0 0 #fff4 inset",
+                                      }}
+                                      aria-label="View more details"
+                                    >
+                                      {/* Fullscreen/expand icon */}
+                                      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#5dff4e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-7 h-7">
+                                        <path d="M4 8V4h4" />
+                                        <path d="M20 8V4h-4" />
+                                        <path d="M4 16v4h4" />
+                                        <path d="M20 16v4h-4" />
+                                        <path d="M16 4l4 4" />
+                                        <path d="M8 4L4 8" />
+                                        <path d="M16 20l4-4" />
+                                        <path d="M8 20l-4-4" />
+                                      </svg>
+                                    </button>
+                                    {/* Tooltip */}
+                                    <div className="absolute right-14 bottom-1/2 translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition bg-[#181c1f] border border-[#5dff4e] text-[#5dff4e] text-xs font-mono rounded px-3 py-1 shadow-lg whitespace-nowrap z-40">
+                                      View more details
+                                    </div>
+                                  </div>
+                                </motion.div>
+                              </AnimatePresence>
+                            </MatrixBoxTV>
                             {/* Knob and dots go here, directly below TV */}
                             <div className="flex flex-col items-center mt-10">
                               <motion.div
