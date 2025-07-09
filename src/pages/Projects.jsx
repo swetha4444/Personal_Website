@@ -13,7 +13,12 @@ const projects = [
 		title: "Sentinelle 3D",
 		description:
 			"A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
-		link: "#",
+		para: "This project demonstrates a fully interactive 3D model of a Matrix Sentinelle, built in Blender and rendered in real-time using Three.js and React Three Fiber. Users can rotate, zoom, and explore the model in detail. The project showcases advanced 3D techniques, custom shaders, and performance optimizations for the web.",
+		github_link: "https://github.com/swetha4444/sentinelle-3d",
+		images: [
+			process.env.PUBLIC_URL + "/logo192.png",
+			process.env.PUBLIC_URL + "/logo512.png",
+		],
 		tags: ["3D", "Blender", "Three.js"],
 	},
 	{
