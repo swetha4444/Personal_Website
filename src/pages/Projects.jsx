@@ -37,27 +37,25 @@ const projects = [
 
 const tvVariants = {
 	enter: (direction) => ({
-		x: direction > 0 ? 300 : -300,
+		scale: 0.2,
 		opacity: 0,
-		scale: 0.9,
+		x: direction > 0 ? 100 : -100,
 		filter: "blur(8px)",
-		transition: { duration: 0.25 }, // faster
+		transition: { duration: 0.22, ease: [0.4, 0.8, 0.6, 1] }
 	}),
 	center: {
-		zIndex: 1,
-		x: 0,
-		opacity: 1,
 		scale: 1,
+		opacity: 1,
+		x: 0,
 		filter: "blur(0px)",
-		transition: { duration: 0.3, type: "spring", bounce: 0.2, stiffness: 700, damping: 40 },
+		transition: { duration: 0.32, type: "spring", bounce: 0.18, stiffness: 700, damping: 40 }
 	},
 	exit: (direction) => ({
-		zIndex: 0,
-		x: direction < 0 ? 300 : -300,
+		scale: 0.2,
 		opacity: 0,
-		scale: 0.9,
+		x: direction < 0 ? 100 : -100,
 		filter: "blur(8px)",
-		transition: { duration: 0.2 }, // faster
+		transition: { duration: 0.22, ease: [0.4, 0.8, 0.6, 1] }
 	}),
 };
 
@@ -191,14 +189,28 @@ export default function Projects() {
                                                 </span>
                                               ))}
                                             </div>
-                                            <a
+                                            <div className="flex justify-center mb-4 z-20">
+                                              <a
                                                 href={projects[page].link}
-                                                className="mt-2 px-8 py-3 rounded bg-[#5dff4e] text-black font-bold shadow flex items-center gap-2 hover:bg-[#00ff00] transition-colors duration-200 z-10"
+                                                className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] font-mono text-base shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
+                                                style={{
+                                                  boxShadow: "0 2px 12px #5dff4e99, 0 1.5px 0 0 #fff4 inset",
+                                                  letterSpacing: "0.14em",
+                                                  textShadow: "0 0 6px #5dff4e, 0 1px 0 #000",
+                                                  borderBottomWidth: "3px",
+                                                  borderTopWidth: "1.5px",
+                                                  borderLeftWidth: "1.5px",
+                                                  borderRightWidth: "1.5px",
+                                                  fontFamily: "monospace",
+                                                }}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                            >
-                                                View Project <FaExternalLinkAlt />
-                                            </a>
+                                              >
+                                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5dff4e] mr-1 shadow-[0_0_6px_#5dff4e]" />
+                                                VIEW PROJECT
+                                                <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#5dff4e] ml-1 shadow-[0_0_6px_#5dff4e]" />
+                                              </a>
+                                            </div>
                                         </motion.div>
                                     </AnimatePresence>
                                 </div>
