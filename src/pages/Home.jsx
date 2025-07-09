@@ -7,9 +7,9 @@ export default function Home() {
 
   // Play sound and navigate
   const handleStart = () => {
-    const audio = new Audio(process.env.PUBLIC_URL + "music/click.mp3");
+    const audio = new Audio(process.env.PUBLIC_URL + "/music/click.mp3");
     audio.play();
-    setTimeout(() => navigate("/Personal_Website/projects"), 150); // Wait a bit for the sound
+    setTimeout(() => navigate("projects"), 150); // Use relative path if using basename
   };
 
   return (
