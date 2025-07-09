@@ -16,8 +16,8 @@ function App() {
       />
       <Layout>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
+          <Route path="/Personal_Website" element={<Home />} />
+          <Route path="/Personal_Website/projects" element={<Projects />} />
         </Routes>
       </Layout>
     </Router>

@@ -9,7 +9,7 @@ export default function Home() {
   const handleStart = () => {
     const audio = new Audio(process.env.PUBLIC_URL + "music/click.mp3");
     audio.play();
-    setTimeout(() => navigate("/projects"), 150); // Wait a bit for the sound
+    setTimeout(() => navigate("/Personal_Website/projects"), 150); // Wait a bit for the sound
   };
 
   return (
