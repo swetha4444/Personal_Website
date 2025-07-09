@@ -7,6 +7,7 @@ import StaticPixelOverlay from "../components/StaticPixelOverlay";
 import MatrixProjectPopup from "../components/MatrixProjectPopup";
 import SentinelleScene from "../components/SentinelleScene"; // Add this import at the top
 
+
 const projects = [
 	{
 		title: "Sentinelle 3D",
