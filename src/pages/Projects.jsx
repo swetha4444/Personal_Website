@@ -59,6 +59,16 @@ const tvVariants = {
 	},
 };
 
+const playKnobTurn = () => {
+  const audio = new Audio(process.env.PUBLIC_URL + "/music/click.mp3");
+  audio.currentTime = 0;
+  audio.play();
+  setTimeout(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }, 2000); // Stop after 2 seconds
+};
+
 export default function Projects() {
     const [[page, direction], setPage] = useState([0, 0]);
 
@@ -69,13 +79,13 @@ export default function Projects() {
 
     const paginate = useCallback(
         (newDirection) => {
-            playClick();
+            playKnobTurn();
             setPage(([prevPage]) => [
                 (prevPage + newDirection + projects.length) % projects.length,
                 newDirection,
             ]);
         },
-        [playClick]
+        []
     );
 
     // Keyboard navigation
@@ -216,34 +226,38 @@ export default function Projects() {
                                 </div>
                             </div>
                             
-                            {/* Mouse Controller */}
-                            <div className="relative flex flex-col items-center mt-8">
-                                {/* Mouse body */}
-                                <div className="w-32 h-20 mt-4 bg-[#222] rounded-b-full rounded-t-[2rem] border-4 border-[#5dff4e] shadow-[0_0_24px_#5dff4e66] flex items-end justify-center relative z-10">
-                                    {/* Mouse buttons */}
-                                    <div className="absolute top-2 left-1/2 -translate-x-1/2 flex gap-6 z-20">
-                                        <button
-                                            onClick={() => paginate(-1)}
-                                            aria-label="Previous Channel"
-                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
-                                            style={{ boxShadow: "0 0 8px #5dff4e88" }}
-                                        >
-                                            <FaChevronLeft size={20} />
-                                        </button>
-                                        <button
-                                            onClick={() => paginate(1)}
-                                            aria-label="Next Channel"
-                                            className="w-8 h-8 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
-                                            style={{ boxShadow: "0 0 8px #5dff4e88" }}
-                                        >
-                                            <FaChevronRight size={20} />
-                                        </button>
-                                    </div>
-                                    {/* Mouse wheel */}
-                                    <div className="absolute top-10 left-1/2 -translate-x-1/2 w-4 h-6 bg-[#5dff4e] rounded-full opacity-60" />
+                  
+
+                            {/* TV Knob Controller */}
+                            <div className="flex flex-col items-center m-10">
+                              <motion.div
+                                className="w-16 h-16 bg-[#181c1f] border-4 border-[#5dff4e] rounded-full shadow-[0_0_24px_#5dff4e66] flex items-center justify-center z-20 relative"
+                                animate={{ rotate: page * 36 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                              >
+                                {/* Knob inner circle */}
+                                <div className="w-10 h-10 bg-[#222] rounded-full border-2 border-[#5dff4e] flex items-center justify-center relative">
+                                  {/* Notch indicator */}
+                                  <div className="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#5dff4e] rounded-full shadow-[0_0_8px_#5dff4e]" />
                                 </div>
-                                {/* Mouse cable */}
-                                <div className="w-2 h-10 bg-gradient-to-b from-[#5dff4e] to-[#222] rounded-b-full -mt-2" />
+                                {/* Channel change buttons around the knob */}
+                                <button
+                                  onClick={() => paginate(-1)}
+                                  aria-label="Previous Channel"
+                                  className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
+                                  style={{ boxShadow: "0 0 8px #5dff4e88" }}
+                                >
+                                  <FaChevronLeft size={14} />
+                                </button>
+                                <button
+                                  onClick={() => paginate(1)}
+                                  aria-label="Next Channel"
+                                  className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
+                                  style={{ boxShadow: "0 0 8px #5dff4e88" }}
+                                >
+                                  <FaChevronRight size={14} />
+                                </button>
+                              </motion.div>
                             </div>
                         </div>
                     </div>

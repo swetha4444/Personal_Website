@@ -7,6 +7,7 @@ export default function Layout({ children }) {
   useEffect(() => {
     const playAudio = () => {
       if (audioRef.current) {
+        audioRef.current.volume = 0.8; // Set volume lower (0.0 - 1.0)
         audioRef.current.play().catch(() => {});
       }
       window.removeEventListener("click", playAudio);
