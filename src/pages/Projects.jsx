@@ -6,7 +6,7 @@ import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "../components/StaticPixelOverlay";
 import MatrixProjectPopup from "../components/MatrixProjectPopup";
 import SentinelleScene from "../components/SentinelleScene"; // Add this import at the top
-
+import RetroComputerModel from "../components/RetroComputerScene"; // Add this import at the top
 
 const projects = [
 	{
@@ -122,13 +122,13 @@ export default function Projects() {
                     </h1>
                     <div className="flex-1 flex flex-col items-center justify-center w-full h-full relative">
                         {/* TV Frame */}
-                        <div className="w-full max-w-6xl mx-auto flex flex-row items-center justify-center gap-2 relative">
-                          {/* Left: Sentinelle 3D Model */}
-                          <div className="hidden md:flex items-center justify-end w-[300px] h-[520px] pr-4">
-                            <SentinelleScene />
+                        <div className="w-full max-w-6xl mx-auto flex flex-row items-center justify-center gap-8 relative">
+                          {/* Left: Retro Computer 3D Model */}
+                          <div className="hidden md:flex items-center justify-end flex-shrink-0" style={{ width: 340, height: 520 }}>
+                            <RetroComputerModel />
                           </div>
                           {/* Right: TV Frame and controls */}
-                          <div className="relative w-full max-w-xl flex flex-col items-center justify-center">
+                          <div className="flex flex-col items-center justify-center flex-1">
                             <div className="relative w-full h-[420px] flex items-center justify-center">
                               {/* Retro TV Outer Frame with feet */}
                               <div className="absolute inset-0 rounded-[3rem] border-[12px] border-[#2a2a2a] bg-gradient-to-b from-[#232323] to-[#0d0d0d] shadow-[0_0_80px_#5dff4e33] z-0" />
