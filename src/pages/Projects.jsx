@@ -70,6 +70,16 @@ const playKnobTurn = () => {
   }, 2000); // Stop after 2 seconds
 };
 
+const playKnobTurn2 = () => {
+  const audio = new Audio(process.env.PUBLIC_URL + "/music/knob.mp3");
+  audio.currentTime = 0;
+  audio.play();
+  setTimeout(() => {
+    audio.pause();
+    audio.currentTime = 0;
+  }, 800); // Stop after 2 seconds
+};
+
 export default function Projects() {
     const [[page, direction], setPage] = useState([0, 0]);
     const [popupOpen, setPopupOpen] = useState(false);
@@ -213,7 +223,10 @@ export default function Projects() {
                                   </div>
                                   <div className="absolute bottom-6 right-6 z-30 group">
                                     <button
-                                      onClick={() => setPopupOpen(true)}
+                                      onClick={() => {
+                                        playKnobTurn2();
+                                        setPopupOpen(true);
+                                      }}
                                       className="flex items-center justify-center w-12 h-12 rounded-full bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] shadow-[0_2px_12px_#5dff4e99] hover:bg-[#222] hover:text-[#00ff00] active:scale-95 transition-all duration-150"
                                       style={{
                                         boxShadow: "0 2px 12px #5dff4e99, 0 1.5px 0 0 #fff4 inset",
