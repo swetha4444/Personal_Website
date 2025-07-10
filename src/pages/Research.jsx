@@ -177,11 +177,16 @@ export default function Research() {
                                 <div
                                     className={`book__page book__page--cover ${bookState}`}
                                     onClick={handleCoverClick}
-                                    style={{ cursor: "pointer" }}
+                                    style={{
+                                        cursor: "pointer",
+                                        backgroundImage: `linear-gradient(rgba(0, 0, 19, 0.3), rgba(17, 24, 19, 0.85)), url(${process.env.PUBLIC_URL + '/images/book.jpg'})`,
+                                        backgroundSize: 'cover',
+                                        backgroundPosition: 'center'
+                                    }}
                                 >
                                     <div className="page__content">
                                         {/* Front Cover Content */}
-                                        <h2 className="page__content-book-title">📖 My Research Publications</h2>
+                                        <h2 className="page__content-book-title">My Research Publications</h2>
                                         <div className="page__content-author">Swetha S.</div>
                                     </div>
                                 </div>
@@ -297,7 +302,7 @@ export default function Research() {
         }
         @keyframes grid-pan {
           from { background-position: 0 0; }
-          to { background-position: -40px -40px; }
+          to { background-position: -200px 0; }
         }
 
         /* New animations for the cover */
@@ -398,17 +403,42 @@ export default function Research() {
           animation: text-decode-flicker 3s linear infinite;
         }
 
-        .page__content-title {
-          font-family: 'PixelText', monospace;
-          font-weight: bold;
-          text-transform: uppercase;
+        .page__content-book-title {
+          font-family: "matrix-font", monospace;
+          font-size: 2.2rem;
           color: var(--matrix-green);
-          font-size: 1.3rem;
-          letter-spacing: 1px;
-          margin-top: 1.5rem;
+          text-transform: uppercase;
+          letter-spacing: 0.15em;
+          font-weight: bold;
+          text-shadow: 0 0 5px var(--matrix-green);
           margin-bottom: 1rem;
         }
-        
+
+        .page__content-author {
+            font-family: "matrix-font", monospace;
+            font-size: 1.2rem;
+            color: var(--matrix-green);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 4px var(--matrix-green);
+        }
+
+        .page__content-credits {
+          font-family: "matrix-font", monospace;
+          font-size: 1rem;
+          color: var(--matrix-green);
+          margin-bottom: 1rem;
+          text-shadow: 0 0 4px var(--matrix-green), 0 0 8px var(--matrix-green-glow);
+        }
+
+        .page__content-text {
+          font-family: "matrix-font", monospace;
+          font-size: 1rem;
+          color: var(--matrix-text);
+          line-height: 1.4;
+          margin-bottom: 1.5rem;
+          text-shadow: 0 0 4px var(--matrix-green), 0 0 8px var(--matrix-green-glow);
+        }
+
         .page__content-link {
           display: inline-block;
           margin-top: 1.5rem;
