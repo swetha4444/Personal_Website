@@ -118,6 +118,8 @@ export default function Research() {
 
     const handleLeftClick = () => {
         if (spread === 0 || flipping) return;
+        const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
+        flipSound.play();
         setFlipping("left");
         setTimeout(() => {
             setSpread((s) => Math.max(0, s - 1));
@@ -127,6 +129,8 @@ export default function Research() {
 
     const handleRightClick = () => {
         if (spread === totalSpreads - 1 || flipping) return;
+        const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
+        flipSound.play();
         setFlipping("right");
         setTimeout(() => {
             setSpread((s) => Math.min(totalSpreads - 1, s + 1));
@@ -137,15 +141,25 @@ export default function Research() {
     // Handle cover click to open book
     const handleCoverClick = () => {
         if (bookState !== "cover") return;
+        const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
+        flipSound.play();
         setBookState("opening");
         setTimeout(() => setBookState("open"), 900); // match CSS transition
     };
 
     const handleMobilePrev = () => {
-        if (pageIdx > 0 && !flipping) setPageIdx(pageIdx - 1);
+        if (pageIdx > 0 && !flipping) {
+            const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
+            flipSound.play();
+            setPageIdx(pageIdx - 1);
+        }
     };
     const handleMobileNext = () => {
-        if (pageIdx < publications.length + 1 && !flipping) setPageIdx(pageIdx + 1);
+        if (pageIdx < publications.length + 1 && !flipping) {
+            const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
+            flipSound.play();
+            setPageIdx(pageIdx + 1);
+        }
     };
 
     return (
