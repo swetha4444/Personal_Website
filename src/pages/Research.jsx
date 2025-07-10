@@ -286,6 +286,24 @@ export default function Research() {
           to { background-position: -40px -40px; }
         }
 
+        /* New animations for the cover */
+        @keyframes float-book {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-12px);
+          }
+        }
+        @keyframes pulse-glow {
+          0%, 100% {
+            filter: drop-shadow(0 15px 40px #000c) drop-shadow(0 0 20px var(--matrix-green-glow));
+          }
+          50% {
+            filter: drop-shadow(0 20px 50px #000c) drop-shadow(0 0 35px var(--matrix-green));
+          }
+        }
+
         .cover {
           width: 100vw;
           max-width: 1000px;
@@ -298,6 +316,8 @@ export default function Research() {
           display: flex;
           align-items: center;
           justify-content: center;
+          /* Apply floating animation */
+          animation: float-book 5s ease-in-out infinite;
         }
         
         .book {
@@ -306,8 +326,12 @@ export default function Research() {
           display: flex;
           position: relative;
           z-index: 2;
-          transition: transform 0.9s cubic-bezier(0.77,0,0.18,1);
+          transition: transform 0.9s cubic-bezier(0.77,0,0.18,1), filter 0.9s ease;
           filter: drop-shadow(0 15px 40px #000c) drop-shadow(0 0 20px var(--matrix-green-glow));
+        }
+        .book.cover {
+          /* Apply pulsing glow animation only when closed */
+          animation: pulse-glow 3s ease-in-out infinite;
         }
         .book.open {
           transform: rotateX(28deg) rotateY(-18deg) scale(1.04);
