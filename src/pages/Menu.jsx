@@ -116,7 +116,7 @@ export default function Menu() {
 			<main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-screen h-screen p-4">
 				<MatrixSection className="w-full max-w-4xl flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl p-8 rounded-2xl">
 					<h1 className="text-4xl md:text-5xl font-extrabold text-[#5dff4e] mb-8 text-center matrix-font tracking-widest drop-shadow-lg">
-						SELECT A WEAPON
+						ENTER A MATRIX
 					</h1>
 
 					<div

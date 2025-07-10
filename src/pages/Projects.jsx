@@ -5,9 +5,8 @@ import MatrixSection from "../components/MatrixSection";
 import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "../components/StaticPixelOverlay";
 import MatrixProjectPopup from "../components/MatrixProjectPopup";
-import SentinelleScene from "../components/SentinelleScene"; // Add this import at the top
-import RetroComputerModel from "../components/RetroComputerScene"; // Add this import at the top
 import MatrixBoxTV from "../components/MatrixBoxTV";
+import NavBar from "../components/Navbar"
 
 const projects = [
 	{
