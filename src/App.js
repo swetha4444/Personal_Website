@@ -6,6 +6,7 @@ import Projects from './pages/Projects';
 import Menu from './pages/Menu'; // Import the new Menu page
 import About from './pages/About'; // Import the About page
 import Research from './pages/Research'; // Import the Research page
+import Experience from './pages/Experience'; // Import the Experience page
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="/Personal_Website/projects" element={<Projects />} />
           <Route path="/Personal_Website/about" element={<About />} /> 
           <Route path="/Personal_Website/research" element={<Research />} />
+          <Route path="/Personal_Website/work" element={<Experience />} />
           {/* Add other routes for /work, /research here */}
         </Routes>
       </Layout>
