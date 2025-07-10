@@ -1,35 +1,35 @@
 import React, { useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome } from "react-icons/fa";
 
-// Import your audio files (place them in /public or /assets and use the correct path)
+// Import your audio files
 const swingSound = process.env.PUBLIC_URL + "/music/swing.mp3";
 const clickSound = process.env.PUBLIC_URL + "/music/click.mp3";
 
 const navItems = [
     {
         label: "Projects",
-        path: "/projects",
+        path: "/projects", // Use relative path
         icon: <FaProjectDiagram size={22} />,
     },
     {
         label: "About",
-        path: "/about",
+        path: "/about", // Use relative path
         icon: <FaUser size={22} />,
     },
     {
         label: "Research",
-        path: "/research",
+        path: "/research", // Use relative path
         icon: <FaFlask size={22} />,
     },
     {
         label: "Work Experience",
-        path: "/work",
+        path: "/work", // Use relative path
         icon: <FaBriefcase size={22} />,
     },
 ];
 
-// Arrange balls in a perfect circle (including Home as first)
+// Arrange balls in a perfect circle
 const getCirclePos = (i, total, radius = 100) => {
     const angle = (i / total) * 2 * Math.PI - Math.PI / 2;
     return {
@@ -41,16 +41,13 @@ const getCirclePos = (i, total, radius = 100) => {
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
-    const location =
-        typeof window !== "undefined"
-            ? { pathname: window.location.pathname }
-            : { pathname: "" };
+    const location = useLocation(); // Correctly use the hook from react-router-dom
 
     // Home is always on the left, and also included in the circle menu
     const circleNavItems = [
         {
             label: "Home",
-            path: "/menu",
+            path: "/menu", // Use relative path
             icon: <FaHome size={22} />,
         },
         ...navItems,
@@ -83,8 +80,8 @@ const NavBar = () => {
 
             <nav className="w-full max-w-screen-lg mx-auto flex items-center justify-between bg-black/70 border border-[#5dff4e]/40 rounded-lg py-1 px-3 my-2 relative z-20 shadow-[0_0_12px_#5dff4e33] h-12 overflow-visible">
                 {/* Home button on the left */}
-                <a
-                    href="/menu"
+                <Link
+                    to="/menu"
                     className="flex items-center gap-1 text-[#5dff4e] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
                     style={{
                         textShadow: "0 0 6px black, 0 0 2px black",
@@ -92,7 +89,7 @@ const NavBar = () => {
                     aria-label="Home"
                 >
                     <FaHome className="animate-glitch-icon" size={24} />
-                </a>
+                </Link>
                 {/* Hamburger/Menu button on the right */}
                 <button
                     className="flex items-center gap-1 text-[green] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
@@ -121,14 +118,14 @@ const NavBar = () => {
                         {/* Balls in a perfect circle */}
                         <div className="relative w-80 h-80 z-10">
                             {circleNavItems.map((item, i) => {
-                                const isCurrent = location.pathname === item.path;
+                                const isCurrent = location.pathname.endsWith(item.path);
                                 return (
-                                    <a
+                                    <Link
                                         key={item.label}
-                                        href={item.path}
+                                        to={item.path}
                                         className="absolute"
                                         style={getCirclePos(i, circleNavItems.length)}
-                                        onClick={e => {
+                                        onClick={() => {
                                             playClick();
                                             setOpen(false);
                                         }}
@@ -149,7 +146,7 @@ const NavBar = () => {
                                                 {item.label}
                                             </span>
                                         </div>
-                                    </a>
+                                    </Link>
                                 );
                             })}
                         </div>
