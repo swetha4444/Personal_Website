@@ -9,22 +9,22 @@ const clickSound = process.env.PUBLIC_URL + "/music/click.mp3";
 const navItems = [
     {
         label: "Projects",
-        path: "/Personal_Website/projects",
+        path: "/projects",
         icon: <FaProjectDiagram size={22} />,
     },
     {
         label: "About",
-        path: "/Personal_Website/about",
+        path: "/about",
         icon: <FaUser size={22} />,
     },
     {
         label: "Research",
-        path: "/Personal_Website/research",
+        path: "/research",
         icon: <FaFlask size={22} />,
     },
     {
         label: "Work Experience",
-        path: "/Personal_Website/work",
+        path: "/work",
         icon: <FaBriefcase size={22} />,
     },
 ];
@@ -50,7 +50,7 @@ const NavBar = () => {
     const circleNavItems = [
         {
             label: "Home",
-            path: "/Personal_Website/menu",
+            path: "/menu",
             icon: <FaHome size={22} />,
         },
         ...navItems,
@@ -84,7 +84,7 @@ const NavBar = () => {
             <nav className="w-full max-w-screen-lg mx-auto flex items-center justify-between bg-black/70 border border-[#5dff4e]/40 rounded-lg py-1 px-3 my-2 relative z-20 shadow-[0_0_12px_#5dff4e33] h-12 overflow-visible">
                 {/* Home button on the left */}
                 <a
-                    href="/Personal_Website/menu"
+                    href="/menu"
                     className="flex items-center gap-1 text-[#5dff4e] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
                     style={{
                         textShadow: "0 0 6px black, 0 0 2px black",

@@ -10,41 +10,30 @@ import MatrixSection from '../components/MatrixSection';
 const menuItems = [
 	{
 		title: 'About Me',
-		path: '/Personal_Website/about',
+		path: '/about',
 		model: `${process.env.PUBLIC_URL}/models/sentinelle-matrix.glb`,
 		scale: 0.5, // Custom scale for this model
 	},
 	{
 		title: 'Projects',
-		path: '/Personal_Website/projects',
+		path: '/projects',
 		model: `${process.env.PUBLIC_URL}/models/computer.glb`,
 		scale: 3.2, // Custom scale for this model
 	},
 	{
 		title: 'Work Experience',
-		path: '/Personal_Website/work',
+		path: '/work',
 		model: `${process.env.PUBLIC_URL}/models/matrix_band.glb`,
 		scale: 0.8, // Custom scale for this model
 	},
 	{
 		title: 'Research',
-		path: '/Personal_Website/research',
+		path: '/research',
 		model: `${process.env.PUBLIC_URL}/models/ctlu-f28.glb`,
 		scale: 0.1, // Custom scale for this model
 	},
 ];
 
-function NeonModel({ modelPath, scale }) {
-	const { scene } = useGLTF(modelPath);
-	scene.traverse((child) => {
-		if (child.isMesh && child.material) {
-			child.material.emissive && child.material.emissive.set('#39ff14');
-			child.material.emissiveIntensity = 1.2;
-			child.material.color && child.material.color.set('#39ff14');
-		}
-	});
-	return <primitive object={scene} scale={scale} position={[0, 0, 0]} />;
-}
 
 function ModelInline({ modelPath, scale }) {
 	const { scene } = useGLTF(modelPath);
