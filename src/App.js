@@ -10,7 +10,7 @@ import Experience from './pages/Experience'; // Import the Experience page
 
 function App() {
   return (
-    <Router>
+    <Router basename="/Personal_Website">
       <audio
         src={process.env.PUBLIC_URL + "music/matrix-bg.mp3"}
         autoPlay
@@ -20,12 +20,12 @@ function App() {
       />
       <Layout>
         <Routes>
-          <Route path="/Personal_Website" element={<Home />} />
-          <Route path="/Personal_Website/menu" element={<Menu />} /> 
-          <Route path="/Personal_Website/projects" element={<Projects />} />
-          <Route path="/Personal_Website/about" element={<About />} /> 
-          <Route path="/Personal_Website/research" element={<Research />} />
-          <Route path="/Personal_Website/work" element={<Experience />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/menu" element={<Menu />} /> 
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/about" element={<About />} /> 
+          <Route path="/research" element={<Research />} />
+          <Route path="/work" element={<Experience />} />
           {/* Add other routes for /work, /research here */}
         </Routes>
       </Layout>
