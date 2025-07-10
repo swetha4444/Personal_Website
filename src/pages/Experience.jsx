@@ -87,12 +87,12 @@ export default function Experience() {
     return (
         <div className="relative min-h-screen w-screen overflow-hidden">
             <MatrixRain />
-            {isTraveling && <GridTunnel />}
+            {isTraveling && <GridTunnel job={selectedJob} />}
             <main className={`main-content ${isTraveling ? 'collapsing' : ''}`}>
                 <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl">
                     <NavBar />
                     <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-4 text-center matrix-font tracking-widest drop-shadow-lg p-2">
-                        Career Network
+                        Career Train
                     </h1>
                     <div className="experience-layout">
                         <div className="map-container">
