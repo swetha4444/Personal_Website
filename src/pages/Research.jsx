@@ -360,7 +360,7 @@ export default function Research() {
         .book__page--cover {
           width: 360px;
           height: 100%;
-          background: #181d1f;
+          background-color: #181d1f; /* Changed from 'background' */
           border-radius: 16px 8px 8px 16px;
           border: 1.5px solid var(--matrix-green);
           display: flex;
