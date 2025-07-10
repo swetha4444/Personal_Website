@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome } from "react-icons/fa";
+
+// Import your audio files (place them in /public or /assets and use the correct path)
+const swingSound = process.env.PUBLIC_URL + "/music/swing.mp3";
+const clickSound = process.env.PUBLIC_URL + "/music/click.mp3";
 
 const navItems = [
     {
@@ -46,18 +50,40 @@ const NavBar = () => {
     const circleNavItems = [
         {
             label: "Home",
-            path: "/",
+            path: "/Personal_Website",
             icon: <FaHome size={22} />,
         },
         ...navItems,
     ];
 
+    // Audio refs
+    const swingRef = useRef(null);
+    const clickRef = useRef(null);
+
+    // Play sound helpers
+    const playSwing = () => {
+        if (swingRef.current) {
+            swingRef.current.currentTime = 0;
+            swingRef.current.play();
+        }
+    };
+    const playClick = () => {
+        if (clickRef.current) {
+            clickRef.current.currentTime = 0;
+            clickRef.current.play();
+        }
+    };
+
     return (
         <>
+            {/* Audio elements */}
+            <audio ref={swingRef} src={swingSound} preload="auto" />
+            <audio ref={clickRef} src={clickSound} preload="auto" />
+
             <nav className="w-full max-w-screen-lg mx-auto flex items-center justify-between bg-black/70 border border-[#5dff4e]/40 rounded-lg py-1 px-3 my-2 relative z-20 shadow-[0_0_12px_#5dff4e33] h-12 overflow-visible">
                 {/* Home button on the left */}
                 <a
-                    href="/"
+                    href="/Personal_Website"
                     className="flex items-center gap-1 text-[#5dff4e] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
                     style={{
                         textShadow: "0 0 6px #5dff4e, 0 0 2px #5dff4e",
@@ -102,7 +128,11 @@ const NavBar = () => {
                                         href={item.path}
                                         className="absolute"
                                         style={getCirclePos(i, circleNavItems.length)}
-                                        onClick={() => setOpen(false)}
+                                        onClick={e => {
+                                            playClick();
+                                            setOpen(false);
+                                        }}
+                                        onMouseEnter={playSwing}
                                     >
                                         <div
                                             className={`group w-16 h-16 rounded-full flex items-center justify-center border-2 cursor-pointer transition-all duration-200

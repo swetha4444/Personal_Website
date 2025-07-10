@@ -122,6 +122,7 @@ export default function Projects() {
             <MatrixRain />
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-screen h-screen">
                 <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl ">
+                    <NavBar />
                     <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-8 text-center matrix-font tracking-widest drop-shadow-lg p-2">
                         Projects
                     </h1>

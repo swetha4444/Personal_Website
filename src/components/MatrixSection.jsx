@@ -10,7 +10,6 @@ export default function MatrixSection({ children, className = "", ...props }) {
       }
       {...props}
     >
-      <NavBar />
       {children}
     </section>
   );
