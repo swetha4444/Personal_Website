@@ -33,7 +33,7 @@ const publications = [
         authors: "Swetha S., Morpheus L.",
         journal: "Virtual Physics Today",
         year: 2021,
-        link: "https://example.com/sim-physics",
+        link: "",
         abstract: "Physics engines and their role in immersive digital universes.",
     },
 ];
