@@ -67,27 +67,33 @@ export default function Experience() {
     const [selectedJobId, setSelectedJobId] = useState(experienceData[0].id);
     const [isTraveling, setIsTraveling] = useState(false);
     const [isTerminalVisible, setIsTerminalVisible] = useState(true);
+    const [nextJob, setNextJob] = useState(null); // State to hold the destination job
     const selectedJob = experienceData.find(j => j.id === selectedJobId);
 
     const handleNodeClick = (jobId) => {
         if (jobId === selectedJobId || isTraveling) return;
 
+        // Find the destination job and store it in state
+        const destinationJob = experienceData.find(j => j.id === jobId);
+        setNextJob(destinationJob);
+
         setIsTerminalVisible(false);
         setIsTraveling(true);
 
-        // Duration of the animation
+        // Increased duration to allow more time to read the station board
         setTimeout(() => {
             setSelectedJobId(jobId);
             setIsTraveling(false);
+            setNextJob(null); // Clear the next job state
             // Stagger the terminal appearing after travel
             setTimeout(() => setIsTerminalVisible(true), 500); // Allow content to fade in
-        }, 1200); // This should match the travel duration
+        }, 3500); 
     };
 
     return (
         <div className="relative min-h-screen w-screen overflow-hidden">
             <MatrixRain />
-            {isTraveling && <GridTunnel job={selectedJob} />}
+            {isTraveling && <GridTunnel job={nextJob} />}
             <main className={`main-content ${isTraveling ? 'collapsing' : ''}`}>
                 <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl">
                     <NavBar />
