@@ -69,8 +69,9 @@ const NavBar = () => {
     };
     const playClick = () => {
         if (clickRef.current) {
+            clickRef.current.pause();
             clickRef.current.currentTime = 0;
-            clickRef.current.play();
+            clickRef.current.play().catch(() => {});
         }
     };
 
@@ -86,19 +87,18 @@ const NavBar = () => {
                     href="/Personal_Website"
                     className="flex items-center gap-1 text-[#5dff4e] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
                     style={{
-                        textShadow: "0 0 6px #5dff4e, 0 0 2px #5dff4e",
+                        textShadow: "0 0 6px black, 0 0 2px black",
                     }}
                     aria-label="Home"
                 >
-                    <FaHome className="animate-glitch-icon" size={18} />
-                    Home
+                    <FaHome className="animate-glitch-icon" size={24} />
                 </a>
                 {/* Hamburger/Menu button on the right */}
                 <button
-                    className="flex items-center gap-1 text-[#5dff4e] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
+                    className="flex items-center gap-1 text-[green] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
                     onClick={() => setOpen((v) => !v)}
                     style={{
-                        textShadow: "0 0 6px #5dff4e, 0 0 2px #5dff4e",
+                        textShadow: "0 0 6px black, 0 0 2px black",
                     }}
                     aria-label="Open navigation"
                 >
