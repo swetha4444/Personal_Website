@@ -94,10 +94,10 @@ export default function Experience() {
         <div className="relative min-h-screen w-screen overflow-hidden">
             <MatrixRain />
             {isTraveling && <GridTunnel job={nextJob} />}
-            <main className={`main-content ${isTraveling ? 'collapsing' : ''}`}>
-                <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl">
+            <main className={`main-content ${isTraveling ? 'collapsing' : ''} flex flex-col items-center justify-center`}>
+                <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl p-4">
                     <NavBar />
-                    <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-4 text-center matrix-font tracking-widest drop-shadow-lg p-2">
+                    <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-4 text-center matrix-font tracking-widest drop-shadow-lg p-2 shrink-0">
                         Career Train
                     </h1>
                     <div className="experience-layout">
@@ -154,17 +154,17 @@ export default function Experience() {
                 }
 
                 .experience-layout {
-                    position: relative;
-                    width: 90%;
-                    max-width: 1000px;
-                    padding-top: 220px; /* Make space for the map */
+                    display: flex;
+                    flex-direction: column; /* Stack map on top of terminal */
+                    width: 100%;
+                    flex-grow: 1; /* Allow this container to fill available space */
+                    gap: 1rem;
+                    overflow: hidden; /* Prevent container from overflowing */
+                    min-height: 0; /* Important for flex-grow in a column */
                 }
 
                 .map-container {
-                    position: absolute;
-                    top: 0;
-                    right: 0;
-                    width: 300px;
+                    flex-shrink: 0; /* Prevent map from shrinking */
                     height: 200px;
                     border: 1px solid var(--matrix-green-glow);
                     background: rgba(17, 24, 19, 0.5);
@@ -188,7 +188,7 @@ export default function Experience() {
                 .experience-node text {
                     fill: var(--matrix-text);
                     font-family: 'PixelText', monospace;
-                    font-size: 14px;
+                    font-size: 2rem; /* Increased from 14px */
                 }
                 .experience-node:hover circle {
                     filter: drop-shadow(0 0 10px var(--matrix-green));
@@ -221,13 +221,34 @@ export default function Experience() {
                     box-shadow: inset 0 0 15px var(--matrix-green-glow);
                     color: var(--matrix-text);
                     font-family: 'PixelText', monospace;
-                    padding: 1rem;
                     width: 100%;
-                    height: 280px;
                     transition: opacity 0.4s ease-out, transform 0.4s ease-out;
                     opacity: 1;
                     transform: translateY(0);
+                    display: flex;
+                    flex-direction: column;
+                    flex-grow: 1; /* Allow terminal to fill remaining space */
+                    min-height: 0; /* Necessary for flex-grow in a flex column */
                 }
+                .info-terminal .terminal-body {
+                    padding: 1rem;
+                    overflow-y: auto; /* Make the body scrollable */
+                    flex-grow: 1;
+                }
+
+                /* Custom Scrollbar for Terminal */
+                .terminal-body::-webkit-scrollbar {
+                    width: 8px;
+                }
+                .terminal-body::-webkit-scrollbar-track {
+                    background: var(--matrix-green-dark);
+                }
+                .terminal-body::-webkit-scrollbar-thumb {
+                    background-color: var(--matrix-green);
+                    border-radius: 4px;
+                    border: 2px solid var(--matrix-green-dark);
+                }
+
                 .info-terminal:not(.visible) {
                     opacity: 0;
                     transform: translateY(20px);
@@ -236,9 +257,9 @@ export default function Experience() {
                 .terminal-header {
                     background: #333;
                     color: #eee;
-                    padding: 0.25rem 0.5rem;
+                    padding: 0.25rem 1rem; /* Adjusted padding */
                     font-size: 0.8rem;
-                    margin: -1rem -1rem 1rem -1rem;
+                    flex-shrink: 0;
                 }
                 .terminal-prompt { margin-bottom: 1rem; }
                 .terminal-user { color: #87d7ff; }
