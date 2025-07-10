@@ -9,7 +9,7 @@ const publications = [
         authors: "Swetha S., et al.",
         journal: "Matrix Journal of Computing",
         year: 2024,
-        link: "https://example.com/quantum-matrix",
+        link: "",
         abstract: "A deep dive into quantum algorithms inspired by the Matrix universe.",
     },
     {
@@ -17,7 +17,7 @@ const publications = [
         authors: "Swetha S., John D.",
         journal: "Virtual Intelligence Review",
         year: 2023,
-        link: "https://example.com/neural-sim",
+        link: "",
         abstract: "Exploring neural architectures for simulated environments.",
     },
     {
@@ -25,7 +25,7 @@ const publications = [
         authors: "Swetha S., Neo T.",
         journal: "Matrix AI Letters",
         year: 2022,
-        link: "https://example.com/ai-matrix",
+        link: "",
         abstract: "How artificial intelligence shapes simulated realities.",
     },
     {
