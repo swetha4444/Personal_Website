@@ -4,6 +4,8 @@ import Layout from './components/Layout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
 import Menu from './pages/Menu'; // Import the new Menu page
+import About from './pages/About'; // Import the About page
+import Research from './pages/Research'; // Import the Research page
 
 function App() {
   return (
@@ -18,9 +20,11 @@ function App() {
       <Layout>
         <Routes>
           <Route path="/Personal_Website" element={<Home />} />
-          <Route path="/Personal_Website/menu" element={<Menu />} /> {/* Add this route */}
+          <Route path="/Personal_Website/menu" element={<Menu />} /> 
           <Route path="/Personal_Website/projects" element={<Projects />} />
-          {/* Add other routes for /about, /work, /research here */}
+          <Route path="/Personal_Website/about" element={<About />} /> 
+          <Route path="/Personal_Website/research" element={<Research />} />
+          {/* Add other routes for /work, /research here */}
         </Routes>
       </Layout>
     </Router>

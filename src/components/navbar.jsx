@@ -14,17 +14,17 @@ const navItems = [
     },
     {
         label: "About",
-        path: "/Personal_WebSite/about",
+        path: "/Personal_Website/about",
         icon: <FaUser size={22} />,
     },
     {
         label: "Research",
-        path: "/Personal_WebSite/research",
+        path: "/Personal_Website/research",
         icon: <FaFlask size={22} />,
     },
     {
         label: "Work Experience",
-        path: "/Personal_WebSite/work",
+        path: "/Personal_Website/work",
         icon: <FaBriefcase size={22} />,
     },
 ];
