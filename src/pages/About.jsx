@@ -25,17 +25,17 @@ function RoomModel({ lightsOn }) {
 
   React.useEffect(() => {
     scene.traverse((obj) => {
-      if (obj.isLight) obj.intensity = lightsOn ? 0.7 : 0.1;
+      if (obj.isLight) obj.intensity = lightsOn ? 0.7 : 0.05; // Lower intensity for lights off
       if (obj.isMesh && obj.material) {
         const materials = Array.isArray(obj.material) ? obj.material : [obj.material];
         materials.forEach((mat) => {
           if (mat.color && mat.userData.originalColor) {
             mat.color.copy(mat.userData.originalColor);
-            if (!lightsOn) mat.color.multiplyScalar(0.7);
+            if (!lightsOn) mat.color.multiplyScalar(0.4); // Darken non-glowing materials more
           }
           if (mat.emissive && mat.userData.originalEmissive) {
             mat.emissive.copy(mat.userData.originalEmissive);
-            if (!lightsOn) mat.emissive.multiplyScalar(0.5);
+            if (!lightsOn) mat.emissive.multiplyScalar(0.2); // Dim glowing materials more
           }
         });
       }
@@ -61,8 +61,8 @@ export default function About() {
     <div className="relative w-screen h-screen overflow-hidden">
       {/* 3D Room Background */}
       <Canvas camera={{ position: [0, 1.5, 5], fov: 60 }}>
-        <color attach="background" args={["#181c1f"]} />
-        <ambientLight intensity={0.15} />
+        <color attach="background" args={["#101214"]} />
+        <ambientLight intensity={0.02} />
         <Suspense fallback={null}>
           <RoomModel lightsOn={lightsOn} />
           <Environment preset="warehouse" background={false} />
