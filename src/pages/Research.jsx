@@ -69,10 +69,10 @@ export default function Research() {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    const totalSpreads = Math.ceil((publications.length + 2) / 2);
+    const totalSpreads = Math.ceil((publications.length + 1) / 2);
 
     const getPageContent = (idx) => {
-        if (idx === 0) {
+        if (isMobile && idx === 0) {
             return (
                 <>
                     <h2 className="page__content-book-title">📖 My Research Publications</h2>
@@ -80,7 +80,11 @@ export default function Research() {
                 </>
             );
         }
-        if (idx === publications.length + 1) {
+        if (idx === 0) {
+            // This is the blank inside-cover for the left page on desktop
+            return <></>;
+        }
+        if (idx > publications.length) {
             return (
                 <>
                     <h2 className="page__content-title">📚 The End</h2>
@@ -162,8 +166,9 @@ export default function Research() {
                                     style={{ cursor: "pointer" }}
                                 >
                                     <div className="page__content">
-                                        {getPageContent(0)}
-                                        <div className="page__number">0</div>
+                                        {/* Front Cover Content */}
+                                        <h2 className="page__content-book-title">📖 My Research Publications</h2>
+                                        <div className="page__content-author">Swetha S.</div>
                                     </div>
                                 </div>
                             ) : isMobile ? (
@@ -256,7 +261,11 @@ export default function Research() {
             </main>
             <style>{`
         :root {
-          --header-height: 4.5rem; /* Adjust if your header is taller/shorter */
+          --header-height: 4.5rem;
+          --matrix-green: #5dff4e;
+          --matrix-green-dark: #111813;
+          --matrix-green-glow: rgba(93, 255, 78, 0.25);
+          --matrix-text: #baffc9;
         }
 
         .cover {
@@ -265,7 +274,7 @@ export default function Research() {
           height: calc(100vh - var(--header-height) - 1rem);
           max-height: calc(100vh - var(--header-height) - 1rem);
           margin: 4rem auto;
-          box-shadow: 0 32px 80px 0 rgba(0,0,0,0.45), 0 0 100px rgba(0,0,0,.3);
+        //   box-shadow: 0 32px 80px 0 rgba(0,0,0,0.55), 0 0 120px var(--matrix-green-glow);
           background: transparent;
           position: relative;
           perspective: 1800px;
@@ -274,16 +283,7 @@ export default function Research() {
           align-items: center;
           justify-content: center;
         }
-        @media (max-width: 700px) {
-          .cover {
-            width: 100vw;
-            margin: 2rem auto;
-            height: calc(100vh - var(--header-height));
-            max-height: calc(100vh - var(--header-height));
-            margin: 0 auto;
-            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
-          }
-        }
+        
         .book {
           width: 100%;
           height: 100%;
@@ -296,21 +296,51 @@ export default function Research() {
           justify-content: center;
         }
         .book.opening .book__page--cover {
-          /* Animate cover moving left and rotating */
           transform: translateX(-180px) rotateY(-80deg) scale(1.04);
           transition: transform 0.9s cubic-bezier(0.77,0,0.18,1);
           z-index: 10;
         }
         .book.open {
-          /* Book is open, show both pages */
           transform: rotateX(28deg) rotateY(-18deg) scale(1.04);
         }
+
+        .book__page {
+          position: relative;
+          width: 50%;
+          height: 100%;
+          display: grid;
+          background: var(--matrix-green-dark);
+          color: var(--matrix-green);
+          border: 1px solid var(--matrix-green);
+          box-shadow: inset 0 0 32px 0 var(--matrix-green-glow), 0 8px 32px 0 rgba(0,0,0,0.35);
+          transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.5s, border-color 0.5s;
+          overflow: hidden;
+        }
+
+        /* Highlight page on hover when it's clickable */
+        .book__page[style*="cursor: pointer"]:hover {
+            transform: scale(1.02);
+            border-color: #caffd4;
+            box-shadow: inset 0 0 40px 0 var(--matrix-green-glow), 0 12px 40px 0 rgba(0,0,0,0.5), 0 0 20px var(--matrix-green-glow);
+            z-index: 20;
+        }
+
+        /* CRT Scanline Effect */
+        .book__page::before {
+          content: "";
+          position: absolute;
+          top: 0; left: 0; right: 0; bottom: 0;
+          background: repeating-linear-gradient(0deg, rgba(0,0,0,0.4) 0px, rgba(0,0,0,0.4) 1px, transparent 1px, transparent 3px);
+          z-index: 1;
+          pointer-events: none;
+        }
+
         .book__page--cover {
           width: 360px;
           height: 100%;
           background: #181d1f;
           border-radius: 16px 8px 8px 16px;
-          border: 1.5px solid #5dff4e;
+          border: 1.5px solid var(--matrix-green);
           box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25), 0 0 0 2px #5dff4e22;
           display: flex;
           align-items: center;
@@ -318,156 +348,77 @@ export default function Research() {
           transition: transform 0.9s cubic-bezier(0.77,0,0.18,1);
           position: relative;
         }
-        .book__page--cover .page__content {
-          width: 100%;
-          height: 100%;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-        }
-        /* Hide spine and right page when closed/opening */
-        .book.cover .book__spine,
-        .book.cover .book__page--right {
-          display: none;
-        }
-        /* Optional: Enhance page edge highlight and shadow for more realism */
-        .book__page--left::before,
-        .book__page--right::before {
-          content: "";
-          position: absolute;
-          top: 0; bottom: 0;
-          width: 32px;
-          pointer-events: none;
-          z-index: 2;
-        }
-        .book__page--left::before {
-          left: 0;
-          background: linear-gradient(to right, #0006 0%, transparent 100%);
-        }
-        .book__page--right::before {
-          right: 0;
-          background: linear-gradient(to left, #0006 0%, transparent 100%);
-        }
+
+        /* Stacked Pages Effect */
         .book__page--left::after,
         .book__page--right::after {
           content: "";
           position: absolute;
-          top: 0; bottom: 0;
-          width: 12px;
+          top: 10px;
+          bottom: 10px;
+          width: 5px;
           pointer-events: none;
-          z-index: 2;
-          opacity: 0.18;
+          z-index: 3;
+          opacity: 0.4;
+          background: repeating-linear-gradient(to bottom, var(--matrix-green-dark) 0px, var(--matrix-green-dark) 2px, var(--matrix-green) 2px, var(--matrix-green) 3px);
         }
-        .book__page--left::after {
-          right: 0;
-          background: linear-gradient(to left, #fff, transparent 80%);
-        }
-        .book__page--right::after {
-          left: 0;
-          background: linear-gradient(to right, #fff, transparent 80%);
-        }
+        .book__page--left::after { right: 0; }
+        .book__page--right::after { left: 0; }
+
         .page__content {
           padding: 2.5rem 2rem 2rem 2.5rem;
           height: 100%;
           position: relative;
           text-align: center;
+          z-index: 2; /* Place content above scanlines */
+          text-shadow: 0 0 5px var(--matrix-green-glow), 0 0 8px var(--matrix-green-glow);
         }
-        .page__content-book-title {
+
+        .page__content-book-title, .page__content-title {
           font-family: 'PixelText', monospace;
-          font-size: 2.2rem;
           font-weight: bold;
           text-transform: uppercase;
-          letter-spacing: 3px;
-          color: #5dff4e;
-          margin-top: 2rem;
-          margin-bottom: 1rem;
+          color: var(--matrix-green);
         }
-        .page__content-title {
-          font-family: 'PixelText', monospace;
-          font-size: 1.3rem;
-          text-transform: uppercase;
-          letter-spacing: 1px;
-          margin-top: 1.5rem;
-          margin-bottom: 1rem;
-        }
-        .page__content-author {
+        .page__content-book-title { font-size: 2.2rem; letter-spacing: 3px; margin-top: 2rem; margin-bottom: 1rem; }
+        .page__content-title { font-size: 1.3rem; letter-spacing: 1px; margin-top: 1.5rem; margin-bottom: 1rem; }
+
+        .page__content-author, .page__content-credits, .page__content-text {
           font-family: 'PixelText', monospace;
           font-size: 1rem;
-          color: #baffc9;
+          color: var(--matrix-text);
           margin-bottom: 1rem;
         }
-        .page__content-credits {
-          font-family: 'PixelText', monospace;
-          font-size: 1rem;
-          color: #5dff4e;
-          margin-bottom: 1rem;
-        }
-        .page__content-text {
-          font-family: 'PixelText', monospace;
-          font-size: 1rem;
-          color: #e0ffe0;
-          margin-bottom: 1rem;
-        }
+        .page__content-credits { color: var(--matrix-green); }
+
         .page__number {
           position: absolute;
           bottom: 1rem;
           width: 100%;
           font-family: 'PixelText', monospace;
           font-size: 0.9rem;
-          color: #baffc9;
+          color: var(--matrix-text);
           text-align: center;
+          opacity: 0.6;
         }
-        .book__page {
-          position: relative;
-          width: 50%;
+
+        .book__spine {
+          width: 20px;
           height: 100%;
-          display: grid;
-          background: #181d1f; /* solid, dark background for page */
-          color: #5dff4e;
-          border: 1px solid #5dff4e;
-          box-shadow:
-            0 8px 32px 0 rgba(0,0,0,0.25),
-            inset 0 0 32px 0 rgba(0,0,0,0.18);
-          transition: transform 1.5s cubic-bezier(0.645, 0.045, 0.355, 1), box-shadow 0.5s;
-          overflow: hidden;
-          background-clip: padding-box;
-          opacity: 1; /* ensure fully opaque */
-        }
-        .book__page:hover {
-          filter: brightness(1.1);
+          background: linear-gradient(to right, #000, #111, #000);
+          transform: translateX(-10px);
+          z-index: 5;
         }
 
         @media (max-width: 700px) {
           .cover {
-            width: 100vw;
             height: calc(100vh - var(--header-height));
-            max-height: calc(100vh - var(--header-height));
             margin: 0 auto;
             box-shadow: 0 8px 32px 0 rgba(0,0,0,0.25);
           }
-          .book {
-            width: 100%;
-            height: 100%;
-            min-width: 0;
-            min-height: 0;
-          }
-          .book__spine,
-          .book__page--left {
-            display: none !important;
-          }
-          .book__page--right,
-          .book__page--cover {
-            width: 100% !important;
-            border-radius: 12px !important;
-            border-left: 1.5px solid #5dff4e !important;
-            border-right: 1.5px solid #5dff4e !important;
-            font-size: 0.98rem !important;
-            padding: 1.2rem 0.7rem 1.2rem 1.2rem !important;
-          }
-          .page__content {
-            padding: 1.2rem 0.7rem 1.2rem 1.2rem !important;
-          }
+          .book__spine, .book__page--left { display: none !important; }
+          .book__page--right, .book__page--cover { width: 100% !important; border-radius: 12px !important; }
+          .page__content { padding: 1.2rem 0.7rem 1.2rem 1.2rem !important; }
           .page__content-book-title {
             font-size: 1.2rem !important;
             margin-top: 1rem !important;
