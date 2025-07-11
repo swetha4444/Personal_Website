@@ -54,6 +54,7 @@ export default function About() {
   const [lightsOn, setLightsOn] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
   const audioRef = useRef(null);
+  const skillsAudioRef = useRef(null);
 
   const handleLightToggle = () => {
     if (audioRef.current) {
@@ -64,6 +65,10 @@ export default function About() {
   };
 
   const handleSkillsClick = () => {
+    if (skillsAudioRef.current) {
+      skillsAudioRef.current.currentTime = 0;
+      skillsAudioRef.current.play();
+    }
     setShowSkills(true);
   };
 
@@ -113,6 +118,7 @@ export default function About() {
           aria-label="View skills and certifications"
         >
           <FaLaptopCode size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+          <audio ref={skillsAudioRef} src={process.env.PUBLIC_URL + "/music/click.mp3"} preload="auto" />
         </button>
         <button
           className="bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
