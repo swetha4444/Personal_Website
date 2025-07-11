@@ -40,6 +40,28 @@ const projects = [
         tags: ["Python", "OpenCV", "Mediapipe", "Tkinter", "Animation"],
     },
     {
+        title: "Resume Analyser Software",
+        description: "A Python-based tool to parse, analyze, and categorize resumes using NLP and machine learning.",
+        para: "A comprehensive tool designed to streamline recruitment by converting unstructured resume data into a structured format. It leverages regular expressions and NLP techniques to parse resumes, summarize work experience, and extract keywords using TF-IDF and Distilbert. The software can batch process multiple resumes, categorizing applicants and generating a CSV for easy filtering. It also provides data analysis features, including graphical insights, a knowledge graph of skills, and a CNN-based model for job classification.",
+        github_link: "https://github.com/swetha4444/Resume-Analyser-Software",
+        video: process.env.PUBLIC_URL + "/images/projects/resume.mp4",
+        tags: ["Python", "NLP", "Machine Learning", "TF-IDF", "Distilbert", "CNN", "Knowledge Graph", "Data Analysis", "HTML5", "CSS3"],
+    },
+    {
+        title: "Analysing Factors Affecting House Prices in the US",
+        description: "A data analytics project exploring the economic and social factors that influence the US housing market.",
+        para: "This project conducts an in-depth analysis of the factors affecting house prices in the United States. By integrating diverse datasets—including Zillow home prices, national GDP, mortgage rates, employment statistics, income ratios, and commodity prices—it uncovers key correlations and trends. The analysis uses time-series techniques and statistical modeling to explain the dynamics of the housing market, providing insights into how macroeconomic indicators and social trends impact property values. The findings are compiled in a detailed report with visualizations and statistical evidence.",
+        github_link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/tree/main/notebooks",
+        link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/blob/main/US%20House%20Price%20Factors%20Report.pdf",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/house1.png",
+            process.env.PUBLIC_URL + "/images/projects/house2.png",
+            process.env.PUBLIC_URL + "/images/projects/house3.png",
+            process.env.PUBLIC_URL + "/images/projects/house4.png",
+        ],
+        tags: ["Python", "Data Analysis", "Machine Learning", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter"],
+    },
+    {
         title: "TeamX: Fantasy Sports Platform",
         description: "A full-stack fantasy sports platform with real-time scoring, built with Flutter, Spring Boot, and Kafka.",
         para: "TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. The system is built on a microservices architecture, featuring a Flutter app for the frontend and a robust backend powered by Spring Boot and Java. Real-time data processing is handled by a Kafka cluster, which streams live match updates and point calculations. Data is stored across multiple MongoDB databases for scalability and integrity. A key innovation was developing a mock data generator to simulate live sports data, overcoming API rate limits during development and ensuring continuous testing of the real-time scoring and leaderboard features.",
