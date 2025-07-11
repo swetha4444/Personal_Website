@@ -11,6 +11,7 @@ const menuItems = [
     {
         title: 'About Me',
         path: '/about',
+        description: 'A glimpse into my technical interests and skills.',
         model: `${process.env.PUBLIC_URL}/models/sentinelle-matrix.glb`,
         scale: 0.5, // Custom scale for this model
         image: `${process.env.PUBLIC_URL}/images/about-icon.webp`, // Image for small screens
@@ -18,6 +19,7 @@ const menuItems = [
     {
         title: 'Projects',
         path: '/projects',
+        description: 'A showcase of my technical creations.',
         model: `${process.env.PUBLIC_URL}/models/computer.glb`,
         scale: 3.2, // Custom scale for this model
         image: `${process.env.PUBLIC_URL}/images/project-icon.jpg`, // Image for small screens
@@ -25,6 +27,7 @@ const menuItems = [
     {
         title: 'Work Experience',
         path: '/work',
+        description: 'My professional journey and contributions.',
         model: `${process.env.PUBLIC_URL}/models/matrix_band.glb`,
         scale: 0.8, // Custom scale for this model
         image: `${process.env.PUBLIC_URL}/images/work-icon.jpeg`, // Image for small screens
@@ -32,6 +35,7 @@ const menuItems = [
     {
         title: 'Research',
         path: '/research',
+        description: 'My published papers and academic work.',
         model: `${process.env.PUBLIC_URL}/models/ctlu-f28.glb`,
         scale: 0.1, // Custom scale for this model
         image: `${process.env.PUBLIC_URL}/images/research-icon.jpg`, // Image for small screens
@@ -149,9 +153,12 @@ export default function Menu() {
 									style={{ transformStyle: 'preserve-3d' }}
 									className="absolute w-full h-full p-4 bg-black/60 backdrop-blur-sm border-2 border-[#5dff4e]/40 rounded-xl flex flex-col items-center text-center shadow-lg shadow-[#5dff4e]/20"
 								>
-									<h2 className="text-3xl font-bold text-[#5dff4e] mb-4 matrix-font tracking-wider">
-										{item.title}
-									</h2>
+                                    <h2 className="text-3xl font-bold text-[#5dff4e] mb-2 matrix-font tracking-wider">
+                                        {item.title}
+                                    </h2>
+                                    <p className="text-sm text-green-200 matrix-font mb-2 h-10 flex items-center justify-center">
+                                        {item.description}
+                                    </p>
                                     {isSmallScreen ? (
                                         <div className="w-full flex-1 h-0 flex items-center justify-center p-4">
                                             <img
