@@ -32,6 +32,14 @@ const projects = [
         tags: ["AI", "Game Theory", "Python", "Reinforcement Learning"],
     },
     {
+        title: "OpenCV Project - Posture Tracking",
+        description: "A fun Tkinter animation that mimics your actions using Mediapipe for real-time posture tracking.",
+        para: "A fun animation built using Tkinter that imitates your actions. The posture is tracked using the Mediapipe library, an open-source framework by Google. The coordinates of certain landmarks such as knees, elbows, etc., are passed to the animation, and it changes according to your actions following some basic rules of geometry.",
+        github_link: "https://github.com/swetha4444/OpenCV-Project",
+        video: process.env.PUBLIC_URL + "/images/projects/mediapipe.mp4",
+        tags: ["Python", "OpenCV", "Mediapipe", "Tkinter", "Animation"],
+    },
+    {
         title: "Sentinelle 3D",
         description:
             "A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
