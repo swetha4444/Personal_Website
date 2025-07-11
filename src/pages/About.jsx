@@ -94,16 +94,15 @@ export default function About() {
       </button>
       {/* About text directly over the model, no background */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
-        <div className="max-w-lg mx-auto mt-32 pointer-events-auto">
-          <h1 className="text-4xl font-bold text-[#5dff4e] mb-4 text-center font-[JetBrains_Mono,monospace] animate-typing">
+        <div className="max-w-2xl mx-auto mt-32 pointer-events-auto px-4">
+          <h1 className="text-4xl font-bold text-[#5dff4e] mb-4 text-center matrix-font animate-typing">
             About Me
           </h1>
           <p className="text-green-200 text-lg mb-4 text-center font-[JetBrains_Mono,monospace]">
-            Welcome to my digital room! I’m Swetha, a passionate developer and researcher.<br />
-            This interactive 3D space is built with Blender, React, and Three.js.<br />
+            I thrive at the intersection of artificial intelligence and software engineering, architecting intelligent systems from the ground up. My journey spans the full development lifecycle, from crafting intuitive web and Android applications to deploying scalable solutions on AWS. My passion lies in creating a powerful synergy between these domains, focusing on code automation and building reusable components that work seamlessly across platforms. From high-level system design to hands-on implementation and cloud deployment, I am dedicated to developing end-to-end solutions that are not only intelligent but also robust, efficient, and user-friendly.
           </p>
 
-          <footer className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 text-xs text-[#5dff4e] text-center font-[JetBrains_Mono,monospace] font-bold bg-black/60 px-4 py-2 rounded-full shadow-lg pointer-events-auto">
+          <footer className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30 text-xs text-[#5dff4e] text-center matrix-font font-bold bg-black/60 px-4 py-2 rounded-full shadow-lg pointer-events-auto">
             {lightsOn
               ? "💡 Lights are ON. Enjoy the details of the room!"
               : "🌑 Lights are OFF. Click to turn them back on."}
