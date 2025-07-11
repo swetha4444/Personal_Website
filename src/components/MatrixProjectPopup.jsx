@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaChevronLeft, FaChevronRight, FaGithub, FaTimes } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight, FaGithub, FaTimes, FaExternalLinkAlt } from "react-icons/fa";
 import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "./StaticPixelOverlay";
 
@@ -113,14 +113,28 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
                 </span>
               ))}
             </div>
-            <a
-              href={project.github_link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
-            >
-              <FaGithub /> View on GitHub
-            </a>
+            <div className="flex items-center gap-4">
+              {project.github_link && (
+                <a
+                  href={project.github_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                >
+                  <FaGithub /> View on GitHub
+                </a>
+              )}
+              {project.link && project.link !== "#" && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                >
+                  <FaExternalLinkAlt /> More Details
+                </a>
+              )}
+            </div>
           </div>
         </motion.div>
       </motion.div>

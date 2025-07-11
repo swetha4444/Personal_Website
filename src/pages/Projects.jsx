@@ -9,38 +9,51 @@ import MatrixBoxTV from "../components/MatrixBoxTV";
 import NavBar from "../components/Navbar"
 
 const projects = [
-	{
-		title: "Sentinelle 3D",
-		description:
-			"A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
-		para: "This project demonstrates a fully interactive 3D model of a Matrix Sentinelle, built in Blender and rendered in real-time using Three.js and React Three Fiber. Users can rotate, zoom, and explore the model in detail. The project showcases advanced 3D techniques, custom shaders, and performance optimizations for the web.",
-		github_link: "",
-		images: [
-			process.env.PUBLIC_URL + "/logo192.png",
-			process.env.PUBLIC_URL + "/logo512.png",
-		],
-		tags: ["3D", "Blender", "Three.js"],
-	},
-	{
-		title: "Matrix Rain Background",
-		description:
-			"Animated Matrix code rain effect with React and Canvas.",
-		link: "#",
-		tags: ["React", "Canvas", "Animation"],
-	},
-	{
-		title: "AI Chatbot",
-		description: "Conversational AI assistant with a Matrix-inspired UI.",
-		link: "#",
-		tags: ["AI", "Chatbot", "UI"],
-	},
-	{
-		title: "Portfolio Hallway",
-		description:
-			"A 3D hallway portfolio experience built with Blender and react-three-fiber.",
-		link: "#",
-		tags: ["3D", "Portfolio", "react-three-fiber"],
-	},
+    {
+        title: "Poker AI Agent",
+        description: "AI agents for Texas Hold’em, including Expectiminimax, Q-learning, and a hybrid MCTS-Minimax agent.",
+        para: "Engineered and benchmarked a suite of advanced AI agents for No-Limit Texas Hold’em. This project features an Expectiminimax agent enhanced with statistical opponent modeling to exploit player tendencies, a Q-learning agent using strategic state abstraction to navigate the vast decision space, and a novel hybrid MCTS-Minimax agent. This hybrid model integrates Monte Carlo Tree Search for robust long-term planning with a dynamic Bayesian network for real-time opponent profiling, allowing it to adapt its strategy against a wide range of playing styles.",
+        github_link: "https://github.com/swetha4444/Poker-AI-Agent",
+        link: "https://drive.google.com/file/d/1hCysYV0ltOEmch1f2bd1Zy1_hpisVHWJ/view?usp=sharing",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/poker1.png",
+            process.env.PUBLIC_URL + "/images/projects/poker2.png",
+            // process.env.PUBLIC_URL + "/images/projects/poker3.png",
+        ],
+        tags: ["AI", "Game Theory", "Python", "Reinforcement Learning"],
+    },
+    {
+        title: "Sentinelle 3D",
+        description:
+            "A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
+        para: "This project demonstrates a fully interactive 3D model of a Matrix Sentinelle, built in Blender and rendered in real-time using Three.js and React Three Fiber. Users can rotate, zoom, and explore the model in detail. The project showcases advanced 3D techniques, custom shaders, and performance optimizations for the web.",
+        github_link: "",
+        images: [
+            process.env.PUBLIC_URL + "/logo192.png",
+            process.env.PUBLIC_URL + "/logo512.png",
+        ],
+        tags: ["3D", "Blender", "Three.js"],
+    },
+    {
+        title: "Matrix Rain Background",
+        description:
+            "Animated Matrix code rain effect with React and Canvas.",
+        link: "#",
+        tags: ["React", "Canvas", "Animation"],
+    },
+    {
+        title: "AI Chatbot",
+        description: "Conversational AI assistant with a Matrix-inspired UI.",
+        link: "#",
+        tags: ["AI", "Chatbot", "UI"],
+    },
+    {
+        title: "Portfolio Hallway",
+        description:
+            "A 3D hallway portfolio experience built with Blender and react-three-fiber.",
+        link: "#",
+        tags: ["3D", "Portfolio", "react-three-fiber"],
+    },
 ];
 
 const tvVariants = {
