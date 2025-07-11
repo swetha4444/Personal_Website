@@ -8,30 +8,34 @@ import MatrixRain from '../backgrounds/matrixRain';
 import MatrixSection from '../components/MatrixSection';
 
 const menuItems = [
-	{
-		title: 'About Me',
-		path: '/about',
-		model: `${process.env.PUBLIC_URL}/models/sentinelle-matrix.glb`,
-		scale: 0.5, // Custom scale for this model
-	},
-	{
-		title: 'Projects',
-		path: '/projects',
-		model: `${process.env.PUBLIC_URL}/models/computer.glb`,
-		scale: 3.2, // Custom scale for this model
-	},
-	{
-		title: 'Work Experience',
-		path: '/work',
-		model: `${process.env.PUBLIC_URL}/models/matrix_band.glb`,
-		scale: 0.8, // Custom scale for this model
-	},
-	{
-		title: 'Research',
-		path: '/research',
-		model: `${process.env.PUBLIC_URL}/models/ctlu-f28.glb`,
-		scale: 0.1, // Custom scale for this model
-	},
+    {
+        title: 'About Me',
+        path: '/about',
+        model: `${process.env.PUBLIC_URL}/models/sentinelle-matrix.glb`,
+        scale: 0.5, // Custom scale for this model
+        image: `${process.env.PUBLIC_URL}/images/about-icon.webp`, // Image for small screens
+    },
+    {
+        title: 'Projects',
+        path: '/projects',
+        model: `${process.env.PUBLIC_URL}/models/computer.glb`,
+        scale: 3.2, // Custom scale for this model
+        image: `${process.env.PUBLIC_URL}/images/project-icon.jpg`, // Image for small screens
+    },
+    {
+        title: 'Work Experience',
+        path: '/work',
+        model: `${process.env.PUBLIC_URL}/models/matrix_band.glb`,
+        scale: 0.8, // Custom scale for this model
+        image: `${process.env.PUBLIC_URL}/images/work-icon.jpeg`, // Image for small screens
+    },
+    {
+        title: 'Research',
+        path: '/research',
+        model: `${process.env.PUBLIC_URL}/models/ctlu-f28.glb`,
+        scale: 0.1, // Custom scale for this model
+        image: `${process.env.PUBLIC_URL}/images/research-icon.jpg`, // Image for small screens
+    },
 ];
 
 
@@ -50,11 +54,12 @@ function LoadingFallback() {
 }
 
 export default function Menu() {
-	const [page, setPage] = useState(0);
-	const navigate = useNavigate();
+    const [page, setPage] = useState(0);
+    const navigate = useNavigate();
+    const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768);
 
-	// Play wepon.mp3 for arrows
-	const playArrowSound = useCallback(() => {
+    // Play wepon.mp3 for arrows
+    const playArrowSound = useCallback(() => {
 		const audio = new Audio(`${process.env.PUBLIC_URL}/music/wepon.mp3`);
 		audio.play();
 	}, []);
@@ -99,8 +104,17 @@ export default function Menu() {
 		};
 	}, [paginate]);
 
-	return (
-		<div className="relative min-h-screen w-screen overflow-hidden">
+    // Add an effect to listen for screen resize
+    useEffect(() => {
+        const handleResize = () => {
+            setIsSmallScreen(window.innerWidth < 768);
+        };
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    return (
+        <div className="relative min-h-screen w-screen overflow-hidden">
 			<MatrixRain />
 			<main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-screen h-screen p-4">
 				<MatrixSection className="w-full max-w-4xl flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl p-8 rounded-2xl">
@@ -138,25 +152,35 @@ export default function Menu() {
 									<h2 className="text-3xl font-bold text-[#5dff4e] mb-4 matrix-font tracking-wider">
 										{item.title}
 									</h2>
-									<div className="w-full flex-1 h-0 mb-4">
-										<Canvas camera={{ position: [0, 0, 5], fov: 50 }} style={{ width: '100%', height: '100%' }}>
-											<ambientLight intensity={2.2} color="#59ff14" />
-											<directionalLight position={[5, 5, 5]} intensity={2.5} color="#39ff14" />
-											<Suspense fallback={<LoadingFallback />}>
-												<ModelInline modelPath={item.model} scale={item.scale} />
-											</Suspense>
-											<OrbitControls
-												enableZoom={false}
-												autoRotate
-												autoRotateSpeed={1.5}
-												minPolarAngle={Math.PI / 2.5}
-												maxPolarAngle={Math.PI / 2.5}
-											/>
-										</Canvas>
-									</div>
-									<button
-										onClick={() => offset === 0 && handleEnter(item.path)}
-										className={`matrix-btn w-full px-6 py-2 font-bold text-[#5dff4e] text-lg rounded-lg matrix-font relative overflow-hidden ${
+                                    {isSmallScreen ? (
+                                        <div className="w-full flex-1 h-0 flex items-center justify-center p-4">
+                                            <img
+                                                src={item.image}
+                                                alt={`${item.title} icon`}
+                                                className="max-h-full max-w-full object-contain drop-shadow-[0_0_10px_#5dff4e]"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="w-full flex-1 h-0 mb-4">
+                                            <Canvas camera={{ position: [0, 0, 5], fov: 50 }} style={{ width: '100%', height: '100%' }}>
+                                                <ambientLight intensity={2.2} color="#59ff14" />
+                                                <directionalLight position={[5, 5, 5]} intensity={2.5} color="#39ff14" />
+                                                <Suspense fallback={<LoadingFallback />}>
+                                                    <ModelInline modelPath={item.model} scale={item.scale} />
+                                                </Suspense>
+                                                <OrbitControls
+                                                    enableZoom={false}
+                                                    autoRotate
+                                                    autoRotateSpeed={1.5}
+                                                    minPolarAngle={Math.PI / 2.5}
+                                                    maxPolarAngle={Math.PI / 2.5}
+                                                />
+                                            </Canvas>
+                                        </div>
+                                    )}
+                                    <button
+                                        onClick={() => offset === 0 && handleEnter(item.path)}
+                                        className={`matrix-btn w-full px-6 py-2 font-bold text-[#5dff4e] text-lg rounded-lg matrix-font relative overflow-hidden ${
 											offset !== 0 ? 'pointer-events-none' : ''
 										}`}
 									>
