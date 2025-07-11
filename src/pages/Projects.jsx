@@ -40,6 +40,24 @@ const projects = [
         tags: ["Python", "OpenCV", "Mediapipe", "Tkinter", "Animation"],
     },
     {
+        title: "TeamX: Fantasy Sports Platform",
+        description: "A full-stack fantasy sports platform with real-time scoring, built with Flutter, Spring Boot, and Kafka.",
+        para: "TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. The system is built on a microservices architecture, featuring a Flutter app for the frontend and a robust backend powered by Spring Boot and Java. Real-time data processing is handled by a Kafka cluster, which streams live match updates and point calculations. Data is stored across multiple MongoDB databases for scalability and integrity. A key innovation was developing a mock data generator to simulate live sports data, overcoming API rate limits during development and ensuring continuous testing of the real-time scoring and leaderboard features.",
+        github_link: "https://github.com/swetha4444/TeamX-Backend",
+        github_link_frontend: "https://github.com/hrudayaditya/TeamX",
+        link: "https://docs.google.com/document/d/1kH71CbY-JrtyedcGC9QoNfQPBbfgOBDhLb7ANw45fxY/edit?tab=t.0",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/teamx1.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx2.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx3.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx4.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx5.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx6.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx7.png",
+        ],
+        tags: ["Full-Stack", "System Design", "Microservices", "Flutter", "Spring Boot", "Java", "Kafka", "Python", "MongoDB"],
+    },
+    {
         title: "Sentinelle 3D",
         description:
             "A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
@@ -190,7 +208,17 @@ export default function Projects() {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                                       >
-                                        <FaGithub /> View on GitHub
+                                        <FaGithub /> View Backend
+                                      </a>
+                                    )}
+                                    {projects[page].github_link_frontend && (
+                                      <a
+                                        href={projects[page].github_link_frontend}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                                      >
+                                        <FaGithub /> View Frontend
                                       </a>
                                     )}
                                     {projects[page].link && projects[page].link !== "#" && (

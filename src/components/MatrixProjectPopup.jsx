@@ -129,16 +129,39 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
                   </span>
                 ))}
               </div>
-              <div className="flex items-center gap-4">
-                {project.github_link && (
-                  <a
-                    href={project.github_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
-                  >
-                    <FaGithub /> View on GitHub
-                  </a>
+              <div className="flex items-center gap-4 flex-wrap">
+                {project.github_link_frontend ? (
+                  <>
+                    {project.github_link && (
+                      <a
+                        href={project.github_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                      >
+                        <FaGithub /> View Backend
+                      </a>
+                    )}
+                    <a
+                      href={project.github_link_frontend}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                    >
+                      <FaGithub /> View Frontend
+                    </a>
+                  </>
+                ) : (
+                  project.github_link && (
+                    <a
+                      href={project.github_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                    >
+                      <FaGithub /> View on GitHub
+                    </a>
+                  )
                 )}
                 {project.link && project.link !== "#" && (
                   <a
