@@ -63,6 +63,7 @@ const VolumeControl = ({ audioRef }) => {
         onClick={toggleMute}
         className="bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
         aria-label="Toggle mute"
+        title="Mute if the BG is annoying"
       >
         <div className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]">
           {getVolumeIcon()}

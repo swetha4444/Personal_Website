@@ -4,11 +4,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from './components/Layout';
 import Home from './pages/Home';
 import Projects from './pages/Projects';
-import Menu from './pages/Menu'; // Import the new Menu page
-import About from './pages/About'; // Import the About page
-import Research from './pages/Research'; // Import the Research page
-import Experience from './pages/Experience'; // Import the Experience page
-import VolumeControl from './components/VolumeControl'; // Import the VolumeControl component
+import Menu from './pages/Menu'; 
+import About from './pages/About'; 
+import Research from './pages/Research';  
+import Experience from './pages/Experience'; 
+import VolumeControl from './components/VolumeControl'; 
 
 function App() {
   const audioRef = useRef(null);
