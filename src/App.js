@@ -1,3 +1,4 @@
+import React, { useRef } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Layout from './components/Layout';
@@ -7,17 +8,22 @@ import Menu from './pages/Menu'; // Import the new Menu page
 import About from './pages/About'; // Import the About page
 import Research from './pages/Research'; // Import the Research page
 import Experience from './pages/Experience'; // Import the Experience page
+import VolumeControl from './components/VolumeControl'; // Import the VolumeControl component
 
 function App() {
+  const audioRef = useRef(null);
+
   return (
     <Router basename="/Personal_Website">
       <audio
-        src={process.env.PUBLIC_URL + "music/matrix-bg.mp3"}
+        ref={audioRef}
+        src={process.env.PUBLIC_URL + "/music/matrix-bg.mp3"}
         autoPlay
         loop
         controls={false}
         style={{ display: "none" }}
       />
+      <VolumeControl audioRef={audioRef} />
       <Layout>
         <Routes>
           <Route path="/" element={<Home />} />

@@ -89,5 +89,37 @@
   text-shadow: 0 0 8px #5dff4e, 0 0 2px #5dff4e;
 }
 
+.volume-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100px;
+  height: 8px;
+  background: rgba(93, 255, 78, 0.3);
+  border-radius: 5px;
+  outline: none;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #5dff4e;
+  border-radius: 50%;
+  border: 2px solid #101214;
+  box-shadow: 0 0 8px #5dff4e;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #5dff4e;
+  border-radius: 50%;
+  border: 2px solid #101214;
+  box-shadow: 0 0 8px #5dff4e;
+}
+
 
 
