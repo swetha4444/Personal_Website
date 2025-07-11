@@ -229,6 +229,7 @@ export default function Research() {
                                         {/* Front Cover Content */}
                                         <h2 className="page__content-book-title">My Research Publications</h2>
                                         <div className="page__content-author">Swetha S.</div>
+                                        <div className="page__content-prompt">Click to Open</div>
                                     </div>
                                 </div>
                             ) : isMobile ? (
@@ -344,6 +345,11 @@ export default function Research() {
           50% {
             filter: drop-shadow(0 20px 50px #000c) drop-shadow(0 0 35px var(--matrix-green));
           }
+        }
+
+        @keyframes pulse-opacity {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
 
         .cover {
@@ -499,6 +505,18 @@ export default function Research() {
           color: var(--matrix-green-dark);
           box-shadow: 0 0 25px var(--matrix-green);
           transform: scale(1.05) translateY(-2px);
+        }
+
+        .page__content-prompt {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'PixelText', monospace;
+            font-size: 1rem;
+            color: var(--matrix-text);
+            text-shadow: 0 0 8px var(--matrix-green);
+            animation: pulse-opacity 2s ease-in-out infinite;
         }
 
         .book__spine {
