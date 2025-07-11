@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaGithub } from "react-icons/fa";
 import MatrixSection from "../components/MatrixSection";
 import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "../components/StaticPixelOverlay";
@@ -161,8 +161,35 @@ export default function Projects() {
                               }}
                               rotateY={14} // Pass the desired rotateY as a prop
                             >
-                                <div className="w-full h-full flex items-center justify-center">
-                                  <span className="text-[#5dff4e] font-mono text-lg opacity-60">DESKTOP</span>
+                                <div className="w-full h-full flex flex-col items-center justify-center p-4 matrix-font">
+                                  <h3 className="text-xl text-[#5dff4e] font-bold mb-4 tracking-wider drop-shadow text-center z-10">
+                                      Additional Details
+                                  </h3>
+                                  <div className="flex flex-col items-center gap-4">
+                                    {projects[page].github_link && (
+                                      <a
+                                        href={projects[page].github_link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                                      >
+                                        <FaGithub /> View on GitHub
+                                      </a>
+                                    )}
+                                    {projects[page].link && projects[page].link !== "#" && (
+                                      <a
+                                        href={projects[page].link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                                      >
+                                        <FaExternalLinkAlt /> More Details
+                                      </a>
+                                    )}
+                                    {!projects[page].github_link && (!projects[page].link || projects[page].link === "#") && (
+                                      <p className="text-green-300 opacity-70 text-center">No additional links for this project.</p>
+                                    )}
+                                  </div>
                                 </div>
                               </MatrixBoxTV>
                             </div>
@@ -216,7 +243,7 @@ export default function Projects() {
                                     <p className="text-green-200 text-center mb-6 z-10">
                                       {projects[page].description}
                                     </p>
-                                    <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
+                                    <div className="hidden md:flex flex-wrap justify-center gap-2 mb-6 z-10">
                                       {projects[page].tags.map((tag, idx) => (
                                         <span
                                           key={tag}
