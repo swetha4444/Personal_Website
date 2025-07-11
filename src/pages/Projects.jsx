@@ -10,6 +10,15 @@ import NavBar from "../components/Navbar"
 
 const projects = [
     {
+        title: "PyTrackX: Open Source Python Package",
+        description: "An open-source Python library to track 80+ objects and body movements with a single function call.",
+        para: "Built with Sriram Kannan, PyTrackX is my first open-source Python library. It's an automated tool that tracks up to 80 different objects and body movements from a simple video input, returning real-time coordinates with minimal setup. We were inspired to simplify the complex process of posture and object tracking into a single, easy-to-use function call. The package is published on PyPI and available for anyone to use in their projects.",
+        github_link: "https://github.com/swetha4444/PyTrackX",
+        link: "https://pypi.org/project/PytrackX/",
+        video: process.env.PUBLIC_URL + "/images/projects/pytrackx.mp4",
+        tags: ["Python", "Open Source", "Computer Vision", "YOLO", "Mediapipe", "PyPI"],
+    },
+    {
         title: "Poker AI Agent",
         description: "AI agents for Texas Hold’em, including Expectiminimax, Q-learning, and a hybrid MCTS-Minimax agent.",
         para: "Engineered and benchmarked a suite of advanced AI agents for No-Limit Texas Hold’em. This project features an Expectiminimax agent enhanced with statistical opponent modeling to exploit player tendencies, a Q-learning agent using strategic state abstraction to navigate the vast decision space, and a novel hybrid MCTS-Minimax agent. This hybrid model integrates Monte Carlo Tree Search for robust long-term planning with a dynamic Bayesian network for real-time opponent profiling, allowing it to adapt its strategy against a wide range of playing styles.",

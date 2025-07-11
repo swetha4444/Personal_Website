@@ -44,64 +44,77 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
           </button>
           
           <div className="p-8 pt-16">
-            {/* Image slider */}
+            {/* Image slider or Video Player */}
             <div className="flex flex-col items-center justify-center mb-6">
               <div
                 className="relative rounded-xl overflow-hidden bg-black border-2 border-[#5dff4e] shadow-lg"
                 style={{
                   width: "100%",
-                  maxWidth: "560px", // Increased max width for larger view
-                  aspectRatio: "16 / 9", // Maintain aspect ratio
+                  maxWidth: "560px",
+                  aspectRatio: "16 / 9",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
                 }}
               >
-                <AnimatePresence initial={false} mode="wait">
-                  <motion.img
-                    key={project.images?.[imgIdx] || 'no-image'}
-                    src={project.images?.[imgIdx] || process.env.PUBLIC_URL + "/images/placeholder.png"}
-                    alt={project.title}
-                    className="w-full h-full"
-                    style={{
-                      objectFit: "cover",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    initial={{ opacity: 0, x: 40 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -40 }}
-                    transition={{ duration: 0.3 }}
+                {project.video ? (
+                  <video
+                    src={project.video}
+                    className="w-full h-full object-cover"
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    controls
                   />
-                </AnimatePresence>
-                {project.images && project.images.length > 1 && (
+                ) : (
                   <>
-                    <button
-                      onClick={prevImg}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 bg-[#181c1f] border-2 border-[#5dff4e] rounded-full p-2 text-[#5dff4e] hover:bg-[#222] z-10"
-                      aria-label="Previous image"
-                    >
-                      <FaChevronLeft />
-                    </button>
-                    <button
-                      onClick={nextImg}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#181c1f] border-2 border-[#5dff4e] rounded-full p-2 text-[#5dff4e] hover:bg-[#222] z-10"
-                      aria-label="Next image"
-                    >
-                      <FaChevronRight />
-                    </button>
-                  </>
-                )}
-                {/* Dots */}
-                {project.images && project.images.length > 1 && (
-                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
-                    {project.images.map((_, i) => (
-                      <span
-                        key={i}
-                        className={`w-2 h-2 rounded-full ${i === imgIdx ? "bg-[#5dff4e]" : "bg-[#234c2e]"}`}
+                    <AnimatePresence initial={false} mode="wait">
+                      <motion.img
+                        key={project.images?.[imgIdx] || 'no-image'}
+                        src={project.images?.[imgIdx] || process.env.PUBLIC_URL + "/images/placeholder.png"}
+                        alt={project.title}
+                        className="w-full h-full"
+                        style={{
+                          objectFit: "cover",
+                          width: "100%",
+                          height: "100%",
+                        }}
+                        initial={{ opacity: 0, x: 40 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -40 }}
+                        transition={{ duration: 0.3 }}
                       />
-                    ))}
-                  </div>
+                    </AnimatePresence>
+                    {project.images && project.images.length > 1 && (
+                      <>
+                        <button
+                          onClick={prevImg}
+                          className="absolute left-2 top-1/2 -translate-y-1/2 bg-[#181c1f] border-2 border-[#5dff4e] rounded-full p-2 text-[#5dff4e] hover:bg-[#222] z-10"
+                          aria-label="Previous image"
+                        >
+                          <FaChevronLeft />
+                        </button>
+                        <button
+                          onClick={nextImg}
+                          className="absolute right-2 top-1/2 -translate-y-1/2 bg-[#181c1f] border-2 border-[#5dff4e] rounded-full p-2 text-[#5dff4e] hover:bg-[#222] z-10"
+                          aria-label="Next image"
+                        >
+                          <FaChevronRight />
+                        </button>
+                      </>
+                    )}
+                    {project.images && project.images.length > 1 && (
+                      <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+                        {project.images.map((_, i) => (
+                          <span
+                            key={i}
+                            className={`w-2 h-2 rounded-full ${i === imgIdx ? "bg-[#5dff4e]" : "bg-[#234c2e]"}`}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </>
                 )}
               </div>
             </div>
