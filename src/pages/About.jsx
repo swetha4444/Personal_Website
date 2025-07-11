@@ -1,11 +1,16 @@
 import React, { useRef, useState, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
-import { FaLightbulb } from "react-icons/fa";
+import { FaLightbulb, FaLaptopCode, FaCertificate, FaAward  } from "react-icons/fa";
 import NavBar from "../components/Navbar";
+import SkillsPopup from "../components/SkillsPopup";
 
 function RoomModel({ lightsOn }) {
-  const { scene } = useGLTF(process.env.PUBLIC_URL + "/models/about.glb");
+  const { scene, nodes } = useGLTF(process.env.PUBLIC_URL + "/models/about.glb");
+
+  // Log the nodes to find the name of your object
+  console.log(nodes);
+
   // Store original colors/emissives only once
   React.useEffect(() => {
     scene.traverse((obj) => {
@@ -47,6 +52,7 @@ function RoomModel({ lightsOn }) {
 
 export default function About() {
   const [lightsOn, setLightsOn] = useState(false);
+  const [showSkills, setShowSkills] = useState(false);
   const audioRef = useRef(null);
 
   const handleLightToggle = () => {
@@ -55,6 +61,14 @@ export default function About() {
       audioRef.current.play();
     }
     setLightsOn((v) => !v);
+  };
+
+  const handleSkillsClick = () => {
+    setShowSkills(true);
+  };
+
+  const handleCertificationsClick = () => {
+    alert("Certifications clicked!");
   };
 
   return (
@@ -74,24 +88,41 @@ export default function About() {
       <div className="absolute top-0 left-0 w-full z-20">
         <NavBar />
       </div>
-      {/* Light toggle icon at the bottom center */}
-      <button
-        className="fixed bottom-24 left-1/2 -translate-x-1/2 z-30 bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
-        style={{ pointerEvents: "auto" }}
-        onClick={handleLightToggle}
-        aria-label={lightsOn ? "Turn lights off" : "Turn lights on"}
-      >
-        <FaLightbulb
-          size={28}
-          className={lightsOn ? "text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" : "text-gray-500"}
-          style={{
-            filter: lightsOn ? "drop-shadow(0 0 8px #5dff4e)" : "none",
-            transition: "color 0.2s, filter 0.2s"
-          }}
-        />
-        {/* Audio element for light switch */}
-        <audio ref={audioRef} src={process.env.PUBLIC_URL + "/music/light-switch.mp3"} preload="auto" />
-      </button>
+      {/* Control buttons at the bottom center */}
+      <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
+        <button
+          className="bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+          style={{ pointerEvents: "auto" }}
+          onClick={handleLightToggle}
+          aria-label={lightsOn ? "Turn lights off" : "Turn lights on"}
+        >
+          <FaLightbulb
+            size={28}
+            className={lightsOn ? "text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" : "text-gray-500"}
+            style={{
+              filter: lightsOn ? "drop-shadow(0 0 8px #5dff4e)" : "none",
+              transition: "color 0.2s, filter 0.2s"
+            }}
+          />
+          <audio ref={audioRef} src={process.env.PUBLIC_URL + "/music/light-switch.mp3"} preload="auto" />
+        </button>
+        <button
+          className="bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+          style={{ pointerEvents: "auto" }}
+          onClick={handleSkillsClick}
+          aria-label="View skills and certifications"
+        >
+          <FaLaptopCode size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+        </button>
+        <button
+          className="bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+          style={{ pointerEvents: "auto" }}
+          onClick={handleCertificationsClick}
+          aria-label="View certifications"
+        >
+          <FaAward  size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+        </button>
+      </div>
       {/* About text directly over the model, no background */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
         <div className="max-w-2xl mx-auto mt-32 pointer-events-auto px-4">
@@ -118,6 +149,7 @@ export default function About() {
           `}</style>
         </div>
       </div>
+      <SkillsPopup open={showSkills} onClose={() => setShowSkills(false)} />
     </div>
   );
 }
