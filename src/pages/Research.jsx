@@ -5,36 +5,28 @@ import MatrixSection from "../components/MatrixSection";
 
 const publications = [
     {
-        title: "Quantum Algorithms for Matrix Worlds",
-        authors: "Swetha S., et al.",
-        journal: "Matrix Journal of Computing",
-        year: 2024,
-        link: "",
-        abstract: "A deep dive into quantum algorithms inspired by the Matrix universe.",
-    },
-    {
-        title: "Neural Networks in Simulated Realities",
-        authors: "Swetha S., John D.",
-        journal: "Virtual Intelligence Review",
+        title: "Analysis of Player Tracking Data Extracted from Football Match Feed",
+        authors: "S. Saseendran, S. P. V. Thanalakshmi, S. Prabakaran, P. Ravisankar",
+        journal: "Romanian Journal of Information Technology and Automatic Control, Vol. 33, No. 2",
         year: 2023,
-        link: "",
-        abstract: "Exploring neural architectures for simulated environments.",
+        link: "https://doi.org/10.33436/v33i2y202307",
+        abstract: "This paper presents a system to extract player tracking data from match feeds for little to no cost, a significant saving compared to the typical £60,000 per season. The computer vision pipeline utilizes YOLOv5 for robust player and ball detection and DeepSORT for assigning unique IDs and tracking objects frame-by-frame using a Kalman Filter and deep association metrics. K-Means clustering automates team identification based on jersey color. To map video coordinates to a 2D pitch view, a GAN pix2pix model performs perspective transformation by generating a homography matrix. Finally, a mathematical model integrating pitch control and expected threat (xT) metrics assesses player decision-making.",
     },
     {
-        title: "AI in the Matrix: A New Dawn",
-        authors: "Swetha S., Neo T.",
-        journal: "Matrix AI Letters",
-        year: 2022,
-        link: "",
-        abstract: "How artificial intelligence shapes simulated realities.",
+        title: "Comparison of Lossy Image Compression Technique",
+        authors: "Swetha S., et al.",
+        journal: "IIHI Journal, Vol. 2, No. 2",
+        year: 2023,
+        link: "https://dx.doi.org/10.1504/IJHI.2023.129342",
+        abstract: "Image compression is a crucial task in the current era, driven by the need to transmit ubiquitous images efficiently while maintaining quality. This paper provides an insight into the challenges of image compression by comparing different models. Autoencoders, SVDs, GANs, JPEG, K-means, and PCA models are used to perform image compression, and their performance is evaluated to determine the most preferable output.",
     },
     {
-        title: "Simulated Physics and Digital Worlds",
-        authors: "Swetha S., Morpheus L.",
-        journal: "Virtual Physics Today",
+        title: "Classification of Hate Speech and Offensive Content Using DistilBERT",
+        authors: "Swetha S., et al.",
+        journal: "FIRE-WN 2021",
         year: 2021,
-        link: "",
-        abstract: "Physics engines and their role in immersive digital universes.",
+        link: "https://ceur-ws.org/Vol-3159/T1-14.pdf",
+        abstract: "Achieved 77.67% accuracy in Task-A (Binary Classification) and 65.1% in Task-B (Multiclass). Developed Task B using multiple binary classifiers, achieving up to 60% accuracy, closely matching pretrained DistilBERT. Ranked 24th globally.",
     },
 ];
 
@@ -48,8 +40,8 @@ function BookPage({ children, pageNum, side, onClick, flipping }) {
             <div className={`book__page-${side === "left" ? "front" : "back"}`}>
                 <div className="page__content">
                     {children}
-                    <div className="page__number">{pageNum}</div>
                 </div>
+                <div className="page__number">{pageNum}</div>
             </div>
         </div>
     );
@@ -69,20 +61,17 @@ export default function Research() {
         return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
-    const totalSpreads = Math.ceil((publications.length + 1) / 2);
+    const numPublications = publications.length;
 
-    const getPageContent = (idx) => {
-        if (isMobile && idx === 0) {
+    // This function is now only used for the mobile view
+    const getMobilePageContent = (idx) => {
+        if (idx === 0) {
             return (
                 <>
                     <h2 className="page__content-book-title">📖 My Research Publications</h2>
                     <div className="page__content-author">Swetha S.</div>
                 </>
             );
-        }
-        if (idx === 0) {
-            // This is the blank inside-cover for the left page on desktop
-            return <></>;
         }
         if (idx > publications.length) {
             return (
@@ -105,16 +94,13 @@ export default function Research() {
                     href={pub.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="underline text-blue-400"
+                    className="page__content-link"
                 >
                     Read Publication →
                 </a>
             </>
         );
     };
-
-    const leftIdx = spread * 2;
-    const rightIdx = leftIdx + 1;
 
     const handleLeftClick = () => {
         if (spread === 0 || flipping) return;
@@ -128,12 +114,12 @@ export default function Research() {
     };
 
     const handleRightClick = () => {
-        if (spread === totalSpreads - 1 || flipping) return;
+        if (spread >= numPublications || flipping) return;
         const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
         flipSound.play();
         setFlipping("right");
         setTimeout(() => {
-            setSpread((s) => Math.min(totalSpreads - 1, s + 1));
+            setSpread((s) => s + 1);
             setFlipping(null);
         }, 700);
     };
@@ -159,6 +145,61 @@ export default function Research() {
             const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
             flipSound.play();
             setPageIdx(pageIdx + 1);
+        }
+    };
+
+    const renderDesktopSpreads = () => {
+        if (spread < numPublications) {
+            // This is a publication spread
+            const pub = publications[spread];
+            return (
+                <>
+                    <BookPage
+                        pageNum={spread * 2 + 1}
+                        side="left"
+                        onClick={spread > 0 ? handleLeftClick : undefined}
+                        flipping={flipping === "left"}
+                    >
+                        <h2 className="page__content-title">{pub.title}</h2>
+                        <div className="page__content-author">{pub.authors}</div>
+                        <div className="page__content-credits">
+                            {pub.journal} ({pub.year})
+                        </div>
+                        <a href={pub.link} target="_blank" rel="noopener noreferrer" className="page__content-link">
+                            Read Publication →
+                        </a>
+                    </BookPage>
+                    <div className="book__spine" />
+                    <BookPage
+                        pageNum={spread * 2 + 2}
+                        side="right"
+                        onClick={handleRightClick}
+                        flipping={flipping === "right"}
+                    >
+                        <h3 className="page__content-subtitle">Abstract</h3>
+                        <div className="page__content-text">{pub.abstract}</div>
+                    </BookPage>
+                </>
+            );
+        } else {
+            // This is the end spread
+            return (
+                <>
+                    <BookPage
+                        pageNum={spread * 2 + 1}
+                        side="left"
+                        onClick={handleLeftClick}
+                        flipping={flipping === "left"}
+                    >
+                        <h2 className="page__content-title">📚 The End</h2>
+                        <div className="page__content-credits">Thanks for flipping through!</div>
+                    </BookPage>
+                    <div className="book__spine" />
+                    <BookPage pageNum={spread * 2 + 2} side="right">
+                        {/* Blank right page */}
+                    </BookPage>
+                </>
+            );
         }
     };
 
@@ -198,7 +239,7 @@ export default function Research() {
                                         onClick={undefined}
                                         flipping={false}
                                     >
-                                        {getPageContent(pageIdx)}
+                                        {getMobilePageContent(pageIdx)}
                                     </BookPage>
                                     <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
                                         <button
@@ -254,25 +295,7 @@ export default function Research() {
                                     </div>
                                 </div>
                             ) : (
-                                <>
-                                    <BookPage
-                                        pageNum={leftIdx}
-                                        side="left"
-                                        onClick={spread > 0 && !flipping ? handleLeftClick : undefined}
-                                        flipping={flipping === "left"}
-                                    >
-                                        {getPageContent(leftIdx)}
-                                    </BookPage>
-                                    <div className="book__spine" />
-                                    <BookPage
-                                        pageNum={rightIdx}
-                                        side="right"
-                                        onClick={spread < totalSpreads - 1 && !flipping ? handleRightClick : undefined}
-                                        flipping={flipping === "right"}
-                                    >
-                                        {getPageContent(rightIdx)}
-                                    </BookPage>
-                                </>
+                                renderDesktopSpreads()
                             )}
                         </div>
                     </div>
@@ -403,6 +426,17 @@ export default function Research() {
           animation: text-decode-flicker 3s linear infinite;
         }
 
+        .page__number {
+          position: absolute;
+          bottom: 1rem;
+          left: 50%;
+          transform: translateX(-50%);
+          font-family: 'PixelText', monospace;
+          font-size: 0.8rem;
+          color: var(--matrix-text);
+          opacity: 0.8;
+        }
+
         .page__content-book-title {
           font-family: "matrix-font", monospace;
           font-size: 2.2rem;
@@ -411,6 +445,14 @@ export default function Research() {
           letter-spacing: 0.15em;
           font-weight: bold;
           text-shadow: 0 0 5px var(--matrix-green);
+          margin-bottom: 1rem;
+        }
+
+        .page__content-subtitle {
+          font-family: "matrix-font", monospace;
+          font-size: 1.5rem;
+          color: var(--matrix-green);
+          text-decoration: underline;
           margin-bottom: 1rem;
         }
 
