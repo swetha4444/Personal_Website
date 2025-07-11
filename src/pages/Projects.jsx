@@ -62,6 +62,37 @@ const projects = [
         tags: ["Python", "Data Analysis", "Machine Learning", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter"],
     },
     {
+        title: "Product Review Analysis",
+        description: "An NLP project to classify and analyze product reviews from social media using Transformers.",
+        para: "This project helps users determine product quality by analyzing social media reviews. It uses a robust pipeline of web scraping, data cleaning, and transformation to prepare the data for analysis. The core of the project is built around Transformer models, specifically fine-tuned BERT variants, to classify reviews into positive, negative, or neutral sentiments. Additionally, it extracts key topics and trends from the reviews using advanced NLP techniques, providing valuable insights into customer opinions and product performance.",
+        github_link: "https://github.com/swetha4444/Product-Review-Analysis",
+        video: process.env.PUBLIC_URL + "/images/projects/review.mp4",
+        tags: ["Python", "NLP", "Transformers", "BERT", "Data Analysis", "Web Scraping"],
+    },
+    {
+        title: "Path Finding Visualizer",
+        description: "A visualization tool for various pathfinding algorithms like A*, BFS, and DFS.",
+        para: "This is a visualization tool to visualize various pathfinding algorithms. There are various options to choose, like creating a randomized maze, choosing an algorithm to visualize, and selecting a heuristic to calculate. The visualization starts when the SPACE key is pressed. Supported algorithms include A* Search, Breadth First Search, Depth First Search, Greedy Search, and Uniform Cost Search.",
+        github_link: "",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/ai1.gif",
+        ],
+        tags: ["Python", "Pygame", "TKinter", "Pathfinding", "A* Search", "BFS", "DFS", "Visualization"],
+    },
+    {
+        title: "MERN Stack Project - Expense-Tracker",
+        description: "A MERN stack application to track expenses and visualize spending habits.",
+        para: "Keeping track of your expenses is an important part of managing your overall finances. This MERN stack application allows users to keep a detailed account of their expenses and gain graphical insights into their spending habits using Chart.js. The system is built with a React frontend, styled with Bootstrap, and powered by a Node.js/Express backend and a MongoDB database.",
+        github_link: "",
+        images: [
+            process.env.PUBLIC_URL +"/images/projects/expense1.png",
+            process.env.PUBLIC_URL +"/images/projects/expense2.gif",
+            process.env.PUBLIC_URL +"/images/projects/expense3.gif",
+            process.env.PUBLIC_URL +"/images/projects/expense4.gif",
+        ],
+        tags: ["MERN", "MongoDB", "Express", "React", "Node.js", "Chart.js", "Bootstrap", "HTML", "CSS"],
+    },
+    {
         title: "TeamX: Fantasy Sports Platform",
         description: "A full-stack fantasy sports platform with real-time scoring, built with Flutter, Spring Boot, and Kafka.",
         para: "TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. The system is built on a microservices architecture, featuring a Flutter app for the frontend and a robust backend powered by Spring Boot and Java. Real-time data processing is handled by a Kafka cluster, which streams live match updates and point calculations. Data is stored across multiple MongoDB databases for scalability and integrity. A key innovation was developing a mock data generator to simulate live sports data, overcoming API rate limits during development and ensuring continuous testing of the real-time scoring and leaderboard features.",
@@ -78,39 +109,7 @@ const projects = [
             process.env.PUBLIC_URL + "/images/projects/teamx7.png",
         ],
         tags: ["Full-Stack", "System Design", "Microservices", "Flutter", "Spring Boot", "Java", "Kafka", "Python", "MongoDB"],
-    },
-    {
-        title: "Sentinelle 3D",
-        description:
-            "A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
-        para: "This project demonstrates a fully interactive 3D model of a Matrix Sentinelle, built in Blender and rendered in real-time using Three.js and React Three Fiber. Users can rotate, zoom, and explore the model in detail. The project showcases advanced 3D techniques, custom shaders, and performance optimizations for the web.",
-        github_link: "",
-        images: [
-            process.env.PUBLIC_URL + "/logo192.png",
-            process.env.PUBLIC_URL + "/logo512.png",
-        ],
-        tags: ["3D", "Blender", "Three.js"],
-    },
-    {
-        title: "Matrix Rain Background",
-        description:
-            "Animated Matrix code rain effect with React and Canvas.",
-        link: "#",
-        tags: ["React", "Canvas", "Animation"],
-    },
-    {
-        title: "AI Chatbot",
-        description: "Conversational AI assistant with a Matrix-inspired UI.",
-        link: "#",
-        tags: ["AI", "Chatbot", "UI"],
-    },
-    {
-        title: "Portfolio Hallway",
-        description:
-            "A 3D hallway portfolio experience built with Blender and react-three-fiber.",
-        link: "#",
-        tags: ["3D", "Portfolio", "react-three-fiber"],
-    },
+    }
 ];
 
 const tvVariants = {
