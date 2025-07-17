@@ -1,7 +1,7 @@
-import React, { useRef, useState, Suspense } from "react";
+import React, { useRef, useState, Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
-import { FaLightbulb, FaLaptopCode, FaAward, FaGithub, FaLinkedin, FaFileDownload } from "react-icons/fa";
+import { FaLightbulb, FaLaptopCode, FaAward, FaGithub, FaLinkedin, FaFileDownload, FaEllipsisH } from "react-icons/fa";
 import NavBar from "../components/navbar";
 import SkillsPopup from "../components/SkillsPopup";
 
@@ -53,8 +53,17 @@ function RoomModel({ lightsOn }) {
 export default function About() {
   const [lightsOn, setLightsOn] = useState(false);
   const [showSkills, setShowSkills] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const audioRef = useRef(null);
   const skillsAudioRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleLightToggle = () => {
     if (audioRef.current) {
@@ -117,65 +126,96 @@ export default function About() {
       </div>
       {/* Control buttons at the bottom center */}
       <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-30 flex items-center gap-4">
-        <button
-          className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
-          style={{ pointerEvents: "auto" }}
-          onClick={handleSkillsClick}
-          aria-label="View my skills"
-        >
-          <FaLaptopCode size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
-          <audio ref={skillsAudioRef} src={process.env.PUBLIC_URL + "/music/click.mp3"} preload="auto" />
-          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
-            View my skills
-          </span>
-        </button>
-        <button
-          className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
-          style={{ pointerEvents: "auto" }}
-          onClick={handleCertificationsClick}
-          aria-label="View certifications"
-        >
-          <FaAward  size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
-          <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
-            View my certifications
-          </span>
-        </button>
-        {/* Social and Resume Links */}
-        <a
-            href="https://github.com/swetha4444"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
-            aria-label="GitHub Profile"
-        >
-            <FaGithub size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
-            <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
-                Go to my GitHub
-            </span>
-        </a>
-        <a
-            href="https://www.linkedin.com/in/swetha-saseendran-794749194/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
-            aria-label="LinkedIn Profile"
-        >
-            <FaLinkedin size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
-            <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
-                Go to my LinkedIn
-            </span>
-        </a>
-        <a
-            href={process.env.PUBLIC_URL + "/resume/Swetha_Saseendran_Resume.pdf"}
-            download
-            className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
-            aria-label="Download Resume"
-        >
-            <FaFileDownload size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
-            <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
-                Download my Resume
-            </span>
-        </a>
+        {isMobile ? (
+          <>
+            <button
+              className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+              onClick={handleSkillsClick}
+              aria-label="View my skills"
+            >
+              <FaLaptopCode size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+              <audio ref={skillsAudioRef} src={process.env.PUBLIC_URL + "/music/click.mp3"} preload="auto" />
+            </button>
+            <div className="relative">
+              <button
+                className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+                onClick={() => setMoreMenuOpen(v => !v)}
+                aria-label="More options"
+              >
+                <FaEllipsisH size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+              </button>
+              {moreMenuOpen && (
+                <div className="absolute bottom-full mb-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 bg-black/80 p-3 rounded-lg border border-[#5dff4e]/50">
+                  <button onClick={handleCertificationsClick} className="text-[#5dff4e]"><FaAward size={28} /></button>
+                  <a href="https://github.com/swetha4444" target="_blank" rel="noopener noreferrer" className="text-[#5dff4e]"><FaGithub size={28} /></a>
+                  <a href="https://www.linkedin.com/in/swetha-saseendran-794749194/" target="_blank" rel="noopener noreferrer" className="text-[#5dff4e]"><FaLinkedin size={28} /></a>
+                  <a href={process.env.PUBLIC_URL + "/resume/Swetha_Saseendran_Resume.pdf"} download className="text-[#5dff4e]"><FaFileDownload size={28} /></a>
+                </div>
+              )}
+            </div>
+          </>
+        ) : (
+          <>
+            <button
+              className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+              style={{ pointerEvents: "auto" }}
+              onClick={handleSkillsClick}
+              aria-label="View my skills"
+            >
+              <FaLaptopCode size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+              <audio ref={skillsAudioRef} src={process.env.PUBLIC_URL + "/music/click.mp3"} preload="auto" />
+              <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                View my skills
+              </span>
+            </button>
+            <button
+              className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+              style={{ pointerEvents: "auto" }}
+              onClick={handleCertificationsClick}
+              aria-label="View certifications"
+            >
+              <FaAward  size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+              <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                View my certifications
+              </span>
+            </button>
+            <a
+                href="https://github.com/swetha4444"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+                aria-label="GitHub Profile"
+            >
+                <FaGithub size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+                <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                    Go to my GitHub
+                </span>
+            </a>
+            <a
+                href="https://www.linkedin.com/in/swetha-saseendran-794749194/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+                aria-label="LinkedIn Profile"
+            >
+                <FaLinkedin size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+                <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                    Go to my LinkedIn
+                </span>
+            </a>
+            <a
+                href={process.env.PUBLIC_URL + "/resume/Swetha_Saseendran_Resume.pdf"}
+                download
+                className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+                aria-label="Download Resume"
+            >
+                <FaFileDownload size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+                <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                    Download my Resume
+                </span>
+            </a>
+          </>
+        )}
       </div>
       {/* About text directly over the model, no background */}
       <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
