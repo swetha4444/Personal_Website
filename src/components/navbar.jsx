@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome, FaGithub, FaFileDownload } from "react-icons/fa";
+import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome, FaGithub, FaFileDownload, FaLinkedin } from "react-icons/fa";
 
 // Import your audio files
 const swingSound = process.env.PUBLIC_URL + "/music/swing.mp3";
@@ -101,8 +101,20 @@ const NavBar = () => {
                         aria-label="GitHub Profile"
                     >
                         <FaGithub size={28} className="animate-glitch-icon group-hover:drop-shadow-[0_0_10px_#9aff8d] transition-all" />
-                        <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                        <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
                             Go to my GitHub
+                        </span>
+                    </a>
+                    <a
+                        href="https://www.linkedin.com/in/swetha-saseendran-794749194/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative text-[#5dff4e] hover:scale-110 transition-transform"
+                        aria-label="LinkedIn Profile"
+                    >
+                        <FaLinkedin size={26} className="animate-glitch-icon" />
+                        <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                            Go to my LinkedIn
                         </span>
                     </a>
                     <a
@@ -112,7 +124,7 @@ const NavBar = () => {
                         aria-label="Download Resume"
                     >
                         <FaFileDownload size={26} className="animate-glitch-icon" />
-                        <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                        <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
                             Download my Resume
                         </span>
                     </a>
