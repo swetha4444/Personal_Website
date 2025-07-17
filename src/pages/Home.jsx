@@ -1,6 +1,7 @@
 import React from "react";
 import MatrixSection from "../components/MatrixSection";
 import { useNavigate } from "react-router-dom";
+import { FaGithub, FaLinkedin, FaFileDownload } from "react-icons/fa";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -34,6 +35,50 @@ export default function Home() {
             <span className="relative z-10 tracking-widest">START</span>
             <span className="matrix-btn-glow"></span>
           </button>
+        </div>
+        {/* Social and Resume Links */}
+        <div className="flex justify-center gap-8 mt-8">
+          <div className="group relative flex flex-col items-center">
+            <a
+              href="https://github.com/swetha4444"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#5dff4e] hover:scale-110 transition-transform duration-200 hover:drop-shadow-[0_0_8px_#5dff4e]"
+              aria-label="GitHub Profile"
+            >
+              <FaGithub size={32} />
+            </a>
+            <span className="mt-2 text-[#5dff4e] text-xs font-mono md:absolute md:top-full md:mt-2 md:whitespace-nowrap md:bg-[#111]/90 md:px-3 md:py-1 md:rounded md:shadow-lg md:opacity-0 group-hover:md:opacity-100 transition-opacity pointer-events-none">
+              GitHub
+            </span>
+          </div>
+          <div className="group relative flex flex-col items-center">
+            <a
+              href="https://www.linkedin.com/in/swetha-saseendran-794749194/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#5dff4e] hover:scale-110 transition-transform duration-200 hover:drop-shadow-[0_0_8px_#5dff4e]"
+              aria-label="LinkedIn Profile"
+            >
+              <FaLinkedin size={32} />
+            </a>
+            <span className="mt-2 text-[#5dff4e] text-xs font-mono md:absolute md:top-full md:mt-2 md:whitespace-nowrap md:bg-[#111]/90 md:px-3 md:py-1 md:rounded md:shadow-lg md:opacity-0 group-hover:md:opacity-100 transition-opacity pointer-events-none">
+              LinkedIn
+            </span>
+          </div>
+          <div className="group relative flex flex-col items-center">
+            <a
+              href={process.env.PUBLIC_URL + "/resume/Swetha_Saseendran_Resume.pdf"}
+              download
+              className="text-[#5dff4e] hover:scale-110 transition-transform duration-200 hover:drop-shadow-[0_0_8px_#5dff4e]"
+              aria-label="Download Resume"
+            >
+              <FaFileDownload size={32} />
+            </a>
+            <span className="mt-2 text-[#5dff4e] text-xs font-mono md:absolute md:top-full md:mt-2 md:whitespace-nowrap md:bg-[#111]/90 md:px-3 md:py-1 md:rounded md:shadow-lg md:opacity-0 group-hover:md:opacity-100 transition-opacity pointer-events-none">
+              Resume
+            </span>
+          </div>
         </div>
       </MatrixSection>
     </main>
