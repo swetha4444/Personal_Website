@@ -3,7 +3,7 @@ import { FaVolumeUp, FaVolumeDown, FaVolumeMute } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const VolumeControl = ({ audioRef }) => {
-  const [volume, setVolume] = useState(0.1);
+  const [volume, setVolume] = useState(0.6);
   const [isMuted, setIsMuted] = useState(false);
   const [showSlider, setShowSlider] = useState(false);
 

@@ -6,7 +6,7 @@ import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "../components/StaticPixelOverlay";
 import MatrixProjectPopup from "../components/MatrixProjectPopup";
 import MatrixBoxTV from "../components/MatrixBoxTV";
-import NavBar from "../components/Navbar"
+import NavBar from "../components/navbar"
 
 const projects = [
     {

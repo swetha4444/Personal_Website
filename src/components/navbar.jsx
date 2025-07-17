@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome } from "react-icons/fa";
+import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome, FaGithub, FaFileDownload } from "react-icons/fa";
 
 // Import your audio files
 const swingSound = process.env.PUBLIC_URL + "/music/swing.mp3";
@@ -9,22 +9,22 @@ const clickSound = process.env.PUBLIC_URL + "/music/click.mp3";
 const navItems = [
     {
         label: "Projects",
-        path: "/projects", // Use relative path
+        path: "/projects",
         icon: <FaProjectDiagram size={22} />,
     },
     {
         label: "About",
-        path: "/about", // Use relative path
+        path: "/about",
         icon: <FaUser size={22} />,
     },
     {
         label: "Research",
-        path: "/research", // Use relative path
+        path: "/research",
         icon: <FaFlask size={22} />,
     },
     {
         label: "Work Experience",
-        path: "/work", // Use relative path
+        path: "/work",
         icon: <FaBriefcase size={22} />,
     },
 ];
@@ -41,13 +41,13 @@ const getCirclePos = (i, total, radius = 100) => {
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
-    const location = useLocation(); // Correctly use the hook from react-router-dom
+    const location = useLocation();
 
     // Home is always on the left, and also included in the circle menu
     const circleNavItems = [
         {
             label: "Home",
-            path: "/menu", // Use relative path
+            path: "/menu",
             icon: <FaHome size={22} />,
         },
         ...navItems,
@@ -78,7 +78,7 @@ const NavBar = () => {
             <audio ref={swingRef} src={swingSound} preload="auto" />
             <audio ref={clickRef} src={clickSound} preload="auto" />
 
-            <nav className="w-full max-w-screen-lg mx-auto flex items-center justify-between bg-black/70 border border-[#5dff4e]/40 rounded-lg py-1 px-3 my-2 relative z-20 shadow-[0_0_12px_#5dff4e33] h-12 overflow-visible">
+            <nav className="w-full max-w-screen-lg mx-auto flex items-center justify-between bg-black/70 border border-[#5dff4e]/40 rounded-lg py-2 px-4 my-2 relative z-20 shadow-[0_0_12px_#5dff4e33] h-16 overflow-visible">
                 {/* Home button on the left */}
                 <Link
                     to="/menu"
@@ -88,20 +88,47 @@ const NavBar = () => {
                     }}
                     aria-label="Home"
                 >
-                    <FaHome className="animate-glitch-icon" size={24} />
+                    <FaHome className="animate-glitch-icon" size={30} />
                 </Link>
-                {/* Hamburger/Menu button on the right */}
-                <button
-                    className="flex items-center gap-1 text-[green] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
-                    onClick={() => setOpen((v) => !v)}
-                    style={{
-                        textShadow: "0 0 6px black, 0 0 2px black",
-                    }}
-                    aria-label="Open navigation"
-                >
-                    <FaTerminal className="animate-glitch-icon" size={18} />
-                    Menu
-                </button>
+
+                {/* Right side items */}
+                <div className="flex items-center gap-6">
+                    <a
+                        href="https://github.com/swetha4444"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative text-[#5dff4e] hover:scale-125 transition-transform"
+                        aria-label="GitHub Profile"
+                    >
+                        <FaGithub size={28} className="animate-glitch-icon group-hover:drop-shadow-[0_0_10px_#9aff8d] transition-all" />
+                        <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                            Go to my GitHub
+                        </span>
+                    </a>
+                    <a
+                        href={process.env.PUBLIC_URL + "/resume/Swetha_Saseendran_Resume.pdf"}
+                        download
+                        className="group relative text-[#5dff4e] hover:scale-110 transition-transform"
+                        aria-label="Download Resume"
+                    >
+                        <FaFileDownload size={26} className="animate-glitch-icon" />
+                        <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                            Download my Resume
+                        </span>
+                    </a>
+                    <button
+                        className="flex items-center gap-1 text-[green] text-lg font-extrabold font-mono tracking-widest drop-shadow-[0_0_6px_#5dff4e] hover:scale-105 transition-all matrix-flicker"
+                        onClick={() => setOpen((v) => !v)}
+                        style={{
+                            textShadow: "0 0 6px black, 0 0 2px black",
+                        }}
+                        aria-label="Open navigation"
+                    >
+                        <FaTerminal className="animate-glitch-icon" size={22} />
+                        Menu
+                    </button>
+                </div>
+
                 {/* Static scanline overlay */}
                 <div className="absolute left-0 bottom-0 w-full h-0.5 pointer-events-none z-30">
                     <div className="w-full h-full bg-gradient-to-r from-transparent via-[#5dff4e99] to-transparent animate-scanline" />
@@ -118,7 +145,44 @@ const NavBar = () => {
                         {/* Balls in a perfect circle */}
                         <div className="relative w-80 h-80 z-10">
                             {circleNavItems.map((item, i) => {
-                                const isCurrent = location.pathname.endsWith(item.path);
+                                const isCurrent = !item.external && !item.download && location.pathname.endsWith(item.path);
+                                
+                                const linkContent = (
+                                    <div
+                                        className={`group w-16 h-16 rounded-full flex items-center justify-center border-2 cursor-pointer transition-all duration-200
+                                            ${isCurrent
+                                                ? "bg-[#5dff4e33] border-[#5dff4e] shadow-[0_0_32px_8px_#5dff4e99] blur-[1.5px] hover:blur-0"
+                                                : "bg-black/80 border-[#5dff4e] shadow-[0_0_16px_#5dff4e88] hover:scale-125 hover:bg-[#5dff4e22] hover:shadow-[0_0_32px_#5dff4e]"
+                                            }`}
+                                    >
+                                        <span className="text-[#5dff4e]">
+                                            {item.icon}
+                                        </span>
+                                        {/* Tooltip */}
+                                        <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50 whitespace-nowrap">
+                                            {item.label}
+                                        </span>
+                                    </div>
+                                );
+
+                                if (item.external || item.download) {
+                                    return (
+                                        <a
+                                            key={item.label}
+                                            href={item.path}
+                                            target={item.external ? "_blank" : "_self"}
+                                            rel={item.external ? "noopener noreferrer" : ""}
+                                            download={item.download}
+                                            className="absolute"
+                                            style={getCirclePos(i, circleNavItems.length)}
+                                            onClick={playClick}
+                                            onMouseEnter={playSwing}
+                                        >
+                                            {linkContent}
+                                        </a>
+                                    );
+                                }
+
                                 return (
                                     <Link
                                         key={item.label}
@@ -131,21 +195,7 @@ const NavBar = () => {
                                         }}
                                         onMouseEnter={playSwing}
                                     >
-                                        <div
-                                            className={`group w-16 h-16 rounded-full flex items-center justify-center border-2 cursor-pointer transition-all duration-200
-                        ${isCurrent
-                                                    ? "bg-[#5dff4e33] border-[#5dff4e] shadow-[0_0_32px_8px_#5dff4e99] blur-[1.5px] hover:blur-0"
-                                                    : "bg-black/80 border-[#5dff4e] shadow-[0_0_16px_#5dff4e88] hover:scale-125 hover:bg-[#5dff4e22] hover:shadow-[0_0_32px_#5dff4e]"
-                                                }`}
-                                        >
-                                            <span className="text-[#5dff4e]">
-                                                {item.icon}
-                                            </span>
-                                            {/* Tooltip */}
-                                            <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50 whitespace-nowrap">
-                                                {item.label}
-                                            </span>
-                                        </div>
+                                        {linkContent}
                                     </Link>
                                 );
                             })}

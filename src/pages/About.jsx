@@ -2,7 +2,7 @@ import React, { useRef, useState, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
 import { FaLightbulb, FaLaptopCode, FaCertificate, FaAward  } from "react-icons/fa";
-import NavBar from "../components/Navbar";
+import NavBar from "../components/navbar";
 import SkillsPopup from "../components/SkillsPopup";
 
 function RoomModel({ lightsOn }) {
