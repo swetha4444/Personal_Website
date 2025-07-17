@@ -233,64 +233,23 @@ export default function Research() {
                                     </div>
                                 </div>
                             ) : isMobile ? (
-                                <div className="mobile-book-nav flex flex-col items-center w-full">
-                                    <BookPage
-                                        pageNum={pageIdx}
-                                        side="right"
-                                        onClick={undefined}
-                                        flipping={false}
-                                    >
+                                <div className="mobile-book-container">
+                                    <div className="mobile-book-page">
                                         {getMobilePageContent(pageIdx)}
-                                    </BookPage>
-                                    <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
+                                    </div>
+                                    <div className="mobile-book-controls">
                                         <button
-                                            className={`
-      px-6 py-2 rounded-full text-base font-mono font-bold border transition relative
-      bg-gradient-to-b from-blue-200 via-blue-400 to-blue-600 border-blue-300 text-blue-900
-      ring-2 ring-black/20 hover:scale-110 opacity-80
-    `}
+                                            className="mobile-nav-button prev-pill"
                                             onClick={handleMobilePrev}
                                             disabled={pageIdx === 0}
-                                            style={{
-                                                boxShadow:
-                                                    "0 8px 32px 0 #60a5faCC, 0 2px 0 0 #fff3 inset, 0 1.5px 8px 0 rgba(0,0,0,0.25)",
-                                                transform: "perspective(400px) rotateY(-28deg)",
-                                                opacity: 0.8,
-                                                cursor: pageIdx === 0 ? "not-allowed" : "pointer",
-                                            }}
                                         >
-                                            {/* White highlight for 3D shine */}
-                                            <span
-                                                className="absolute left-2 top-1 w-2/3 h-1 rounded-full opacity-30 pointer-events-none"
-                                                style={{
-                                                    background: "linear-gradient(90deg, #fff, transparent)"
-                                                }}
-                                            />
                                             Prev
                                         </button>
                                         <button
-                                            className={`
-      px-6 py-2 rounded-full text-base font-mono font-bold border transition relative
-      bg-gradient-to-b from-red-200 via-red-400 to-red-600 border-red-300 text-red-900
-      ring-2 ring-black/20 hover:scale-110 opacity-80
-    `}
+                                            className="mobile-nav-button next-pill"
                                             onClick={handleMobileNext}
                                             disabled={pageIdx === publications.length + 1}
-                                            style={{
-                                                boxShadow:
-                                                    "0 8px 32px 0 #fca5a5CC, 0 2px 0 0 #fff3 inset, 0 1.5px 8px 0 rgba(0,0,0,0.25)",
-                                                transform: "perspective(400px) rotateY(28deg)",
-                                                opacity: 0.8,
-                                                cursor: pageIdx === publications.length + 1 ? "not-allowed" : "pointer",
-                                            }}
                                         >
-                                            {/* White highlight for 3D shine */}
-                                            <span
-                                                className="absolute left-2 top-1 w-2/3 h-1 rounded-full opacity-30 pointer-events-none"
-                                                style={{
-                                                    background: "linear-gradient(90deg, #fff, transparent)"
-                                                }}
-                                            />
                                             Next
                                         </button>
                                     </div>
@@ -529,10 +488,61 @@ export default function Research() {
         }
 
         @media (max-width: 700px) {
-          .book { filter: none; }
-          .book__page { animation: none; } /* Disable grid animation on mobile */
-          .book__spine, .book__page--left { display: none !important; }
-          .book__page--right, .book__page--cover { width: 100% !important; border-radius: 12px !important; }
+          .cover {
+            height: 80vh; /* Set a fixed viewport height */
+            max-height: 600px; /* But don't let it get too tall on long screens */
+            margin: 1rem auto;
+            padding: 0 1rem;
+            animation: none;
+          }
+          .book { 
+            filter: none; 
+            transform: none !important;
+          }
+          .book__page, .book__page--cover { 
+            display: none !important; /* Hide the original book page structure on mobile */
+          }
+          .mobile-book-container {
+            width: 100%;
+            height: 100%;
+            background-color: var(--matrix-green-dark);
+            border: 1px solid var(--matrix-green);
+            border-radius: 12px;
+            box-shadow: inset 0 0 32px 0 var(--matrix-green-glow);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden; /* Important to contain children */
+          }
+          .mobile-book-page {
+            flex-grow: 1; /* Takes up all available space */
+            overflow-y: auto; /* This makes the content area scrollable */
+            padding: 1.5rem;
+            color: var(--matrix-text);
+          }
+          .mobile-book-controls {
+            flex-shrink: 0; /* Prevents the controls from shrinking */
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            border-top: 1px solid rgba(93, 255, 78, 0.2);
+          }
+          .mobile-nav-button {
+            padding: 0.75rem 1.5rem;
+            font-family: "matrix-font", monospace;
+            font-size: 1rem;
+            background: rgba(93, 255, 78, 0.15);
+            color: var(--matrix-green);
+            border: 1px solid var(--matrix-green);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 8px var(--matrix-green-glow);
+          }
+          .mobile-nav-button:hover:not(:disabled) {
+            background: var(--matrix-green);
+            color: var(--matrix-green-dark);
+            box-shadow: 0 0 16px var(--matrix-green);
+          }
         }
       `}</style>
         </div>
