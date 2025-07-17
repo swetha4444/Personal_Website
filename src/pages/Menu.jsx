@@ -132,10 +132,20 @@ export default function Menu() {
                         Swetha Saseendran's Portfolio Website
                     </p>
 
-                    <div
-						className="relative w-full h-[26rem] flex items-center justify-center"
-						style={{ perspective: '1200px' }}
-					>
+                    <motion.div
+                        className="relative w-full h-[26rem] flex items-center justify-center cursor-grab active:cursor-grabbing"
+                        style={{ perspective: '1200px' }}
+                        drag="x"
+                        dragConstraints={{ left: 0, right: 0 }}
+                        onDragEnd={(e, { offset, velocity }) => {
+                            const swipeThreshold = 50;
+                            if (offset.x < -swipeThreshold) {
+                                paginate(1); // Swipe left
+                            } else if (offset.x > swipeThreshold) {
+                                paginate(-1); // Swipe right
+                            }
+                        }}
+                    >
 						{menuItems.map((item, index) => {
 							const offset = index - page;
 							const isVisible = Math.abs(offset) <= 1; // Only show center and adjacent cards
@@ -200,7 +210,7 @@ export default function Menu() {
 								</motion.div>
 							);
 						})}
-					</div>
+					</motion.div>
 
 					<div className="flex items-center justify-between w-full max-w-xs mt-8">
 						<button

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import NavBar from "../components/navbar";
 import MatrixRain from "../backgrounds/matrixRain";
 import MatrixSection from "../components/MatrixSection";
@@ -130,6 +131,7 @@ export default function Research() {
         const flipSound = new Audio(process.env.PUBLIC_URL + "/music/page.mp3");
         flipSound.play();
         setBookState("opening");
+        setPageIdx(0); // Reset to the first page for mobile view
         setTimeout(() => setBookState("open"), 900); // match CSS transition
     };
 
@@ -233,7 +235,20 @@ export default function Research() {
                                     </div>
                                 </div>
                             ) : isMobile ? (
-                                <div className="mobile-book-container">
+                                <motion.div 
+                                    className="mobile-book-container"
+                                    drag="x"
+                                    dragConstraints={{ left: 0, right: 0 }}
+                                    dragElastic={0.1}
+                                    onDragEnd={(e, { offset }) => {
+                                        const swipeThreshold = 50;
+                                        if (offset.x < -swipeThreshold) {
+                                            handleMobileNext();
+                                        } else if (offset.x > swipeThreshold) {
+                                            handleMobilePrev();
+                                        }
+                                    }}
+                                >
                                     <div className="mobile-book-page">
                                         {getMobilePageContent(pageIdx)}
                                     </div>
@@ -253,7 +268,7 @@ export default function Research() {
                                             Next
                                         </button>
                                     </div>
-                                </div>
+                                </motion.div>
                             ) : (
                                 renderDesktopSpreads()
                             )}
@@ -499,8 +514,15 @@ export default function Research() {
             filter: none; 
             transform: none !important;
           }
-          .book__page, .book__page--cover { 
-            display: none !important; /* Hide the original book page structure on mobile */
+          .book.open .book__page, .book.open .book__page--cover { 
+            display: none !important; /* Hide original pages ONLY when book is open on mobile */
+          }
+          .book__page--cover {
+            width: 100%;
+            border-radius: 12px;
+          }
+          .book.opening .book__page--cover {
+            transform: none; /* Disable the opening animation on mobile for a cleaner look */
           }
           .mobile-book-container {
             width: 100%;
