@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
 import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome, FaGithub, FaFileDownload, FaLinkedin } from "react-icons/fa";
 
@@ -41,7 +41,15 @@ const getCirclePos = (i, total, radius = 100) => {
 
 const NavBar = () => {
     const [open, setOpen] = useState(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
     const location = useLocation();
+
+    useEffect(() => {
+        const checkDevice = () => setIsTouchDevice(window.innerWidth <= 1024);
+        checkDevice();
+        window.addEventListener('resize', checkDevice);
+        return () => window.removeEventListener('resize', checkDevice);
+    }, []);
 
     // Home is always on the left, and also included in the circle menu
     const circleNavItems = [
@@ -158,7 +166,8 @@ const NavBar = () => {
                         <div className="relative w-80 h-80 z-10">
                             {circleNavItems.map((item, i) => {
                                 const isCurrent = !item.external && !item.download && location.pathname.endsWith(item.path);
-                                
+                                const radius = isTouchDevice ? 120 : 100;
+
                                 const linkContent = (
                                     <div
                                         className={`group w-16 h-16 rounded-full flex items-center justify-center border-2 cursor-pointer transition-all duration-200
@@ -171,7 +180,7 @@ const NavBar = () => {
                                             {item.icon}
                                         </span>
                                         {/* Tooltip */}
-                                        <span className="absolute left-1/2 top-full mt-2 -translate-x-1/2 opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50 whitespace-nowrap">
+                                        <span className={`absolute left-1/2 top-full mt-2 -translate-x-1/2 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50 whitespace-nowrap ${isTouchDevice ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'}`}>
                                             {item.label}
                                         </span>
                                     </div>
