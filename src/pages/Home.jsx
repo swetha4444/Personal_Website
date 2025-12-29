@@ -498,6 +498,35 @@ function ProjectCarousel({ projects }) {
     );
 }
 
+// Scroll Animation Hook
+function useScrollAnimation() {
+    const [isVisible, setIsVisible] = useState(false);
+    const ref = React.useRef(null);
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold: 0.1 }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => {
+            if (ref.current) {
+                observer.unobserve(ref.current);
+            }
+        };
+    }, []);
+
+    return [ref, isVisible];
+}
+
 export default function Home() {
   const navigate = useNavigate();
 
@@ -645,14 +674,15 @@ export default function Home() {
 
             {/* Skills Section */}
             <section id="skills" className="max-w-6xl mx-auto px-6 py-20">
-                <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
+                <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent animate-fade-in-up">
                     Skills
                 </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {skillsData.map((category) => (
+                    {skillsData.map((category, index) => (
                         <div
                             key={category.category}
-                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300"
+                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover-lift hover-glow animate-fade-in-up"
+                            style={{ animationDelay: `${index * 0.1}s`, opacity: 0, animationFillMode: 'forwards' }}
                         >
                             <h3 className="text-xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-4 border-b border-pink-500/30 pb-3">
                                 {category.category}
@@ -697,7 +727,8 @@ export default function Home() {
                     {publications.map((pub, index) => (
                         <div
                             key={index}
-                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-8 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300"
+                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-8 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover-lift hover-glow animate-fade-in-up"
+                            style={{ animationDelay: `${index * 0.15}s` }}
                         >
                             <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-4">{pub.title}</h3>
                             <p className="text-gray-300 mb-3 text-lg font-medium">{pub.authors}</p>
