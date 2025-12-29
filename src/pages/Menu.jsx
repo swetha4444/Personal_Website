@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaChevronLeft, FaChevronRight, FaHome } from 'react-icons/fa';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import MatrixRain from '../backgrounds/matrixRain';
@@ -91,6 +91,11 @@ export default function Menu() {
 		[playEnterSound, navigate]
 	);
 
+	const handleBackToHome = useCallback(() => {
+		playEnterSound();
+		setTimeout(() => navigate('/'), 150);
+	}, [playEnterSound, navigate]);
+
 	// useEffect for keyboard navigation
 	useEffect(() => {
 		const handleKeyDown = (e) => {
@@ -122,6 +127,15 @@ export default function Menu() {
         <div className="relative min-h-screen w-screen overflow-hidden">
             <MatrixRain />
 			<NavBar />
+            {/* Back to Home Button */}
+            <button
+                onClick={handleBackToHome}
+                className="fixed bottom-6 left-6 z-50 group px-6 py-3 bg-gradient-to-r from-[#5dff4e] to-[#9aff8d] text-black font-bold rounded-full hover:shadow-2xl hover:shadow-[#5dff4e]/50 transition-all duration-300 hover:scale-105 overflow-hidden backdrop-blur-sm flex items-center gap-2"
+            >
+                <FaHome size={18} />
+                <span className="relative z-10 text-sm md:text-base">Back to Front Page</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-[#9aff8d] to-[#5dff4e] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </button>
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-screen h-screen p-4">
                 <MatrixSection className="w-full max-w-4xl flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl p-8 rounded-2xl">
                     
