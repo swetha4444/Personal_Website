@@ -8,7 +8,8 @@ import Menu from './pages/Menu';
 import About from './pages/About'; 
 import Research from './pages/Research';  
 import Experience from './pages/Experience'; 
-import VolumeControl from './components/VolumeControl'; 
+import VolumeControl from './components/VolumeControl';
+import CustomCursor from './components/CustomCursor'; 
 
 function AppContent() {
   const audioRef = useRef(null);
@@ -53,6 +54,7 @@ function AppContent() {
 
   return (
     <>
+      <CustomCursor />
       <audio
         ref={audioRef}
         src={process.env.PUBLIC_URL + "/music/matrix-bg.mp3"}

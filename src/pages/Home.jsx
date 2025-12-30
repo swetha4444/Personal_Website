@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaPython, FaJava, FaReact, FaNode, FaAws, FaDocker, FaGitAlt, FaDatabase } from "react-icons/fa";
 import { SiTypescript, SiJavascript, SiNextdotjs, SiAngular, SiSpring, SiFlask, SiDjango, SiFastapi, SiPhp, SiAndroid, SiTensorflow, SiPytorch, SiOpencv, SiHuggingface, SiMongodb, SiElasticsearch, SiApachekafka, SiRedis, SiTableau, SiJenkins, SiGithubactions, SiC } from "react-icons/si";
+import PortfolioChatbot from "../components/PortfolioChatbot";
 
 // Typing Animation Component with Loop
 function TypingAnimation({ text, speed = 100, deleteSpeed = 50, pauseTime = 2000 }) {
@@ -44,9 +45,13 @@ function TypingAnimation({ text, speed = 100, deleteSpeed = 50, pauseTime = 2000
     );
 }
 
-// Animated Name Component with different font styles (Avant Garde style)
+// Animated Name Component with letter-by-letter animation and effects
 function AnimatedName({ name }) {
     const [currentStyle, setCurrentStyle] = useState(0);
+    const [isGlitching, setIsGlitching] = useState(false);
+    const [flashColor, setFlashColor] = useState(null); // 'green' or 'pink' or null
+    const [visibleLetters, setVisibleLetters] = useState([]);
+    const [allRevealed, setAllRevealed] = useState(false);
     
     const fontStyles = [
         { fontFamily: 'Montserrat', fontWeight: 900, letterSpacing: '0.1em', style: 'normal' },
@@ -57,30 +62,108 @@ function AnimatedName({ name }) {
         { fontFamily: 'Orbitron', fontWeight: 900, letterSpacing: '0.2em', style: 'normal' },
     ];
 
+    // Letter-by-letter reveal animation - fast and snappy
     useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentStyle((prev) => (prev + 1) % fontStyles.length);
+        const letters = name.split('');
+        // Show all letters immediately, then animate them in
+        const allIndices = letters.map((_, i) => i);
+        setVisibleLetters(allIndices);
+        
+        // Start style cycling after a brief delay
+        setTimeout(() => {
+            setAllRevealed(true);
+            const styleInterval = setInterval(() => {
+                setIsGlitching(true);
+                setTimeout(() => setIsGlitching(false), 100);
+                setCurrentStyle((prev) => (prev + 1) % fontStyles.length);
+            }, 1500);
+            return () => clearInterval(styleInterval);
+        }, 1000);
+    }, [name]);
+
+    // Occasional glitch effect (less frequent)
+    useEffect(() => {
+        if (!allRevealed) return;
+        const glitchInterval = setInterval(() => {
+            setIsGlitching(true);
+            setTimeout(() => setIsGlitching(false), 100);
+        }, 5000);
+        return () => clearInterval(glitchInterval);
+    }, [allRevealed]);
+
+    // Green-Pink interleaved static flash
+    useEffect(() => {
+        if (!allRevealed) return;
+        let flashCount = 0;
+        const flashInterval = setInterval(() => {
+            // Alternate between green and pink
+            if (flashCount % 2 === 0) {
+                setFlashColor('green');
+            } else {
+                setFlashColor('pink');
+            }
+            flashCount++;
+            setTimeout(() => setFlashColor(null), 150);
         }, 1800);
-        return () => clearInterval(interval);
-    }, []);
+        return () => clearInterval(flashInterval);
+    }, [allRevealed]);
 
     const currentFont = fontStyles[currentStyle];
+    const letters = name.split('');
 
     return (
         <div className="relative inline-block w-full">
             <h1 
-                className="text-4xl md:text-5xl lg:text-6xl mb-4 bg-gradient-to-r from-pink-300 via-pink-400 via-rose-400 to-pink-500 bg-clip-text text-transparent transition-all duration-1000 ease-in-out whitespace-nowrap overflow-hidden"
+                className={`text-4xl md:text-5xl lg:text-7xl mb-4 transition-all duration-100 ease-in-out whitespace-nowrap ${
+                    isGlitching ? 'animate-glitch' : ''
+                }`}
                 style={{ 
                     fontFamily: currentFont.fontFamily,
                     fontWeight: currentFont.fontWeight,
                     letterSpacing: currentFont.letterSpacing,
-                    fontStyle: currentFont.style
+                    fontStyle: currentFont.style,
+                    color: flashColor === 'green'
+                        ? '#5dff4e'
+                        : flashColor === 'pink'
+                        ? '#ec4899'
+                        : '#ec4899',
+                    textShadow: isGlitching 
+                        ? '2px 0 0 #ec4899, -2px 0 0 #f43f5e'
+                        : flashColor === 'green'
+                        ? '0 0 10px #5dff4e, 0 0 20px #5dff4e'
+                        : flashColor === 'pink'
+                        ? '0 0 10px #ec4899, 0 0 20px #ec4899'
+                        : '0 0 15px rgba(236, 72, 153, 0.5)',
+                    transform: isGlitching ? 'translate(1px, -1px)' : 'translate(0, 0)',
+                    filter: 'none',
+                    WebkitFontSmoothing: 'antialiased',
+                    MozOsxFontSmoothing: 'grayscale',
+                    backfaceVisibility: 'hidden',
+                    WebkitBackfaceVisibility: 'hidden',
                 }}
             >
-                {name}
+                {letters.map((letter, index) => {
+                    const isVisible = visibleLetters.includes(index);
+                    return (
+                        <span
+                            key={index}
+                            className={`inline-block animate-letter-reveal-crisp`}
+                            style={{
+                                opacity: 1,
+                                animationDelay: `${index * 0.02}s`,
+                                filter: 'none',
+                                WebkitFontSmoothing: 'antialiased',
+                                MozOsxFontSmoothing: 'grayscale',
+                                visibility: 'visible',
+                            }}
+                        >
+                            {letter === ' ' ? '\u00A0' : letter}
+                        </span>
+                    );
+                })}
             </h1>
-            {/* Glow effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-pink-400/20 via-rose-400/20 to-pink-400/20 blur-2xl -z-10 animate-pulse"></div>
+            {/* Glow effects - positioned far behind to not affect text clarity */}
+            <div className="absolute -inset-20 bg-gradient-to-r from-pink-400/15 via-rose-400/15 to-pink-400/15 blur-3xl -z-20 animate-pulse pointer-events-none"></div>
         </div>
     );
 }
@@ -286,11 +369,11 @@ const skillsData = [
     },
 ];
 
-// Scroll Animation Hook with better effects
+// Scroll Animation Hook with better effects - Faster
 function useScrollAnimation(options = {}) {
     const [isVisible, setIsVisible] = useState(false);
     const ref = React.useRef(null);
-    const { threshold = 0.15, rootMargin = '0px 0px -100px 0px' } = options;
+    const { threshold = 0.05, rootMargin = '0px 0px -50px 0px' } = options;
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -331,7 +414,7 @@ function AnimatedSection({ children, className = '', animationType = 'fade-up', 
     return (
         <div
             ref={ref}
-            className={`${className} ${isVisible ? animationClasses[animationType] : 'opacity-0'} transition-all duration-1000`}
+            className={`${className} ${isVisible ? animationClasses[animationType] : 'opacity-0'} transition-all duration-500`}
             style={{ 
                 animationDelay: `${delay}ms`,
                 animationFillMode: 'forwards'
@@ -342,29 +425,30 @@ function AnimatedSection({ children, className = '', animationType = 'fade-up', 
     );
 }
 
-// Timeline Item Component with Animation
+// Timeline Item Component - Normal
 function TimelineItem({ exp, index }) {
-    const [ref, isVisible] = useScrollAnimation({ threshold: 0.2 });
+    const [ref, isVisible] = useScrollAnimation({ threshold: 0.05 });
     
     return (
         <div
             ref={ref}
-            className={`relative flex flex-col md:flex-row items-start gap-6 transition-all duration-1000 ${
+            className={`relative flex flex-col md:flex-row items-start gap-6 transition-all duration-500 ${
                 index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
             } ${
                 isVisible 
                     ? 'opacity-100 translate-y-0' 
                     : 'opacity-0 translate-y-10'
             }`}
-            style={{ transitionDelay: `${index * 150}ms` }}
+            style={{ transitionDelay: `${index * 50}ms` }}
         >
+            {/* Normal Timeline Dot Marker */}
             <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full border-2 border-slate-900 transform md:-translate-x-1/2 z-10 shadow-lg shadow-pink-500/50"></div>
             
             {/* Content Card */}
             <div className={`w-full md:w-[48%] ml-12 md:ml-0 ${
-                index % 2 === 0 ? 'md:mr-auto md:pr-6' : 'md:ml-auto md:pl-6'
+index % 2 === 0 ? 'md:mr-auto md:pr-6' : 'md:ml-auto md:pl-6'
             }`}>
-                <div className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300">
+                <div className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/60 hover:shadow-xl hover:shadow-pink-500/20 transition-all duration-300">
                     <div className="mb-4">
                         <p className="text-rose-400 font-semibold text-sm mb-2">{exp.period}</p>
                         <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-2">
@@ -393,7 +477,7 @@ function TimelineItem({ exp, index }) {
     );
 }
 
-// Experience Timeline Component
+// Experience Timeline Component - Normal
 function ExperienceTimeline({ experiences }) {
     return (
         <div className="relative">
@@ -405,7 +489,11 @@ function ExperienceTimeline({ experiences }) {
                 {/* Timeline Items */}
                 <div className="space-y-8">
                     {experiences.map((exp, index) => (
-                        <TimelineItem key={index} exp={exp} index={index} />
+                        <TimelineItem 
+                            key={index} 
+                            exp={exp} 
+                            index={index}
+                        />
                     ))}
                 </div>
             </div>
@@ -475,6 +563,8 @@ function ProjectCarousel({ projects }) {
                                             loop
                                             muted
                                             playsInline
+                                            aria-label={`${project.title} project demonstration video`}
+                                            title={`${project.title} - Project Demo`}
                                         />
                                     </div>
                                 )}
@@ -482,7 +572,9 @@ function ProjectCarousel({ projects }) {
                                     <div className="mb-6 rounded-xl overflow-hidden border border-pink-500/30 group-hover/card:border-rose-500/50 transition-all duration-300 shadow-lg group-hover/card:shadow-xl">
                                         <img
                                             src={project.images[0]}
-                                            alt={project.title}
+                                            alt={`${project.title} - Project screenshot by Swetha Saseendran`}
+                                            title={project.title}
+                                            loading="lazy"
                                             className="w-full h-auto max-h-56 object-cover group-hover/card:scale-105 transition-transform duration-500"
                                         />
                                     </div>
@@ -612,7 +704,9 @@ function RotatingImageCarousel({ images, interval = 3000 }) {
                     <img
                         key={index}
                         src={image}
-                        alt={`Swetha Saseendran ${index + 1}`}
+                        alt={`Swetha Saseendran - Software Developer & AI Enthusiast - Profile Photo ${index + 1}`}
+                        title="Swetha Saseendran - Software Developer & AI Enthusiast"
+                        loading={index === 0 ? "eager" : "lazy"}
                         className={`absolute inset-0 w-full h-full object-cover rounded-full transition-opacity duration-1000 ${
                             index === currentIndex ? 'opacity-100' : 'opacity-0'
                         }`}
@@ -633,22 +727,35 @@ export default function Home() {
   };
 
   return (
-        <div className="min-h-screen bg-gradient-to-br from-slate-900 via-pink-950/30 to-rose-950/20 text-white relative overflow-hidden">
-            {/* Animated Background Elements */}
+        <div className="min-h-screen bg-black text-white relative overflow-hidden gaming-bg">
+            {/* Gaming Background Grid */}
+            <div className="absolute inset-0 gaming-grid opacity-20"></div>
+            
+            {/* Scan Lines Effect */}
+            <div className="absolute inset-0 scanlines pointer-events-none z-30"></div>
+            
+            {/* Animated Background Elements - Gaming Style */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                {/* Large Blur Circles */}
-                <div className="absolute top-20 left-10 w-72 h-72 bg-pink-500/15 rounded-full blur-3xl animate-pulse"></div>
-                <div className="absolute bottom-20 right-10 w-96 h-96 bg-rose-500/15 rounded-full blur-3xl animate-pulse delay-1000"></div>
-                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-pink-400/10 rounded-full blur-3xl"></div>
-                <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-rose-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-                <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-pink-300/8 rounded-full blur-3xl animate-pulse delay-700"></div>
-                <div className="absolute top-3/4 right-1/3 w-56 h-56 bg-rose-300/8 rounded-full blur-3xl animate-pulse delay-300"></div>
+                {/* Neon Glow Orbs - Subtle */}
+                <div className="absolute top-20 left-10 w-72 h-72 bg-cyan-500/8 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-20 right-10 w-96 h-96 bg-green-500/8 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-purple-500/6 rounded-full blur-3xl"></div>
+                <div className="absolute top-1/4 right-1/4 w-64 h-64 bg-pink-500/6 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '0.5s' }}></div>
                 
-                {/* Floating Geometric Shapes */}
-                <div className="absolute top-40 right-20 w-32 h-32 border-2 border-pink-400/20 rounded-lg rotate-45 animate-spin-slow"></div>
-                <div className="absolute bottom-40 left-20 w-24 h-24 border-2 border-rose-400/20 rounded-full animate-bounce-slow"></div>
-                <div className="absolute top-1/3 left-1/4 w-20 h-20 border-2 border-pink-300/20 rotate-12 animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-28 h-28 border-2 border-rose-300/20 rounded-full animate-ping-slow"></div>
+                {/* Gaming UI Corner Brackets - Subtle */}
+                <div className="absolute top-0 left-0 w-32 h-32 border-t-2 border-l-2 border-cyan-400/20 gaming-corner"></div>
+                <div className="absolute top-0 right-0 w-32 h-32 border-t-2 border-r-2 border-green-400/20 gaming-corner"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 border-b-2 border-l-2 border-purple-400/20 gaming-corner"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 border-b-2 border-r-2 border-pink-400/20 gaming-corner"></div>
+                
+                {/* Floating Gaming Elements - Subtle */}
+                <div className="absolute top-40 right-20 w-32 h-32 border-2 border-cyan-400/15 rounded-lg rotate-45 animate-spin-slow gaming-panel"></div>
+                <div className="absolute bottom-40 left-20 w-24 h-24 border-2 border-green-400/15 rounded-full animate-bounce-slow gaming-panel"></div>
+                <div className="absolute top-1/3 left-1/4 w-20 h-20 border-2 border-purple-400/15 rotate-12 animate-pulse gaming-panel"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-28 h-28 border-2 border-pink-400/15 rounded-full animate-ping-slow gaming-panel"></div>
+                
+                {/* Digital Rain Effect */}
+                <div className="absolute inset-0 digital-rain opacity-10"></div>
                 
                 {/* Moving Gradient Orbs */}
                 <div className="absolute top-10 left-1/4 w-40 h-40 bg-gradient-to-br from-pink-400/20 to-rose-400/20 rounded-full blur-2xl animate-float"></div>
@@ -687,8 +794,157 @@ export default function Home() {
                 }}></div>
             </div>
             
+            {/* Retro Arcade Games Background Elements - Fixed Throughout Page */}
+            <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 retro-games-bg">
+                {/* Arcade Neon Signs - Multiple positions throughout page */}
+                <div className="absolute top-5 left-1/2 transform -translate-x-1/2 arcade-sign">
+                    <div className="arcade-text">ARCADE</div>
+                </div>
+                <div className="absolute top-[800px] left-1/2 transform -translate-x-1/2 arcade-sign">
+                    <div className="arcade-text">RETRO</div>
+                </div>
+                <div className="absolute top-[1600px] left-1/2 transform -translate-x-1/2 arcade-sign">
+                    <div className="arcade-text">GAMES</div>
+                </div>
+                
+                {/* Multiple Pacman Characters - Throughout page */}
+                <div className="absolute top-10 left-10 retro-pacman">
+                    <div className="w-12 h-12 bg-yellow-400 rounded-full relative shadow-lg shadow-yellow-400/50">
+                        <div className="absolute inset-0 pacman-mouth-bg"></div>
+                    </div>
+                </div>
+                <div className="absolute top-32 left-24 retro-pacman" style={{ animationDelay: '1s' }}>
+                    <div className="w-10 h-10 bg-yellow-400 rounded-full relative shadow-lg shadow-yellow-400/50">
+                        <div className="absolute inset-0 pacman-mouth-bg"></div>
+                    </div>
+                </div>
+                <div className="absolute top-[600px] left-16 retro-pacman" style={{ animationDelay: '2s' }}>
+                    <div className="w-14 h-14 bg-yellow-400 rounded-full relative shadow-lg shadow-yellow-400/50">
+                        <div className="absolute inset-0 pacman-mouth-bg"></div>
+                    </div>
+                </div>
+                <div className="absolute top-[1200px] right-20 retro-pacman" style={{ animationDelay: '1.5s' }}>
+                    <div className="w-11 h-11 bg-yellow-400 rounded-full relative shadow-lg shadow-yellow-400/50">
+                        <div className="absolute inset-0 pacman-mouth-bg"></div>
+                    </div>
+                </div>
+                <div className="absolute top-[1800px] left-32 retro-pacman" style={{ animationDelay: '0.5s' }}>
+                    <div className="w-9 h-9 bg-yellow-400 rounded-full relative shadow-lg shadow-yellow-400/50">
+                        <div className="absolute inset-0 pacman-mouth-bg"></div>
+                    </div>
+                </div>
+                
+                {/* Space Invaders - Multiple positions throughout */}
+                <div className="absolute top-20 right-20 retro-invader">
+                    <div className="space-invader"></div>
+                </div>
+                <div className="absolute top-40 right-32 retro-invader" style={{ animationDelay: '0.5s' }}>
+                    <div className="space-invader" style={{ width: '25px', height: '25px' }}></div>
+                </div>
+                <div className="absolute top-60 right-16 retro-invader" style={{ animationDelay: '1s' }}>
+                    <div className="space-invader" style={{ width: '20px', height: '20px' }}></div>
+                </div>
+                <div className="absolute top-[700px] left-20 retro-invader" style={{ animationDelay: '1.5s' }}>
+                    <div className="space-invader" style={{ width: '28px', height: '28px' }}></div>
+                </div>
+                <div className="absolute top-[1300px] right-40 retro-invader" style={{ animationDelay: '0.8s' }}>
+                    <div className="space-invader" style={{ width: '22px', height: '22px' }}></div>
+                </div>
+                <div className="absolute top-[1900px] left-1/4 retro-invader" style={{ animationDelay: '1.2s' }}>
+                    <div className="space-invader" style={{ width: '24px', height: '24px' }}></div>
+                </div>
+                
+                {/* Tetris Blocks - Many More - Throughout page */}
+                <div className="absolute bottom-20 left-20 retro-tetris">
+                    <div className="tetris-block tetris-l"></div>
+                    <div className="tetris-block tetris-l" style={{ left: '20px', top: '0px', animationDelay: '0.2s' }}></div>
+                    <div className="tetris-block tetris-l" style={{ left: '40px', top: '0px', animationDelay: '0.4s' }}></div>
+                    <div className="tetris-block tetris-l" style={{ left: '0px', top: '20px', animationDelay: '0.6s' }}></div>
+                    <div className="tetris-block tetris-l" style={{ left: '20px', top: '20px', animationDelay: '0.8s' }}></div>
+                </div>
+                <div className="absolute bottom-40 left-40 retro-tetris" style={{ animationDelay: '1s' }}>
+                    <div className="tetris-block tetris-i"></div>
+                    <div className="tetris-block tetris-i" style={{ left: '0px', top: '20px', animationDelay: '0.3s' }}></div>
+                    <div className="tetris-block tetris-i" style={{ left: '0px', top: '40px', animationDelay: '0.6s' }}></div>
+                </div>
+                <div className="absolute bottom-60 left-60 retro-tetris" style={{ animationDelay: '1.5s' }}>
+                    <div className="tetris-block tetris-t"></div>
+                    <div className="tetris-block tetris-t" style={{ left: '20px', top: '0px', animationDelay: '0.4s' }}></div>
+                    <div className="tetris-block tetris-t" style={{ left: '40px', top: '0px', animationDelay: '0.8s' }}></div>
+                </div>
+                <div className="absolute top-[500px] right-20 retro-tetris" style={{ animationDelay: '2s' }}>
+                    <div className="tetris-block tetris-l"></div>
+                    <div className="tetris-block tetris-l" style={{ left: '20px', top: '0px', animationDelay: '0.5s' }}></div>
+                    <div className="tetris-block tetris-l" style={{ left: '40px', top: '0px', animationDelay: '1s' }}></div>
+                </div>
+                <div className="absolute top-[1100px] left-1/3 retro-tetris" style={{ animationDelay: '1.2s' }}>
+                    <div className="tetris-block tetris-i"></div>
+                    <div className="tetris-block tetris-i" style={{ left: '0px', top: '20px', animationDelay: '0.4s' }}></div>
+                </div>
+                <div className="absolute top-[1700px] right-1/4 retro-tetris" style={{ animationDelay: '0.7s' }}>
+                    <div className="tetris-block tetris-t"></div>
+                    <div className="tetris-block tetris-t" style={{ left: '20px', top: '0px', animationDelay: '0.6s' }}></div>
+                    <div className="tetris-block tetris-t" style={{ left: '40px', top: '0px', animationDelay: '1.2s' }}></div>
+                </div>
+                
+                {/* Pong Paddles & Ball */}
+                <div className="absolute top-1/2 left-5 retro-pong">
+                    <div className="pong-paddle"></div>
+                </div>
+                <div className="absolute top-1/2 right-5 retro-pong">
+                    <div className="pong-paddle"></div>
+                </div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 retro-pong-ball">
+                    <div className="pong-ball"></div>
+                </div>
+                
+                {/* Asteroids - Multiple */}
+                <div className="absolute bottom-10 right-1/4 retro-asteroid">
+                    <div className="asteroid"></div>
+                </div>
+                <div className="absolute bottom-30 right-1/3 retro-asteroid" style={{ animationDelay: '0.5s' }}>
+                    <div className="asteroid" style={{ width: '20px', height: '20px' }}></div>
+                </div>
+                <div className="absolute bottom-50 right-1/5 retro-asteroid" style={{ animationDelay: '1s' }}>
+                    <div className="asteroid" style={{ width: '18px', height: '18px' }}></div>
+                </div>
+                
+                {/* Snake Game */}
+                <div className="absolute top-1/3 left-1/4 retro-snake">
+                    <div className="snake-segment"></div>
+                    <div className="snake-segment" style={{ left: '15px', animationDelay: '0.1s' }}></div>
+                    <div className="snake-segment" style={{ left: '30px', animationDelay: '0.2s' }}></div>
+                    <div className="snake-segment" style={{ left: '45px', animationDelay: '0.3s' }}></div>
+                </div>
+                
+                {/* Breakout Bricks */}
+                <div className="absolute top-1/4 right-1/4 retro-breakout">
+                    <div className="breakout-brick"></div>
+                    <div className="breakout-brick" style={{ left: '30px' }}></div>
+                    <div className="breakout-brick" style={{ left: '60px' }}></div>
+                    <div className="breakout-brick" style={{ left: '90px' }}></div>
+                </div>
+                
+                {/* Galaga Ship */}
+                <div className="absolute bottom-1/4 left-1/3 retro-galaga">
+                    <div className="galaga-ship"></div>
+                </div>
+                
+                {/* Game Dots (Pacman style) - More Scattered */}
+                <div className="pacman-dot" style={{ left: '10%', top: '15%', animationDelay: '0s' }}></div>
+                <div className="pacman-dot" style={{ left: '15%', top: '20%', animationDelay: '0.2s' }}></div>
+                <div className="pacman-dot" style={{ left: '20%', top: '25%', animationDelay: '0.4s' }}></div>
+                <div className="pacman-dot" style={{ left: '25%', top: '30%', animationDelay: '0.6s' }}></div>
+                <div className="pacman-dot" style={{ left: '30%', top: '35%', animationDelay: '0.8s' }}></div>
+                <div className="pacman-dot" style={{ left: '70%', top: '50%', animationDelay: '1s' }}></div>
+                <div className="pacman-dot" style={{ left: '75%', top: '55%', animationDelay: '1.2s' }}></div>
+                <div className="pacman-dot" style={{ left: '80%', top: '60%', animationDelay: '1.4s' }}></div>
+                <div className="pacman-dot" style={{ left: '85%', top: '65%', animationDelay: '1.6s' }}></div>
+                <div className="pacman-dot" style={{ left: '90%', top: '70%', animationDelay: '1.8s' }}></div>
+            </div>
+            
             {/* Animated Feel Button - Top Right - Blended Matrix & Pink Theme */}
-            <button
+          <button
                 onClick={handleAnimatedExperience}
                 className="fixed top-6 right-6 z-[100] group px-5 py-3 bg-black/80 backdrop-blur-sm border-2 border-pink-500/50 text-pink-300 font-mono font-bold rounded-xl hover:border-rose-400/70 hover:bg-black/90 transition-all duration-300 hover:scale-105 overflow-hidden max-w-sm relative matrix-pink-button"
                 style={{ position: 'fixed' }}
@@ -712,15 +968,59 @@ export default function Home() {
                 
                 {/* Hover effect - pink glow */}
                 <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-rose-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-            </button>
+          </button>
+            
+            {/* Structured Data for SEO */}
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{
+                    __html: JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "Person",
+                        "name": "Swetha Saseendran",
+                        "jobTitle": "Software Developer & AI Enthusiast",
+                        "url": "https://swetha4444.github.io/Personal_Website/",
+                        "image": "https://swetha4444.github.io/Personal_Website/images/me.jpg",
+                        "sameAs": [
+                            "https://github.com/swetha4444"
+                        ],
+                        "description": "Software Developer & AI Enthusiast specializing in full-stack development, AI/ML, computer vision, and cloud solutions.",
+                        "knowsAbout": [
+                            "Software Development",
+                            "Artificial Intelligence",
+                            "Machine Learning",
+                            "Computer Vision",
+                            "Full Stack Development",
+                            "Python",
+                            "React",
+                            "AWS",
+                            "OpenCV",
+                            "Natural Language Processing"
+                        ],
+                        "alumniOf": {
+                            "@type": "Organization",
+                            "name": "IIT Madras"
+                        },
+                        "worksFor": {
+                            "@type": "Organization",
+                            "name": "UMass Amherst",
+                            "jobTitle": "Software Engineering Intern"
+                        }
+                    })
+                }}
+            />
             
             <div className="relative z-10">
                 {/* Hero Section */}
-                <section className="max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
-                    <div className="space-y-6 animate-fade-in">
-                        <AnimatedName name="SWETHA SASEENDRAN" />
+                <section className="max-w-6xl mx-auto px-6 py-16 md:py-24 text-center">
+                    <div className="flex flex-col items-center space-y-8 animate-fade-in">
+                        {/* Name */}
+                        <div className="w-full">
+                            <AnimatedName name="SWETHA SASEENDRAN" />
+                        </div>
+                        
                         {/* Profile Image Carousel */}
-                        <div className="flex justify-center mb-8 animate-scale-in">
+                        <div className="flex justify-center animate-scale-in -mt-4 mb-2">
                             <RotatingImageCarousel 
                                 images={[
                                     process.env.PUBLIC_URL + "/images/me.jpg",
@@ -733,13 +1033,23 @@ export default function Home() {
                                 interval={3000}
                             />
                         </div>
-                        <h2 className="text-2xl md:text-4xl text-gray-300 mb-8 font-semibold tracking-wide min-h-[3rem] md:min-h-[4rem]">
-          <TypingAnimation text="Software Developer & AI Enthusiast" speed={80} />
-        </h2>
-                        <p className="text-lg md:text-xl text-gray-300 leading-relaxed font-medium max-w-7xl mx-auto mb-12 px-4">
-                            I thrive at the intersection of artificial intelligence and software engineering, architecting intelligent systems from the ground up. My journey spans the full development lifecycle, from crafting intuitive web and Android applications to deploying scalable solutions on AWS. My passion lies in creating a powerful synergy between these domains, focusing on code automation and building reusable components that work seamlessly across platforms. From high-level system design to hands-on implementation and cloud deployment, I am dedicated to developing end-to-end solutions that are not only intelligent but also robust, efficient, and user-friendly.
-                        </p>
-                        <div className="flex justify-center gap-8 mb-12">
+                        
+                        {/* Title */}
+                        <div className="w-full -mt-2 mb-4">
+                            <h2 className="text-xl md:text-3xl text-gray-300 font-semibold tracking-wide min-h-[2.5rem] md:min-h-[3.5rem]">
+                                <TypingAnimation text="Software Developer & AI Enthusiast" speed={80} />
+                            </h2>
+                        </div>
+                        
+                        {/* Description */}
+                        <div className="w-full max-w-4xl mx-auto mb-8">
+                            <p className="text-base md:text-lg text-gray-300 leading-relaxed font-normal px-4">
+                                I thrive at the intersection of artificial intelligence and software engineering, architecting intelligent systems from the ground up. My journey spans the full development lifecycle, from crafting intuitive web and Android applications to deploying scalable solutions on AWS. My passion lies in creating a powerful synergy between these domains, focusing on code automation and building reusable components that work seamlessly across platforms. From high-level system design to hands-on implementation and cloud deployment, I am dedicated to developing end-to-end solutions that are not only intelligent but also robust, efficient, and user-friendly.
+                            </p>
+        </div>
+                        
+                        {/* Social Links */}
+                        <div className="flex justify-center gap-6 mb-8">
             <a
               href="https://github.com/swetha4444"
               target="_blank"
@@ -772,10 +1082,10 @@ export default function Home() {
                         </div>
                         
                         {/* Scroll Indicator */}
-                        <div className="flex flex-col items-center gap-2 mt-16 animate-bounce-subtle">
+                        <div className="flex flex-col items-center gap-2 mt-8 animate-bounce-subtle">
                             <span className="text-gray-400 text-sm font-medium">Scroll to explore</span>
                             <svg 
-                                className="w-6 h-6 text-pink-400 animate-bounce"
+                                className="w-5 h-5 text-pink-400 animate-bounce"
                                 fill="none" 
                                 strokeLinecap="round" 
                                 strokeLinejoin="round" 
@@ -789,46 +1099,42 @@ export default function Home() {
                     </div>
                 </section>
 
-            {/* Skills Section */}
+            {/* Skills Section - Arcade Game Board */}
             <AnimatedSection animationType="fade-up" className="max-w-6xl mx-auto px-6 py-24">
-                <section id="skills" className="relative">
-                    {/* Decorative background elements */}
-                    <div className="absolute -top-20 -left-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
-                    <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-rose-500/10 rounded-full blur-3xl"></div>
-                    
-                    <AnimatedSection animationType="scale" delay={100}>
-                        <div className="text-center mb-16 relative">
-                            <h2 className="text-6xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-pink-300 via-pink-400 via-rose-400 to-pink-300 bg-clip-text text-transparent animate-gradient">
+                <section id="skills" className="relative arcade-cabinet">
+                    {/* Arcade Cabinet Frame */}
+                    <div className="arcade-frame">
+                        {/* Top Arcade Header */}
+                        <div className="arcade-header">
+                            <h2 className="text-5xl md:text-6xl font-bold mb-4 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
                                 Skills
                             </h2>
                             <div className="w-24 h-1 bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto mt-4"></div>
-                            <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">Technologies and tools I work with</p>
                         </div>
-                    </AnimatedSection>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        
+                        {/* Arcade Screen/Board */}
+                        <div className="arcade-screen">
+                            {/* Screen Border Glow */}
+                            <div className="screen-glow"></div>
+                            
+                            {/* Screen Content */}
+                            <div className="screen-content">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 arcade-grid">
                         {skillsData.map((category, index) => (
                             <AnimatedSection 
                                 key={category.category}
                                 animationType={index % 2 === 0 ? 'fade-left' : 'fade-right'}
                                 delay={200 + index * 100}
-                                className="group backdrop-blur-xl bg-gradient-to-br from-white/5 via-white/3 to-white/5 border border-pink-500/30 rounded-3xl p-8 hover:border-rose-500/60 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 hover-lift hover-glow relative overflow-hidden"
+                                className="arcade-skill-panel group"
                             >
-                                {/* Gradient overlay on hover */}
-                                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-rose-500/0 to-pink-500/0 group-hover:from-pink-500/10 group-hover:via-rose-500/5 group-hover:to-pink-500/10 transition-all duration-500 rounded-3xl"></div>
-                                
-                                {/* Category Header */}
-                                <div className="relative z-10 mb-6">
-                                    <div className="flex items-center gap-3 mb-3">
-                                        <div className="w-1 h-8 bg-gradient-to-b from-pink-400 to-rose-400 rounded-full"></div>
-                                        <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 via-rose-400 to-pink-400 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:via-rose-300 group-hover:to-pink-300 transition-all duration-300">
-                                            {category.category}
-                                        </h3>
-                                    </div>
-                                    <div className="h-px bg-gradient-to-r from-pink-500/30 via-rose-500/50 to-transparent group-hover:from-pink-500/50 group-hover:via-rose-500/70 transition-all duration-300"></div>
+                                {/* Arcade Panel Header */}
+                                <div className="arcade-panel-header">
+                                    <div className="arcade-panel-title">{category.category}</div>
+                                    <div className="arcade-panel-line"></div>
                                 </div>
                                 
-                                {/* Skills Grid */}
-                                <div className="relative z-10 flex flex-wrap gap-3">
+                                {/* Skills Grid - Arcade Button Style */}
+                                <div className="arcade-skills-grid">
                                     {category.skills.map((skill) => {
                                         // Icon mapping for skills
                                         const getSkillIcon = (skillName) => {
@@ -872,32 +1178,43 @@ export default function Home() {
                                         };
                                         
                                         return (
-                                            <span
+                                            <div
                                                 key={skill}
-                                                className="group/skill px-4 py-2.5 bg-gradient-to-br from-white/8 to-white/4 border border-pink-500/25 rounded-xl text-sm text-gray-200 hover:border-rose-500/60 hover:text-white hover:bg-gradient-to-br hover:from-pink-500/20 hover:to-rose-500/20 transition-all duration-300 font-medium flex items-center gap-2.5 shadow-sm hover:shadow-md hover:shadow-pink-500/20 hover:scale-105 cursor-default"
+                                                className="arcade-button group/skill"
                                             >
                                                 {getSkillIcon(skill) && (
-                                                    <span className="text-lg group-hover/skill:scale-110 transition-transform duration-300 text-pink-400 group-hover/skill:text-rose-300">
+                                                    <span className="arcade-button-icon">
                                                         {getSkillIcon(skill)}
-                                                    </span>
-                                                )}
-                                                <span className="relative">
-                                                    {skill}
-                                                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-rose-400 group-hover/skill:w-full transition-all duration-300"></span>
-                                                </span>
             </span>
+                                                )}
+                                                <span className="arcade-button-text">{skill}</span>
+                                                <div className="arcade-button-glow"></div>
+                                            </div>
                                         );
                                     })}
                                 </div>
                             </AnimatedSection>
                         ))}
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Arcade Control Panel Bottom */}
+                        <div className="arcade-controls">
+                            <div className="arcade-joystick"></div>
+                            <div className="arcade-buttons-row">
+                                <div className="arcade-action-button"></div>
+                                <div className="arcade-action-button"></div>
+                                <div className="arcade-action-button"></div>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </AnimatedSection>
 
             {/* Experience Section */}
             <AnimatedSection animationType="fade-up" className="max-w-7xl mx-auto px-6 py-20">
-                <section id="experience">
+                <section id="experience" className="retro-border-thin rounded-lg p-6">
                     <AnimatedSection animationType="scale" delay={100}>
                         <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
                             Work Experience
@@ -911,7 +1228,7 @@ export default function Home() {
 
             {/* Projects Section */}
             <AnimatedSection animationType="fade-up" className="max-w-6xl mx-auto px-6 py-24">
-                <section id="projects" className="relative">
+                <section id="projects" className="relative retro-border-thin rounded-lg p-6">
                     {/* Decorative background elements */}
                     <div className="absolute -top-20 -left-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
                     <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-rose-500/10 rounded-full blur-3xl"></div>
@@ -933,7 +1250,7 @@ export default function Home() {
 
             {/* Research Section */}
             <AnimatedSection animationType="fade-up" className="max-w-6xl mx-auto px-6 py-24">
-                <section id="research" className="relative">
+                <section id="research" className="relative retro-border-thin rounded-lg p-6">
                     {/* Decorative background elements */}
                     <div className="absolute -top-20 -right-20 w-40 h-40 bg-rose-500/10 rounded-full blur-3xl"></div>
                     <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
@@ -1031,6 +1348,9 @@ export default function Home() {
                     animation: bounce-subtle 2s ease-in-out infinite;
                 }
             `}</style>
+            
+            {/* AI Chatbot */}
+            <PortfolioChatbot />
         </div>
   );
 }

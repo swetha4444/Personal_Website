@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Swetha Saseendran",
+  "name": "Swetha Saseendran - Software Developer & AI Enthusiast Portfolio",
+  "description": "Portfolio of Swetha Saseendran - Software Developer & AI Enthusiast specializing in AI/ML, computer vision, and cloud solutions.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +21,7 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#ec4899",
+  "background_color": "#0f172a",
+  "orientation": "portrait-primary"
 }
