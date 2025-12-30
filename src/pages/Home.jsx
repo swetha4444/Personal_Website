@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaPython, FaJava, FaReact, FaNode, FaAws, FaDocker, FaGitAlt, FaDatabase } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaPython, FaJava, FaReact, FaNode, FaAws, FaDocker, FaGitAlt, FaDatabase, FaVolumeUp, FaVolumeMute, FaMusic } from "react-icons/fa";
 import { SiTypescript, SiJavascript, SiNextdotjs, SiAngular, SiSpring, SiFlask, SiDjango, SiFastapi, SiPhp, SiAndroid, SiTensorflow, SiPytorch, SiOpencv, SiHuggingface, SiMongodb, SiElasticsearch, SiApachekafka, SiRedis, SiTableau, SiJenkins, SiGithubactions, SiC } from "react-icons/si";
 import PortfolioChatbot from "../components/PortfolioChatbot";
 
@@ -719,8 +719,49 @@ function RotatingImageCarousel({ images, interval = 3000 }) {
 
 export default function Home() {
   const navigate = useNavigate();
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
+  const [musicVolume, setMusicVolume] = useState(0.3);
+  const musicRef = useRef(null);
 
-    const handleAnimatedExperience = () => {
+  // Initialize retro music
+  useEffect(() => {
+    const audio = new Audio(process.env.PUBLIC_URL + "/music/matrix-bg.mp3");
+    audio.loop = true;
+    audio.volume = musicVolume;
+    musicRef.current = audio;
+
+    return () => {
+      if (audio) {
+        audio.pause();
+        audio.src = '';
+      }
+    };
+  }, []);
+
+  // Update volume when it changes
+  useEffect(() => {
+    if (musicRef.current) {
+      musicRef.current.volume = musicVolume;
+    }
+  }, [musicVolume]);
+
+  const toggleMusic = async () => {
+    if (!musicRef.current) return;
+    
+    try {
+      if (isMusicPlaying) {
+        musicRef.current.pause();
+        setIsMusicPlaying(false);
+      } else {
+        await musicRef.current.play();
+        setIsMusicPlaying(true);
+      }
+    } catch (error) {
+      console.error('Music playback error:', error);
+    }
+  };
+
+  const handleAnimatedExperience = () => {
     const audio = new Audio(process.env.PUBLIC_URL + "/music/click.mp3");
     audio.play();
         setTimeout(() => navigate("/menu"), 150);
@@ -943,6 +984,41 @@ export default function Home() {
                 <div className="pacman-dot" style={{ left: '90%', top: '70%', animationDelay: '1.8s' }}></div>
             </div>
             
+            {/* Retro Music Player - Top Left */}
+            <div className="fixed top-6 left-6 z-[100] flex flex-col gap-2">
+                <button
+                    onClick={toggleMusic}
+                    className="group relative w-14 h-14 rounded-full bg-black/80 backdrop-blur-sm border-2 border-pink-500/50 hover:border-rose-400/70 transition-all duration-300 hover:scale-110 flex items-center justify-center shadow-lg shadow-pink-500/20 hover:shadow-pink-500/40"
+                    aria-label={isMusicPlaying ? "Pause music" : "Play music"}
+                >
+                    {isMusicPlaying ? (
+                        <FaVolumeUp className="text-pink-400 text-xl group-hover:text-rose-400 transition-colors" />
+                    ) : (
+                        <FaVolumeMute className="text-pink-400 text-xl group-hover:text-rose-400 transition-colors" />
+                    )}
+                    {isMusicPlaying && (
+                        <span className="absolute -top-1 -right-1 w-3 h-3 bg-green-500 rounded-full animate-pulse"></span>
+                    )}
+                </button>
+                {isMusicPlaying && (
+                    <div className="bg-black/80 backdrop-blur-sm border border-pink-500/30 rounded-lg p-2">
+                        <div className="flex items-center gap-2">
+                            <FaMusic className="text-pink-400 text-xs" />
+                            <input
+                                type="range"
+                                min="0"
+                                max="1"
+                                step="0.1"
+                                value={musicVolume}
+                                onChange={(e) => setMusicVolume(parseFloat(e.target.value))}
+                                className="w-20 h-1 bg-pink-500/30 rounded-lg appearance-none cursor-pointer slider"
+                            />
+                            <span className="text-xs text-pink-300 w-8">{Math.round(musicVolume * 100)}%</span>
+                        </div>
+                    </div>
+                )}
+            </div>
+
             {/* Animated Feel Button - Top Right - Blended Matrix & Pink Theme */}
           <button
                 onClick={handleAnimatedExperience}
