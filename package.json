@@ -2,7 +2,7 @@
   "name": "personal-website",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://swethasaseendran.github.io/Personal_Website",
+  "homepage": "https://swetha4444.github.io/Personal_Website",
   "dependencies": {
     "@react-spring/web": "^10.0.1",
     "@react-three/drei": "^10.5.0",
