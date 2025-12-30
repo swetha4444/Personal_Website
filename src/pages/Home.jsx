@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaPython, FaJava, FaReact, FaNode, FaAws, FaDocker, FaGitAlt, FaDatabase } from "react-icons/fa";
+import { SiTypescript, SiJavascript, SiNextdotjs, SiAngular, SiSpring, SiFlask, SiDjango, SiFastapi, SiPhp, SiAndroid, SiTensorflow, SiPytorch, SiOpencv, SiHuggingface, SiMongodb, SiElasticsearch, SiApachekafka, SiRedis, SiTableau, SiJenkins, SiGithubactions, SiC } from "react-icons/si";
 
 // Typing Animation Component with Loop
 function TypingAnimation({ text, speed = 100, deleteSpeed = 50, pauseTime = 2000 }) {
@@ -285,6 +286,113 @@ const skillsData = [
     },
 ];
 
+// Scroll Animation Hook with better effects
+function useScrollAnimation(options = {}) {
+    const [isVisible, setIsVisible] = useState(false);
+    const ref = React.useRef(null);
+    const { threshold = 0.15, rootMargin = '0px 0px -100px 0px' } = options;
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !isVisible) {
+                    setIsVisible(true);
+                }
+            },
+            { threshold, rootMargin }
+        );
+
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
+
+        return () => {
+            if (ref.current) {
+                observer.unobserve(ref.current);
+            }
+        };
+    }, [isVisible, threshold, rootMargin]);
+
+    return [ref, isVisible];
+}
+
+// Animated Section Component
+function AnimatedSection({ children, className = '', animationType = 'fade-up', delay = 0 }) {
+    const [ref, isVisible] = useScrollAnimation();
+    
+    const animationClasses = {
+        'fade-up': 'animate-fade-in-up',
+        'fade-left': 'animate-fade-in-left',
+        'fade-right': 'animate-fade-in-right',
+        'scale': 'animate-scale-in',
+        'rotate': 'animate-rotate-in',
+    };
+
+    return (
+        <div
+            ref={ref}
+            className={`${className} ${isVisible ? animationClasses[animationType] : 'opacity-0'} transition-all duration-1000`}
+            style={{ 
+                animationDelay: `${delay}ms`,
+                animationFillMode: 'forwards'
+            }}
+        >
+            {children}
+        </div>
+    );
+}
+
+// Timeline Item Component with Animation
+function TimelineItem({ exp, index }) {
+    const [ref, isVisible] = useScrollAnimation({ threshold: 0.2 });
+    
+    return (
+        <div
+            ref={ref}
+            className={`relative flex flex-col md:flex-row items-start gap-6 transition-all duration-1000 ${
+                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+            } ${
+                isVisible 
+                    ? 'opacity-100 translate-y-0' 
+                    : 'opacity-0 translate-y-10'
+            }`}
+            style={{ transitionDelay: `${index * 150}ms` }}
+        >
+            <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full border-2 border-slate-900 transform md:-translate-x-1/2 z-10 shadow-lg shadow-pink-500/50"></div>
+            
+            {/* Content Card */}
+            <div className={`w-full md:w-[48%] ml-12 md:ml-0 ${
+                index % 2 === 0 ? 'md:mr-auto md:pr-6' : 'md:ml-auto md:pl-6'
+            }`}>
+                <div className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300">
+                    <div className="mb-4">
+                        <p className="text-rose-400 font-semibold text-sm mb-2">{exp.period}</p>
+                        <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-2">
+                            {exp.role}
+                        </h3>
+                        <p className="text-xl text-gray-300 font-semibold">{exp.company}</p>
+                    </div>
+                    <ul className="list-disc list-inside space-y-2 text-gray-300 mb-4 text-base">
+                        {exp.description.map((point, i) => (
+                            <li key={i} className="leading-relaxed">{point}</li>
+                        ))}
+                    </ul>
+                    <div className="flex flex-wrap gap-2 mt-4">
+                        {exp.skills.map((skill) => (
+                            <span
+                                key={skill}
+                                className="px-3 py-1 bg-white/5 border border-pink-500/20 rounded-lg text-xs text-gray-300 hover:border-rose-500/50 hover:text-rose-400 transition-all duration-200 font-medium"
+                            >
+                                {skill}
+                            </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
 // Experience Timeline Component
 function ExperienceTimeline({ experiences }) {
     return (
@@ -297,44 +405,7 @@ function ExperienceTimeline({ experiences }) {
                 {/* Timeline Items */}
                 <div className="space-y-8">
                     {experiences.map((exp, index) => (
-                        <div
-                            key={index}
-                            className={`relative flex flex-col md:flex-row items-start gap-6 ${
-                                index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                            }`}
-                        >
-                            <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full border-2 border-slate-900 transform md:-translate-x-1/2 z-10 shadow-lg shadow-pink-500/50"></div>
-                            
-                            {/* Content Card */}
-                            <div className={`w-full md:w-[48%] ml-12 md:ml-0 ${
-                                index % 2 === 0 ? 'md:mr-auto md:pr-6' : 'md:ml-auto md:pl-6'
-                            }`}>
-                                <div className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300">
-                                    <div className="mb-4">
-                                        <p className="text-rose-400 font-semibold text-sm mb-2">{exp.period}</p>
-                                        <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-2">
-                                            {exp.role}
-                                        </h3>
-                                        <p className="text-xl text-gray-300 font-semibold">{exp.company}</p>
-                                    </div>
-                                    <ul className="list-disc list-inside space-y-2 text-gray-300 mb-4 text-base">
-                                        {exp.description.map((point, i) => (
-                                            <li key={i} className="leading-relaxed">{point}</li>
-                                        ))}
-                                    </ul>
-                                    <div className="flex flex-wrap gap-2 mt-4">
-                                        {exp.skills.map((skill) => (
-                                            <span
-                                                key={skill}
-                                                className="px-3 py-1 bg-white/5 border border-pink-500/20 rounded-lg text-xs text-gray-300 hover:border-rose-500/50 hover:text-rose-400 transition-all duration-200 font-medium"
-                                            >
-                                                {skill}
-                                            </span>
-                                        ))}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <TimelineItem key={index} exp={exp} index={index} />
                     ))}
                 </div>
             </div>
@@ -370,79 +441,101 @@ function ProjectCarousel({ projects }) {
         <div className="relative">
             {/* Carousel Container */}
             <div className="relative overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-opacity duration-500 items-stretch">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-opacity duration-500 items-stretch">
                     {getVisibleProjects().map((project, index) => (
                         <div
                             key={currentIndex * projectsPerPage + index}
-                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-8 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 flex flex-col min-h-[500px]"
+                            className="group/card relative backdrop-blur-xl bg-gradient-to-br from-white/8 via-white/5 to-white/8 border border-pink-500/30 rounded-3xl p-8 hover:border-rose-500/60 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 flex flex-col min-h-[550px] overflow-hidden"
                         >
-                            <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-4">{project.title}</h3>
+                            {/* Gradient overlay on hover */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-rose-500/0 to-pink-500/0 group-hover/card:from-pink-500/10 group-hover/card:via-rose-500/5 group-hover/card:to-pink-500/10 transition-all duration-500 rounded-3xl"></div>
                             
-                            {/* Project Image/Video */}
-                            {project.video && (
-                                <div className="mb-4 rounded-lg overflow-hidden border border-pink-500/20">
-                                    <video
-                                        src={project.video}
-                                        className="w-full h-auto max-h-48 object-cover"
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                    />
-                                </div>
-                            )}
-                            {project.images && project.images.length > 0 && (
-                                <div className="mb-4 rounded-lg overflow-hidden border border-pink-500/20">
-                                    <img
-                                        src={project.images[0]}
-                                        alt={project.title}
-                                        className="w-full h-auto max-h-48 object-cover"
-                                    />
-                                </div>
-                            )}
+                            {/* Decorative accent */}
+                            <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-pink-500 via-rose-500 to-transparent opacity-0 group-hover/card:opacity-100 transition-opacity duration-500"></div>
                             
-                            <p className="text-gray-300 mb-6 flex-grow text-lg leading-relaxed font-medium">{project.description}</p>
-                            <div className="flex flex-wrap gap-2 mb-6">
-                                {project.tags.map((tag) => (
-                                    <span
-                                        key={tag}
-                                        className="px-3 py-1.5 bg-white/5 border border-pink-500/20 rounded-lg text-xs text-gray-300 hover:border-rose-500/50 hover:text-rose-400 transition-all duration-200 font-medium"
-                                    >
-                                        {tag}
-                                    </span>
-                                ))}
-                            </div>
-                            <div className="flex gap-3 mt-auto flex-wrap">
-                                {project.github_link && (
-                                    <a
-                                        href={project.github_link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-pink-500/30 text-pink-400 rounded-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 font-semibold"
-                                    >
-                                        <FaGithub /> GitHub
-                                    </a>
+                            <div className="relative z-10 flex flex-col h-full">
+                                {/* Header with accent */}
+                                <div className="mb-6">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <div className="w-1 h-8 bg-gradient-to-b from-pink-400 to-rose-400 rounded-full"></div>
+                                        <h3 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-400 via-rose-400 to-pink-400 bg-clip-text text-transparent group-hover/card:from-pink-300 group-hover/card:via-rose-300 group-hover/card:to-pink-300 transition-all duration-300">
+                                            {project.title}
+                                        </h3>
+                                    </div>
+                                    <div className="h-px bg-gradient-to-r from-pink-500/30 via-rose-500/50 to-transparent group-hover/card:from-pink-500/50 group-hover/card:via-rose-500/70 transition-all duration-300"></div>
+                                </div>
+                                
+                                {/* Project Image/Video */}
+                                {project.video && (
+                                    <div className="mb-6 rounded-xl overflow-hidden border border-pink-500/30 group-hover/card:border-rose-500/50 transition-all duration-300 shadow-lg group-hover/card:shadow-xl">
+                                        <video
+                                            src={project.video}
+                                            className="w-full h-auto max-h-56 object-cover"
+                                            autoPlay
+                                            loop
+                                            muted
+                                            playsInline
+                                        />
+                                    </div>
                                 )}
-                                {project.github_link_frontend && (
-                                    <a
-                                        href={project.github_link_frontend}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-pink-500/30 text-pink-400 rounded-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 font-semibold"
-                                    >
-                                        <FaGithub /> Frontend
-                                    </a>
+                                {project.images && project.images.length > 0 && (
+                                    <div className="mb-6 rounded-xl overflow-hidden border border-pink-500/30 group-hover/card:border-rose-500/50 transition-all duration-300 shadow-lg group-hover/card:shadow-xl">
+                                        <img
+                                            src={project.images[0]}
+                                            alt={project.title}
+                                            className="w-full h-auto max-h-56 object-cover group-hover/card:scale-105 transition-transform duration-500"
+                                        />
+                                    </div>
                                 )}
-                                {project.link && (
-                                    <a
-                                        href={project.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex items-center gap-2 px-5 py-2.5 bg-white/5 border border-pink-500/30 text-pink-400 rounded-lg hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 font-semibold"
-                                    >
-                                        <FaExternalLinkAlt /> View
-                                    </a>
-                                )}
+                                
+                                <p className="text-gray-200 mb-6 flex-grow text-lg leading-relaxed font-medium">{project.description}</p>
+                                
+                                <div className="flex flex-wrap gap-2 mb-6">
+                                    {project.tags.map((tag) => (
+                                        <span
+                                            key={tag}
+                                            className="px-3 py-1.5 bg-gradient-to-br from-white/8 to-white/4 border border-pink-500/25 rounded-lg text-xs text-gray-200 hover:border-rose-500/60 hover:text-white hover:bg-gradient-to-br hover:from-pink-500/20 hover:to-rose-500/20 transition-all duration-300 font-medium shadow-sm hover:shadow-md hover:shadow-pink-500/20 hover:scale-105"
+                                        >
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                
+                                <div className="flex gap-3 mt-auto flex-wrap">
+                                    {project.github_link && (
+                                        <a
+                                            href={project.github_link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group/btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 text-white rounded-xl hover:from-pink-500 hover:via-rose-500 hover:to-pink-500 shadow-lg hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 font-semibold hover:scale-105"
+                                        >
+                                            <FaGithub className="group-hover/btn:scale-110 transition-transform duration-300" />
+                                            <span>GitHub</span>
+                                        </a>
+                                    )}
+                                    {project.github_link_frontend && (
+                                        <a
+                                            href={project.github_link_frontend}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group/btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 text-white rounded-xl hover:from-pink-500 hover:via-rose-500 hover:to-pink-500 shadow-lg hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 font-semibold hover:scale-105"
+                                        >
+                                            <FaGithub className="group-hover/btn:scale-110 transition-transform duration-300" />
+                                            <span>Frontend</span>
+                                        </a>
+                                    )}
+                                    {project.link && (
+                                        <a
+                                            href={project.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="group/btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 text-white rounded-xl hover:from-rose-500 hover:via-pink-500 hover:to-rose-500 shadow-lg hover:shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 font-semibold hover:scale-105"
+                                        >
+                                            <FaExternalLinkAlt className="group-hover/btn:translate-x-1 transition-transform duration-300" />
+                                            <span>Live Demo</span>
+                                        </a>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     ))}
@@ -454,26 +547,26 @@ function ProjectCarousel({ projects }) {
             </div>
 
             {/* Navigation Buttons */}
-            <div className="flex items-center justify-between mt-10">
+            <div className="flex items-center justify-between mt-12">
                 <button
                     onClick={prevSlide}
-                    className="p-4 rounded-full backdrop-blur-xl bg-white/5 border border-pink-500/30 text-pink-400 hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-pink-400"
+                    className="group/btn p-4 rounded-full backdrop-blur-xl bg-gradient-to-br from-white/8 to-white/4 border border-pink-500/30 text-pink-400 hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-pink-400 shadow-lg hover:shadow-xl hover:shadow-pink-500/30 hover:scale-110"
                     disabled={currentIndex === 0}
                     aria-label="Previous projects"
                 >
-                    <FaChevronLeft size={20} />
+                    <FaChevronLeft size={20} className="group-hover/btn:-translate-x-1 transition-transform duration-300" />
                 </button>
 
                 {/* Dots Indicator */}
-                <div className="flex gap-3">
+                <div className="flex gap-3 items-center">
                     {Array.from({ length: totalPages }).map((_, index) => (
                         <button
                             key={index}
                             onClick={() => goToSlide(index)}
                             className={`h-3 rounded-full transition-all duration-300 ${
                                 index === currentIndex
-                                    ? "bg-gradient-to-r from-pink-500 to-rose-500 w-10 shadow-lg shadow-pink-500/50"
-                                    : "bg-white/20 hover:bg-white/40 w-3"
+                                    ? "bg-gradient-to-r from-pink-500 via-rose-500 to-pink-500 w-12 shadow-lg shadow-pink-500/50"
+                                    : "bg-pink-500/30 hover:bg-pink-500/50 w-3"
                             }`}
                             aria-label={`Go to slide ${index + 1}`}
                         />
@@ -482,49 +575,52 @@ function ProjectCarousel({ projects }) {
 
                 <button
                     onClick={nextSlide}
-                    className="p-4 rounded-full backdrop-blur-xl bg-white/5 border border-pink-500/30 text-pink-400 hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-pink-400"
+                    className="group/btn p-4 rounded-full backdrop-blur-xl bg-gradient-to-br from-white/8 to-white/4 border border-pink-500/30 text-pink-400 hover:bg-gradient-to-r hover:from-pink-600 hover:to-rose-600 hover:text-white hover:border-transparent transition-all duration-300 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-white/5 disabled:hover:text-pink-400 shadow-lg hover:shadow-xl hover:shadow-pink-500/30 hover:scale-110"
                     disabled={currentIndex === totalPages - 1}
                     aria-label="Next projects"
                 >
-                    <FaChevronRight size={20} />
+                    <FaChevronRight size={20} className="group-hover/btn:translate-x-1 transition-transform duration-300" />
                 </button>
             </div>
 
             {/* Page Indicator */}
-            <div className="text-center mt-6 text-gray-400 text-sm">
-                Page {currentIndex + 1} of {totalPages}
+            <div className="text-center mt-8">
+                <span className="px-6 py-2 bg-gradient-to-r from-pink-500/20 to-rose-500/20 border border-pink-500/30 rounded-full text-gray-300 text-sm font-semibold backdrop-blur-sm">
+                    Page {currentIndex + 1} of {totalPages}
+                </span>
             </div>
         </div>
     );
 }
 
-// Scroll Animation Hook
-function useScrollAnimation() {
-    const [isVisible, setIsVisible] = useState(false);
-    const ref = React.useRef(null);
+// Rotating Image Carousel Component
+function RotatingImageCarousel({ images, interval = 3000 }) {
+    const [currentIndex, setCurrentIndex] = useState(0);
 
     useEffect(() => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    setIsVisible(true);
-                }
-            },
-            { threshold: 0.1 }
-        );
+        const timer = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, interval);
+        return () => clearInterval(timer);
+    }, [images.length, interval]);
 
-        if (ref.current) {
-            observer.observe(ref.current);
-        }
-
-        return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
-        };
-    }, []);
-
-    return [ref, isVisible];
+    return (
+        <div className="relative">
+            <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500 rounded-full blur-xl opacity-50 animate-pulse"></div>
+            <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden border-4 border-pink-500/50 shadow-2xl shadow-pink-500/30 hover:border-rose-500/70 transition-all duration-300 hover:scale-110 hover:rotate-3">
+                {images.map((image, index) => (
+                    <img
+                        key={index}
+                        src={image}
+                        alt={`Swetha Saseendran ${index + 1}`}
+                        className={`absolute inset-0 w-full h-full object-cover rounded-full transition-opacity duration-1000 ${
+                            index === currentIndex ? 'opacity-100' : 'opacity-0'
+                        }`}
+                    />
+                ))}
+            </div>
+        </div>
+    );
 }
 
 export default function Home() {
@@ -591,13 +687,31 @@ export default function Home() {
                 }}></div>
             </div>
             
-            {/* Animated Feel Button - Top Right */}
+            {/* Animated Feel Button - Top Right - Blended Matrix & Pink Theme */}
             <button
                 onClick={handleAnimatedExperience}
-                className="fixed top-6 right-6 z-50 group px-6 py-3 bg-gradient-to-r from-pink-500 via-rose-500 to-pink-600 text-white font-bold rounded-full hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 hover:scale-105 overflow-hidden animate-bounce-subtle backdrop-blur-sm"
+                className="fixed top-6 right-6 z-[100] group px-5 py-3 bg-black/80 backdrop-blur-sm border-2 border-pink-500/50 text-pink-300 font-mono font-bold rounded-xl hover:border-rose-400/70 hover:bg-black/90 transition-all duration-300 hover:scale-105 overflow-hidden max-w-sm relative matrix-pink-button"
+                style={{ position: 'fixed' }}
             >
-                <span className="relative z-10 text-sm md:text-base">Get Animated Feel</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-rose-500 via-pink-500 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                {/* Blended scan line effect - pink/green */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-pink-500/10 to-transparent animate-matrix-scan"></div>
+                
+                {/* Matrix corner brackets with pink accent */}
+                <div className="absolute top-1 left-1 w-2 h-2 border-t-2 border-l-2 border-pink-400/60"></div>
+                <div className="absolute top-1 right-1 w-2 h-2 border-t-2 border-r-2 border-rose-400/60"></div>
+                <div className="absolute bottom-1 left-1 w-2 h-2 border-b-2 border-l-2 border-pink-400/60"></div>
+                <div className="absolute bottom-1 right-1 w-2 h-2 border-b-2 border-r-2 border-rose-400/60"></div>
+                
+                {/* Subtle glow effect - pink theme */}
+                <div className="absolute -inset-0.5 border border-pink-500/30 opacity-40 animate-pulse"></div>
+                
+                {/* Text - blended colors */}
+                <span className="relative z-10 text-xs md:text-sm leading-tight block text-center font-mono font-bold bg-gradient-to-r from-pink-300 via-rose-300 to-pink-300 bg-clip-text text-transparent group-hover:from-pink-200 group-hover:via-rose-200 group-hover:to-pink-200 transition-all duration-300">
+                    I love the movie Matrix! Click here to see my portfolio in more matrix theme feel
+                </span>
+                
+                {/* Hover effect - pink glow */}
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 via-rose-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             </button>
             
             <div className="relative z-10">
@@ -605,16 +719,19 @@ export default function Home() {
                 <section className="max-w-7xl mx-auto px-6 py-24 md:py-32 text-center">
                     <div className="space-y-6 animate-fade-in">
                         <AnimatedName name="SWETHA SASEENDRAN" />
-                        {/* Profile Image */}
-                        <div className="flex justify-center mb-8">
-                            <div className="relative">
-                                <div className="absolute inset-0 bg-gradient-to-r from-pink-400 via-rose-400 to-pink-500 rounded-full blur-xl opacity-50 animate-pulse"></div>
-                                <img 
-                                    src={process.env.PUBLIC_URL + "/images/me.jpg"} 
-                                    alt="Swetha Saseendran"
-                                    className="relative w-48 h-48 md:w-64 md:h-64 rounded-full object-cover border-4 border-pink-500/50 shadow-2xl shadow-pink-500/30 hover:border-rose-500/70 transition-all duration-300 hover:scale-105"
-                                />
-                            </div>
+                        {/* Profile Image Carousel */}
+                        <div className="flex justify-center mb-8 animate-scale-in">
+                            <RotatingImageCarousel 
+                                images={[
+                                    process.env.PUBLIC_URL + "/images/me.jpg",
+                                    process.env.PUBLIC_URL + "/images/me2.jpg",
+                                    process.env.PUBLIC_URL + "/images/me3.jpg",
+                                    process.env.PUBLIC_URL + "/images/me4.jpg",
+                                    process.env.PUBLIC_URL + "/images/me5.jpg",
+                                    process.env.PUBLIC_URL + "/images/me6.jpg"
+                                ]}
+                                interval={3000}
+                            />
                         </div>
                         <h2 className="text-2xl md:text-4xl text-gray-300 mb-8 font-semibold tracking-wide min-h-[3rem] md:min-h-[4rem]">
           <TypingAnimation text="Software Developer & AI Enthusiast" speed={80} />
@@ -673,63 +790,171 @@ export default function Home() {
                 </section>
 
             {/* Skills Section */}
-            <section id="skills" className="max-w-6xl mx-auto px-6 py-20">
-                <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent animate-fade-in-up">
-                    Skills
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {skillsData.map((category, index) => (
-                        <div
-                            key={category.category}
-                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-6 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover-lift hover-glow animate-fade-in-up"
-                            style={{ animationDelay: `${index * 0.1}s`, opacity: 0, animationFillMode: 'forwards' }}
-                        >
-                            <h3 className="text-xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-4 border-b border-pink-500/30 pb-3">
-                                {category.category}
-                            </h3>
-                            <div className="flex flex-wrap gap-2">
-                                {category.skills.map((skill) => (
-                                    <span
-                                        key={skill}
-                                        className="px-3 py-1.5 bg-white/5 border border-pink-500/20 rounded-lg text-sm text-gray-300 hover:border-rose-500/50 hover:text-rose-400 transition-all duration-200 font-medium"
-                                    >
-                                        {skill}
-            </span>
-                                ))}
-                            </div>
+            <AnimatedSection animationType="fade-up" className="max-w-6xl mx-auto px-6 py-24">
+                <section id="skills" className="relative">
+                    {/* Decorative background elements */}
+                    <div className="absolute -top-20 -left-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
+                    <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-rose-500/10 rounded-full blur-3xl"></div>
+                    
+                    <AnimatedSection animationType="scale" delay={100}>
+                        <div className="text-center mb-16 relative">
+                            <h2 className="text-6xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-pink-300 via-pink-400 via-rose-400 to-pink-300 bg-clip-text text-transparent animate-gradient">
+                                Skills
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto mt-4"></div>
+                            <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">Technologies and tools I work with</p>
                         </div>
-                    ))}
-          </div>
-            </section>
+                    </AnimatedSection>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {skillsData.map((category, index) => (
+                            <AnimatedSection 
+                                key={category.category}
+                                animationType={index % 2 === 0 ? 'fade-left' : 'fade-right'}
+                                delay={200 + index * 100}
+                                className="group backdrop-blur-xl bg-gradient-to-br from-white/5 via-white/3 to-white/5 border border-pink-500/30 rounded-3xl p-8 hover:border-rose-500/60 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 hover-lift hover-glow relative overflow-hidden"
+                            >
+                                {/* Gradient overlay on hover */}
+                                <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-rose-500/0 to-pink-500/0 group-hover:from-pink-500/10 group-hover:via-rose-500/5 group-hover:to-pink-500/10 transition-all duration-500 rounded-3xl"></div>
+                                
+                                {/* Category Header */}
+                                <div className="relative z-10 mb-6">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="w-1 h-8 bg-gradient-to-b from-pink-400 to-rose-400 rounded-full"></div>
+                                        <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 via-rose-400 to-pink-400 bg-clip-text text-transparent group-hover:from-pink-300 group-hover:via-rose-300 group-hover:to-pink-300 transition-all duration-300">
+                                            {category.category}
+                                        </h3>
+                                    </div>
+                                    <div className="h-px bg-gradient-to-r from-pink-500/30 via-rose-500/50 to-transparent group-hover:from-pink-500/50 group-hover:via-rose-500/70 transition-all duration-300"></div>
+                                </div>
+                                
+                                {/* Skills Grid */}
+                                <div className="relative z-10 flex flex-wrap gap-3">
+                                    {category.skills.map((skill) => {
+                                        // Icon mapping for skills
+                                        const getSkillIcon = (skillName) => {
+                                            const iconMap = {
+                                                'Python': <FaPython />,
+                                                'Java': <FaJava />,
+                                                'C': <SiC />,
+                                                'TypeScript': <SiTypescript />,
+                                                'JavaScript': <SiJavascript />,
+                                                'React': <FaReact />,
+                                                'Next.js': <SiNextdotjs />,
+                                                'Angular': <SiAngular />,
+                                                'Node.js': <FaNode />,
+                                                'Spring Boot': <SiSpring />,
+                                                'Flask': <SiFlask />,
+                                                'Django': <SiDjango />,
+                                                'FastAPI': <SiFastapi />,
+                                                'PHP': <SiPhp />,
+                                                'Android': <SiAndroid />,
+                                                'TensorFlow': <SiTensorflow />,
+                                                'PyTorch': <SiPytorch />,
+                                                'OpenCV': <SiOpencv />,
+                                                'MediaPipe': <SiOpencv />,
+                                                'Hugging Face': <SiHuggingface />,
+                                                'BERT': <SiTensorflow />,
+                                                'NLP': <SiTensorflow />,
+                                                'SQL': <FaDatabase />,
+                                                'MongoDB': <SiMongodb />,
+                                                'ElasticSearch': <SiElasticsearch />,
+                                                'Kafka': <SiApachekafka />,
+                                                'Redis': <SiRedis />,
+                                                'Tableau': <SiTableau />,
+                                                'AWS': <FaAws />,
+                                                'Docker': <FaDocker />,
+                                                'Git': <FaGitAlt />,
+                                                'Jenkins': <SiJenkins />,
+                                                'GitHub Actions': <SiGithubactions />,
+                                                'CI/CD': <FaGitAlt />,
+                                            };
+                                            return iconMap[skillName] || null;
+                                        };
+                                        
+                                        return (
+                                            <span
+                                                key={skill}
+                                                className="group/skill px-4 py-2.5 bg-gradient-to-br from-white/8 to-white/4 border border-pink-500/25 rounded-xl text-sm text-gray-200 hover:border-rose-500/60 hover:text-white hover:bg-gradient-to-br hover:from-pink-500/20 hover:to-rose-500/20 transition-all duration-300 font-medium flex items-center gap-2.5 shadow-sm hover:shadow-md hover:shadow-pink-500/20 hover:scale-105 cursor-default"
+                                            >
+                                                {getSkillIcon(skill) && (
+                                                    <span className="text-lg group-hover/skill:scale-110 transition-transform duration-300 text-pink-400 group-hover/skill:text-rose-300">
+                                                        {getSkillIcon(skill)}
+                                                    </span>
+                                                )}
+                                                <span className="relative">
+                                                    {skill}
+                                                    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-gradient-to-r from-pink-400 to-rose-400 group-hover/skill:w-full transition-all duration-300"></span>
+                                                </span>
+            </span>
+                                        );
+                                    })}
+                                </div>
+                            </AnimatedSection>
+                        ))}
+                    </div>
+                </section>
+            </AnimatedSection>
 
             {/* Experience Section */}
-            <section id="experience" className="max-w-7xl mx-auto px-6 py-20">
-                <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
-                    Work Experience
-                </h2>
-                <ExperienceTimeline experiences={experienceData} />
-            </section>
+            <AnimatedSection animationType="fade-up" className="max-w-7xl mx-auto px-6 py-20">
+                <section id="experience">
+                    <AnimatedSection animationType="scale" delay={100}>
+                        <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
+                            Work Experience
+                        </h2>
+                    </AnimatedSection>
+                    <AnimatedSection animationType="fade-up" delay={200}>
+                        <ExperienceTimeline experiences={experienceData} />
+                    </AnimatedSection>
+                </section>
+            </AnimatedSection>
 
             {/* Projects Section */}
-            <section id="projects" className="max-w-6xl mx-auto px-6 py-20">
-                <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
-                    Projects
-                </h2>
-                <ProjectCarousel projects={projects} />
-            </section>
+            <AnimatedSection animationType="fade-up" className="max-w-6xl mx-auto px-6 py-24">
+                <section id="projects" className="relative">
+                    {/* Decorative background elements */}
+                    <div className="absolute -top-20 -left-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
+                    <div className="absolute -bottom-20 -right-20 w-40 h-40 bg-rose-500/10 rounded-full blur-3xl"></div>
+                    
+                    <AnimatedSection animationType="scale" delay={100}>
+                        <div className="text-center mb-16 relative">
+                            <h2 className="text-6xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-pink-300 via-pink-400 via-rose-400 to-pink-300 bg-clip-text text-transparent animate-gradient">
+                                Projects
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-pink-500 to-transparent mx-auto mt-4"></div>
+                            <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">Showcase of my technical creations</p>
+                        </div>
+                    </AnimatedSection>
+                    <AnimatedSection animationType="fade-up" delay={200}>
+                        <ProjectCarousel projects={projects} />
+                    </AnimatedSection>
+                </section>
+            </AnimatedSection>
 
             {/* Research Section */}
-            <section id="research" className="max-w-6xl mx-auto px-6 py-20">
-                <h2 className="text-5xl font-bold mb-12 text-center bg-gradient-to-r from-pink-300 via-pink-400 to-rose-400 bg-clip-text text-transparent">
-                    Research Publications
-                </h2>
-                <div className="space-y-6">
-                    {publications.map((pub, index) => (
-                        <div
-                            key={index}
-                            className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-8 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover-lift hover-glow animate-fade-in-up"
-                            style={{ animationDelay: `${index * 0.15}s` }}
-                        >
+            <AnimatedSection animationType="fade-up" className="max-w-6xl mx-auto px-6 py-24">
+                <section id="research" className="relative">
+                    {/* Decorative background elements */}
+                    <div className="absolute -top-20 -right-20 w-40 h-40 bg-rose-500/10 rounded-full blur-3xl"></div>
+                    <div className="absolute -bottom-20 -left-20 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
+                    
+                    <AnimatedSection animationType="scale" delay={100}>
+                        <div className="text-center mb-16 relative">
+                            <h2 className="text-6xl md:text-7xl font-extrabold mb-4 bg-gradient-to-r from-pink-300 via-pink-400 via-rose-400 to-pink-300 bg-clip-text text-transparent animate-gradient">
+                                Research Publications
+                            </h2>
+                            <div className="w-24 h-1 bg-gradient-to-r from-transparent via-rose-500 to-transparent mx-auto mt-4"></div>
+                            <p className="text-gray-400 text-lg mt-6 max-w-2xl mx-auto">My published papers and academic work</p>
+                        </div>
+                    </AnimatedSection>
+                    <div className="space-y-6">
+                        {publications.map((pub, index) => (
+                            <AnimatedSection
+                                key={index}
+                                animationType={index % 2 === 0 ? 'fade-left' : 'fade-right'}
+                                delay={200 + index * 150}
+                                className="backdrop-blur-xl bg-white/5 border border-pink-500/30 rounded-2xl p-8 hover:border-rose-500/40 hover:shadow-xl hover:shadow-pink-500/10 transition-all duration-300 hover-lift hover-glow"
+                            >
                             <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent mb-4">{pub.title}</h3>
                             <p className="text-gray-300 mb-3 text-lg font-medium">{pub.authors}</p>
                             <p className="text-rose-400 font-semibold mb-6 text-lg">
@@ -744,10 +969,11 @@ export default function Home() {
                             >
                                 <FaExternalLinkAlt /> Read Publication
                             </a>
-                        </div>
-                    ))}
-                </div>
-            </section>
+                            </AnimatedSection>
+                        ))}
+                    </div>
+                </section>
+            </AnimatedSection>
 
             {/* Footer */}
             <footer className="max-w-6xl mx-auto px-6 py-12 text-center border-t border-pink-500/20">
