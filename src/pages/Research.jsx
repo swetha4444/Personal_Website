@@ -27,7 +27,7 @@ const publications = [
         journal: "FIRE-WN 2021",
         year: 2021,
         link: "https://ceur-ws.org/Vol-3159/T1-14.pdf",
-        abstract: "Achieved 77.67% accuracy in Task-A (Binary Classification) and 65.1% in Task-B (Multiclass). Developed Task B using multiple binary classifiers, achieving up to 60% accuracy, closely matching pretrained DistilBERT. Ranked 24th globally.",
+        abstract: "Built an NLP pipeline using DistilBERT, LSTM, and ensemble ML models to detect hate, offensive, and profane content; achieved 77.7% accuracy for binary classification and 65% for multi-class categorization on social media datasets, leveraging TF-IDF, profanity filters, and hierarchical modeling, ranked 24th globally.",
     },
 ];
 

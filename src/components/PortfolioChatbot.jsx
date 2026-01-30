@@ -12,44 +12,50 @@ I am a Software Developer & AI Enthusiast.
 
 PROJECTS:
 
-1. PyTrackX: Open Source Python Package
+1. AirgapAgentLite - Privacy-Preserving LLM Framework
+- RL-based two-LLM AirGapAgent pipeline for PII sharing decisions; 11–14× faster inference, +48% utility and +10% privacy.
+- Built using Mistral-7B on GPU; GRPO, Grouped PPO, RL; evaluated baseline LLM minimizers (Qwen2.5, Mistral, Llama) on 2K+ samples.
+- GitHub: https://github.com/swetha4444/AirGapLite-RL-Pipeline-for-PII-Sharing-Decisions
+- More Info: https://drive.google.com/file/d/1f-h5DRFUigan5_noC8H2RUyELZYG1fjw/view?usp=sharing
+
+2. PyTrackX: Open Source Python Package
 - An open-source Python library to track 80+ objects and body movements with a single function call.
 - Built with Sriram Kannan, PyTrackX is my first open-source Python library. It's an automated tool that tracks up to 80 different objects and body movements from a simple video input, returning real-time coordinates with minimal setup. We were inspired to simplify the complex process of posture and object tracking into a single, easy-to-use function call. The package is published on PyPI and available for anyone to use in their projects.
 - Technologies: Python, Open Source, Computer Vision, YOLO, Mediapipe, PyPI
 - GitHub: https://github.com/swetha4444/PyTrackX
 - Link: https://pypi.org/project/PytrackX/
 
-2. Poker AI Agent
-- AI agents for Texas Hold'em, including Expectiminimax, Q-learning, and a hybrid MCTS-Minimax agent.
-- Engineered and benchmarked a suite of advanced AI agents for No-Limit Texas Hold'em. Features an Expectiminimax agent enhanced with statistical opponent modeling, a Q-learning agent using strategic state abstraction, and a novel hybrid MCTS-Minimax agent.
-- Technologies: AI, Game Theory, Python, Reinforcement Learning
+3. Poker AI Agent
+- AI agents using Expectiminimax, Q-learning, and hybrid MCTS–Minimax; reduced state space to ~1K per decision, 80% win rate.
 - GitHub: https://github.com/swetha4444/Poker-AI-Agent
+- More Info: https://drive.google.com/file/d/1hCysYV0ltOEmch1f2bd1Zy1_hpisVHWJ/view?usp=sharing
 
-3. TeamX: Fantasy Sports Platform
+4. TeamX: Fantasy Sports Platform
 - A full-stack fantasy sports platform with real-time scoring, built with Flutter, Spring Boot, and Kafka.
 - TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. Built on a microservices architecture with Flutter app frontend and Spring Boot/Java backend.
 - Technologies: Full-Stack, System Design, Microservices, Flutter, Spring Boot, Java, Kafka, Python, MongoDB
 - GitHub Backend: https://github.com/swetha4444/TeamX-Backend
+- Live Demo (520 Presentation Video): https://drive.google.com/drive/folders/1fk1Zr_XQ_SoOmo6TTpFnDIjrtAWQG4ht?usp=share_link
 
-4. Resume Analyser Software
+5. Resume Analyser Software
 - A Python-based tool to parse, analyze, and categorize resumes using NLP and machine learning.
 - Comprehensive tool designed to streamline recruitment by converting unstructured resume data into structured format. Uses regular expressions and NLP techniques to parse resumes, summarize work experience, and extract keywords using TF-IDF and Distilbert.
 - Technologies: Python, NLP, Machine Learning, TF-IDF, Distilbert, CNN, Knowledge Graph, Data Analysis
 - GitHub: https://github.com/swetha4444/Resume-Analyser-Software
 
-5. Analysing Factors Affecting House Prices in the US
+6. Analysing Factors Affecting House Prices in the US
 - A data analytics project exploring the economic and social factors that influence the US housing market.
 - In-depth analysis integrating diverse datasets including Zillow home prices, national GDP, mortgage rates, employment statistics, income ratios, and commodity prices to uncover key correlations and trends.
 - Technologies: Python, Data Analysis, Machine Learning, Pandas, NumPy, Matplotlib, Seaborn, Jupyter
 - GitHub: https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US
 
-6. Product Review Analysis
+7. Product Review Analysis
 - An NLP project to classify and analyze product reviews from social media using Transformers.
 - Helps users determine product quality by analyzing social media reviews. Uses a robust pipeline of web scraping, data cleaning, and transformation. Built around Transformer models, specifically fine-tuned BERT variants.
 - Technologies: Python, NLP, Transformers, BERT, Data Analysis, Web Scraping
 - GitHub: https://github.com/swetha4444/Product-Review-Analysis
 
-7. OpenCV Project - Posture Tracking
+8. OpenCV Project - Posture Tracking
 - A fun Tkinter animation that mimics your actions using Mediapipe for real-time posture tracking.
 - Fun animation built using Tkinter that imitates your actions. Posture is tracked using Mediapipe library. Coordinates of landmarks such as knees, elbows, etc., are passed to the animation, and it changes according to your actions following basic rules of geometry.
 - Technologies: Python, OpenCV, Mediapipe, Tkinter, Animation
@@ -57,41 +63,30 @@ PROJECTS:
 
 WORK EXPERIENCE:
 
-1. UMass Amherst - Software Engineering Intern (Mar 2025 – Present)
-- Designed and developed a full-stack Android solution for Bluetooth-based sensor data acquisition for stroke rehabilitation, featuring a custom SPP file transfer protocol and dual-mode file persistence (local & AWS S3).
-- Deployed an R-based API on AWS EC2 using Docker and a CI/CD pipeline for data analytics and avian flu prediction.
-- Skills: Android, AWS S3, FastAPI, Docker, CI/CD, R, Data Analytics
+1. UMass Amherst - Research Assistant, Advanced Human and Health Analytics Lab (Sept 2025 – Present)
+- Collaborating with Harvard Medical School and Mass General Brigham on post-stroke motor/cognitive impairment research under Prof. Ivan Lee. Building scalable models on GPU to automatically annotate linear movement in egocentric video using V-LLaMA and RLHF.
+- Skills: V-LLaMA, RLHF, Computer Vision, GPU, Research
 
-2. Citi - Technology Analyst (Aug 2022 – Dec 2024)
-- Achieved a 60% reduction in API response time by creating an API connector service with Asynchronous Data Streams.
-- Enhanced configuration management by developing a tool with the DFS algorithm to compare YML config files, integrated into the DevOps Pipeline.
-- Played a key role in a UI/UX migration, reducing user churn by 22% and mitigating rage clicks by 18%.
-- Designed a tool to create real-time mock APIs from spec files, significantly reducing development time.
-- Skills: API Optimization, Java, DevOps, Figma, UI/UX, Data Analysis, Tableau
+2. UMass Amherst - Software Engineering Intern, Center for Data Science (Mar 2025 – Present)
+- Built and led a production LLM platform (LiteLLM-based) integrating multiple AI providers; deployed on AWS via Terraform (ECS/Fargate, Aurora Serverless), scaled to 2,000+ users.
+- Engineered Android solution for Bluetooth-based sensor data acquisition from Shimmer devices; cloud sync APIs via FastAPI on AWS Lambda. Medical trials in progress at Northwestern Feinberg School of Medicine.
+- Deployed R-based API for avian flu analytics on AWS EC2; React dashboard; ECS Fargate and EventBridge for automation. Optimized API by slashing CPU I/O wait time by 70% through in-memory caching.
+- Skills: LiteLLM, AWS, Terraform, FastAPI, Android, React, R
 
-3. Citi JAC - Committee Member, Junior Analyst Council (Mar 2023 – Dec 2024)
-- Selected as one of 20 analysts nationwide to represent all analysts.
-- Led initiatives to enhance peer learning, coordinated townhalls with senior leadership, and conducted tech sessions with SMEs.
-- Skills: Leadership, Event Coordination, Public Speaking, Mentorship
+3. Citi, Chennai - Technology Analyst (Aug 2022 – Dec 2024)
+- Achieved 60% reduction in API response time via API connector with asynchronous data streams; designed proxy bridge service for whitelisted APIs.
+- Developed tool with DFS algorithm to compare multiple YML config files, integrated into DevOps pipeline improving deployment time by 22%.
+- Designed real-time mock APIs from OpenAPI spec files; created API to monitor services, achieving 90% code quality rating. Statistical APIs for financial markets with Tableau for algorithmic trading and risk modeling.
+- Skills: API Optimization, Java, DevOps, OpenAPI, Tableau, Data Analysis
 
-4. ACM SSN - Alumni Relations Head (Jun 2021 – Apr 2022)
-- Cultivated strong alumni relationships by fostering communication and coordinating engaging events.
-- Created competitive coding questions for contests.
-- Skills: Community Management, Event Planning, Problem Setting, Networking
-
-5. First Insight - Data Science Intern (Jul 2021 – Dec 2021)
-- Developed an Aspect-Based Sentiment Analysis System using LDA and BERT Transformers, improving Topic Coherence by 20%.
-- Customized the system for user-defined aspects and deployed it as a REST API within a machine-learning pipeline.
+4. First Insight, Chennai - Data Science Intern (Jul 2021 – Dec 2021)
+- Developed aspect-based sentiment analysis using LDA and BERT Transformers, improving topic coherence by 20%. Deployed as REST API within ML pipeline.
 - Skills: Sentiment Analysis, NLP, BERT, LDA, Python, REST API
 
-6. SRIC-IIT Madras - Computer Vision Research Intern (May 2021 – Nov 2021)
-- Developed a motion analysis system for athlete biomechanics using OpenCV, Mediapipe, and YOLO, achieving 82% accuracy.
-- Led and mentored a team of 5+ research assistants through teaching sessions and academic guidance.
-- Skills: Computer Vision, OpenCV, YOLO, Flask, Mentorship, Research
-
-7. GUVI Geek Network - Full Stack Developer Intern (Feb 2021 – Mar 2021)
-- Collaborated with a team of developers to implement an online learning and teaching marketplace using HTML, CSS, jQuery-AJAX, Bootstrap, PHP, and MySQL.
-- Skills: Full Stack, PHP, MySQL, HTML/CSS, jQuery, Bootstrap
+5. SRIC, IIT Madras - Computer Vision Research Intern (May 2021 – Nov 2021)
+- Developed motion analysis system for athlete biomechanics using OpenCV, Mediapipe, and YOLO, deployed via Flask API, 82% accuracy on custom basketball dataset.
+- Led and mentored a team of 5+ RAs through technical sessions and guidance.
+- Skills: Computer Vision, OpenCV, MediaPipe, YOLO, Flask, Mentorship, Research
 
 SKILLS:
 
@@ -101,12 +96,15 @@ Backend: Node.js, Spring Boot, Flask, Django, FastAPI, PHP
 Mobile: Android
 AI/ML: TensorFlow, PyTorch, OpenCV, MediaPipe, Hugging Face, BERT, NLP
 Databases: SQL, MongoDB, ElasticSearch, Kafka, Redis
-Cloud & DevOps: AWS, Docker, Git, Jenkins, GitHub Actions, CI/CD
+Cloud & DevOps: AWS, Docker, Git, Jenkins, GitHub Actions, CI/CD, Terraform
 Tools: Tableau
 
 CONTACT:
+- Email: ssaseendran@umass.edu
 - GitHub: https://github.com/swetha4444
-- LinkedIn: Available on portfolio
+- LinkedIn: https://www.linkedin.com/in/swetha-saseendran-794749194/
+- Portfolio: https://swetha4444.github.io/Personal_Website/
+- Google Scholar: https://scholar.google.com/citations?user=CmC9cIoAAAAJ
 - Resume: Available for download on portfolio
 `;
 
@@ -340,19 +338,19 @@ function PortfolioChatbot() {
         }
         
         if (lowerQuery.includes('project') || lowerQuery.includes('work on')) {
-            return "Swetha has worked on several projects including PyTrackX (an open-source Python library for object tracking), Poker AI Agent, Expense Tracker, House Price Prediction, AI-Powered Resume Builder, TeamX collaboration platform, and various computer vision projects. You can find more details about these projects on her portfolio.";
+            return "Swetha has worked on several projects including AirgapAgentLite (privacy-preserving LLM framework, Mistral-7B, RL), PyTrackX (open-source Python library for object tracking), Poker AI Agent, TeamX fantasy sports platform, Resume Analyser Software, House Price Prediction, Product Review Analysis, OpenCV posture tracking, Path Finding Visualizer, and Expense Tracker. Publications (e.g. Football Match Feed, Hate Speech DistilBERT) are in the Research section. You can find more details on her portfolio.";
         }
         
         if (lowerQuery.includes('experience') || lowerQuery.includes('work') || lowerQuery.includes('job')) {
-            return "Swetha has worked at UMass Amherst (Software Engineering Intern, Mar 2025 - Present), Citi (Technology Analyst, Aug 2022 - Dec 2024), Citi JAC, ACM SSN, First Insight, SRIC-IIT Madras, and GUVI Geek Network. She has experience in full-stack development, AI/ML, computer vision, and cloud deployment.";
+            return "Swetha has worked at UMass Amherst (Research Assistant, Advanced Human and Health Analytics Lab, Sept 2025 - Present; Software Engineering Intern, Center for Data Science, Mar 2025 - Present), Citi Chennai (Technology Analyst, Aug 2022 - Dec 2024), First Insight Chennai (Data Science Intern), and SRIC IIT Madras (Computer Vision Research Intern). She has experience in full-stack development, AI/ML, computer vision, RL, and cloud deployment.";
         }
         
         if (lowerQuery.includes('skill') || lowerQuery.includes('technology') || lowerQuery.includes('tech')) {
-            return "Swetha's skills include: Languages (Python, Java, C, TypeScript, JavaScript), Frontend (React, Next.js, Angular), Backend (Node.js, Spring Boot, Flask, Django, FastAPI), AI/ML (TensorFlow, PyTorch, OpenCV, MediaPipe, BERT), Cloud & DevOps (AWS, Docker, Git, CI/CD), and more. Check the Skills section on her portfolio for the complete list.";
+            return "Swetha's skills include: Languages (Python, Java, C, TypeScript, JavaScript), Frontend (React, Next.js, Angular), Backend (Node.js, Spring Boot, Flask, FastAPI), AI/ML (TensorFlow, PyTorch, OpenCV, MediaPipe, BERT, Transformers, RAG, LangChain), Cloud & DevOps (AWS, Docker, Git, CI/CD, Terraform), and more. Check the Skills section on her portfolio for the complete list.";
         }
         
-        if (lowerQuery.includes('contact') || lowerQuery.includes('github') || lowerQuery.includes('linkedin')) {
-            return "You can find Swetha on GitHub at https://github.com/swetha4444. Her LinkedIn and resume are also available on her portfolio. Feel free to reach out!";
+        if (lowerQuery.includes('contact') || lowerQuery.includes('github') || lowerQuery.includes('linkedin') || lowerQuery.includes('scholar')) {
+            return "You can find Swetha on GitHub at https://github.com/swetha4444, LinkedIn at https://www.linkedin.com/in/swetha-saseendran-794749194/, Google Scholar at https://scholar.google.com/citations?user=CmC9cIoAAAAJ, and her portfolio at https://swetha4444.github.io/Personal_Website/. Her resume is available for download on the portfolio. Email: ssaseendran@umass.edu";
         }
         
         if (lowerQuery.includes('pytrackx')) {

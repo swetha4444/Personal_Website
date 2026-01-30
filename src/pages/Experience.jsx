@@ -4,92 +4,68 @@ import MatrixRain from '../backgrounds/matrixRain';
 import MatrixSection from '../components/MatrixSection';
 import GridTunnel from '../backgrounds/GridTunnel'; // Import the new component
 
-// 1. Define your work experience data
+// 1. Define your work experience data (matches resume order)
 const experienceData = [
     {
-        id: 'job7',
+        id: 'job1',
         company: 'UMass Amherst',
-        role: 'Software Engineering Intern',
-        period: 'Mar 2025 – Present',
+        role: 'Research Assistant, Advanced Human and Health Analytics Lab',
+        period: 'Sept 2025 – Present',
         description: [
-            'Designed and developed a full-stack Android solution for Bluetooth-based sensor data acquisition for stroke rehabilitation, featuring a custom SPP file transfer protocol and dual-mode file persistence (local & AWS S3).',
-            'Deployed an R-based API on AWS EC2 using Docker and a CI/CD pipeline for data analytics and avian flu prediction.',
+            'Collaborating with Harvard Medical School and Mass General Brigham on post-stroke motor/cognitive impairment research under Prof. Ivan Lee\'s guidance. Building scalable models on GPU to automatically annotate linear movement in egocentric video using advanced visual language models (V-LLaMA) and RLHF.',
         ],
-        skills: ['Android', 'AWS S3', 'FastAPI', 'Docker', 'CI/CD', 'R', 'Data Analytics'],
+        skills: ['V-LLaMA', 'RLHF', 'Computer Vision', 'GPU', 'Research'],
         coords: { x: 950, y: 150 },
     },
     {
-        id: 'job6',
-        company: 'Citi JAC',
-        role: 'Committee Member, Junior Analyst Council',
-        period: 'Mar 2023 – Dec 2024',
+        id: 'job2',
+        company: 'UMass Amherst',
+        role: 'Software Engineering Intern, Center for Data Science',
+        period: 'Mar 2025 – Present',
         description: [
-            'Selected as one of 20 analysts nationwide to represent all analysts.',
-            'Led initiatives to enhance peer learning, coordinated townhalls with senior leadership, and conducted tech sessions with SMEs.',
+            'Built and led a production LLM platform (LiteLLM-based) integrating multiple AI providers and custom services; deployed on AWS via Terraform (ECS/Fargate, Aurora Serverless), private VPC, internal ALB, VPN-only access; scaled to 2,000+ users with multi-provider orchestration, usage tracking, and benchmarking.',
+            'Engineered an Android solution for Bluetooth-based sensor data acquisition from Shimmer devices, featuring a doze-resistant custom SPP protocol and dual-mode file persistence (local and AWS S3), real-time monitoring with Crashlytics. Created cloud sync APIs using FastAPI deployed on AWS Lambda. Medical trials for this app in progress at Northwestern University Feinberg School of Medicine.',
+            'Deployed an R-based API for avian flu analytics leveraging MDP, Dockerized on AWS EC2 with CI/CD. Built a React dashboard for real-time visualization. Bootstrapped a data scraping pipeline and orchestrating scheduled runs with ECS Fargate and EventBridge for daily automation. Optimized API by slashing CPU I/O wait time by 70% through in-memory caching.',
         ],
-        skills: ['Leadership', 'Event Coordination', 'Public Speaking', 'Mentorship'],
-        coords: { x: 800, y: 350 },
-    },
-    {
-        id: 'job5',
-        company: 'Citi',
-        role: 'Technology Analyst',
-        period: 'Aug 2022 – Dec 2024',
-        description: [
-            'Achieved a 60% reduction in API response time by creating an API connector service with Asynchronous Data Streams.',
-            'Enhanced configuration management by developing a tool with the DFS algorithm to compare YML config files, integrated into the DevOps Pipeline.',
-            'Played a key role in a UI/UX migration, reducing user churn by 22% and mitigating rage clicks by 18%.',
-            'Designed a tool to create real-time mock APIs from spec files, significantly reducing development time.',
-        ],
-        skills: ['API Optimization', 'Java', 'DevOps', 'Figma', 'UI/UX', 'Data Analysis', 'Tableau'],
-        coords: { x: 650, y: 150 },
-    },
-    {
-        id: 'job4',
-        company: 'ACM SSN',
-        role: 'Alumni Relations Head',
-        period: 'Jun 2021 – Apr 2022',
-        description: [
-            'Cultivated strong alumni relationships by fostering communication and coordinating engaging events.',
-            'Created competitive coding questions for contests.',
-        ],
-        skills: ['Community Management', 'Event Planning', 'Problem Setting', 'Networking'],
-        coords: { x: 500, y: 350 },
+        skills: ['LiteLLM', 'AWS', 'Terraform', 'ECS', 'FastAPI', 'Android', 'React', 'R'],
+        coords: { x: 750, y: 350 },
     },
     {
         id: 'job3',
-        company: 'First Insight',
+        company: 'Citi, Chennai',
+        role: 'Technology Analyst',
+        period: 'Aug 2022 – Dec 2024',
+        description: [
+            'Achieved a 60% reduction in API response time by creating an API connector service with asynchronous data streams and reduced the development cycle by an entire sprint through designing a proxy bridge service for whitelisted APIs.',
+            'Enhanced configuration management by developing a tool with the DFS algorithm to compare multiple YML config files, integrated into the DevOps pipeline improving deployment time by 22%.',
+            'Designed and developed a customizable process improvement project that creates real-time mock APIs from OpenAPI spec files, significantly reducing development time by eliminating API dependencies.',
+            'Improved user engagement by creating an API to monitor services, onboarding two critical services, and achieving a 90% code quality rating. Developed and maintained statistical APIs for financial markets, with data analysis using Tableau for algorithmic trading and risk modeling.',
+        ],
+        skills: ['API Optimization', 'Java', 'DevOps', 'OpenAPI', 'Tableau', 'Data Analysis'],
+        coords: { x: 550, y: 150 },
+    },
+    {
+        id: 'job4',
+        company: 'First Insight, Chennai',
         role: 'Data Science Intern',
         period: 'Jul 2021 – Dec 2021',
         description: [
-            'Developed an Aspect-Based Sentiment Analysis System using LDA and BERT Transformers, improving Topic Coherence by 20%.',
-            'Customized the system for user-defined aspects and deployed it as a REST API within a machine-learning pipeline.',
+            'Developed an aspect-based sentiment analysis system using LDA and BERT Transformers, improving topic coherence by 20%. Customized for user-defined aspects and deployed as a REST API, integrating it into a machine-learning pipeline for seamless access and efficiency.',
         ],
         skills: ['Sentiment Analysis', 'NLP', 'BERT', 'LDA', 'Python', 'REST API'],
-        coords: { x: 350, y: 150 },
+        coords: { x: 350, y: 350 },
     },
     {
-        id: 'job2',
-        company: 'SRIC-IIT Madras',
+        id: 'job5',
+        company: 'SRIC, IIT Madras',
         role: 'Computer Vision Research Intern',
         period: 'May 2021 – Nov 2021',
         description: [
-            'Developed a motion analysis system for athlete biomechanics using OpenCV, Mediapipe, and YOLO, achieving 82% accuracy.',
-            'Led and mentored a team of 5+ research assistants through teaching sessions and academic guidance.',
+            'Developed a motion analysis system for athlete biomechanics using OpenCV, Mediapipe, and YOLO, deployed via Flask API, with a custom basketball dataset achieving 82% accuracy. Engineered a computer vision pipeline to monitor KPIs like shooting hand detection, knee angle analysis, and shot count for performance insights from video feed.',
+            'Led and mentored a team of 5+ RAs through technical sessions and guidance.',
         ],
-        skills: ['Computer Vision', 'OpenCV', 'YOLO', 'Flask', 'Mentorship', 'Research'],
-        coords: { x: 200, y: 350 },
-    },
-    {
-        id: 'job1',
-        company: 'GUVI Geek Network',
-        role: 'Full Stack Developer Intern',
-        period: 'Feb 2021 – Mar 2021',
-        description: [
-            'Collaborated with a team of developers to implement an online learning and teaching marketplace using HTML, CSS, jQuery-AJAX, Bootstrap, PHP, and MySQL.',
-        ],
-        skills: ['Full Stack', 'PHP', 'MySQL', 'HTML/CSS', 'jQuery', 'Bootstrap'],
-        coords: { x: 50, y: 150 },
+        skills: ['Computer Vision', 'OpenCV', 'MediaPipe', 'YOLO', 'Flask', 'Mentorship', 'Research'],
+        coords: { x: 150, y: 150 },
     },
 ];
 
@@ -167,7 +143,7 @@ export default function Experience() {
                             <svg viewBox="0 0 1000 500" className="experience-map">
                                 {/* Connecting Lines */}
                                 <path
-                                    d="M 50 150 C 50 250, 200 250, 200 350 S 350 250, 350 150 S 500 250, 500 350 S 650 250, 650 150 S 800 250, 800 350 S 950 250, 950 150"
+                                    d="M 150 150 C 150 250, 350 250, 350 350 S 550 250, 550 150 S 750 250, 750 350 S 950 250, 950 150"
                                     stroke="var(--matrix-green)"
                                     strokeWidth="1.5"
                                     fill="none"

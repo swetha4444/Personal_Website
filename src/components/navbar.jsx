@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome, FaGithub, FaFileDownload, FaLinkedin } from "react-icons/fa";
+import { FaTerminal, FaUser, FaFlask, FaBriefcase, FaProjectDiagram, FaHome, FaGithub, FaFileDownload, FaLinkedin, FaGraduationCap } from "react-icons/fa";
 
 // Import your audio files
 const swingSound = process.env.PUBLIC_URL + "/music/swing.mp3";
@@ -123,6 +123,18 @@ const NavBar = () => {
                         <FaLinkedin size={26} className="animate-glitch-icon" />
                         <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
                             Go to my LinkedIn
+                        </span>
+                    </a>
+                    <a
+                        href="https://scholar.google.com/citations?user=CmC9cIoAAAAJ"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group relative text-[#5dff4e] hover:scale-110 transition-transform"
+                        aria-label="Google Scholar"
+                    >
+                        <FaGraduationCap size={26} className="animate-glitch-icon" />
+                        <span className="absolute top-full mt-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                            Google Scholar
                         </span>
                     </a>
                     <a

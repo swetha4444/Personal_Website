@@ -69,3 +69,4 @@ The chatbot currently works with keyword-based responses by default, but you can
 
 The chatbot works without any API keys using intelligent keyword matching. Adding an API key will provide more natural, conversational responses.
 
+

@@ -11,10 +11,12 @@ import Experience from './pages/Experience';
 import VolumeControl from './components/VolumeControl';
 import CustomCursor from './components/CustomCursor'; 
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 function AppContent() {
   const audioRef = useRef(null);
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const isHomePage = location.pathname === '/' || location.pathname === '/Personal_Website' || location.pathname === '/Personal_Website/';
 
   useEffect(() => {
     // Don't play music on home page
@@ -80,7 +82,7 @@ function AppContent() {
 
 function App() {
   return (
-    <Router basename="/Personal_Website">
+    <Router {...(isProduction && { basename: '/Personal_Website' })}>
       <AppContent />
     </Router>
   );

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaPython, FaJava, FaReact, FaNode, FaAws, FaDocker, FaGitAlt, FaDatabase, FaVolumeUp, FaVolumeMute, FaMusic } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaFileDownload, FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaPython, FaJava, FaReact, FaNode, FaAws, FaDocker, FaGitAlt, FaDatabase, FaVolumeUp, FaVolumeMute, FaMusic, FaGraduationCap } from "react-icons/fa";
 import { SiTypescript, SiJavascript, SiNextdotjs, SiAngular, SiSpring, SiFlask, SiDjango, SiFastapi, SiPhp, SiAndroid, SiTensorflow, SiPytorch, SiOpencv, SiHuggingface, SiMongodb, SiElasticsearch, SiApachekafka, SiRedis, SiTableau, SiJenkins, SiGithubactions, SiC } from "react-icons/si";
 import PortfolioChatbot from "../components/PortfolioChatbot";
 
@@ -171,11 +171,21 @@ function AnimatedName({ name }) {
 // Import data from other pages
 const projects = [
     {
+        title: "AirgapAgentLite - Privacy-Preserving LLM Framework",
+        description: "RL-based two-LLM AirGapAgent pipeline for PII sharing decisions; 11–14× faster inference, +48% utility and +10% privacy.",
+        para: "Built a RL-based two-LLM AirGapAgent pipeline using Mistral-7B on GPU; GRPO, Grouped PPO, RL; 11–14× faster inference, +48% utility and +10% privacy. Evaluated baseline LLM minimizers (Qwen2.5, Mistral, Llama) on 2K+ samples.",
+        github_link: "https://github.com/swetha4444/AirGapLite-RL-Pipeline-for-PII-Sharing-Decisions",
+        link: "https://drive.google.com/file/d/1f-h5DRFUigan5_noC8H2RUyELZYG1fjw/view?usp=sharing",
+        linkLabel: "More Info",
+        tags: ["RL", "Privacy", "Mistral-7B", "GRPO", "PPO", "Python", "GPU"],
+    },
+    {
         title: "PyTrackX: Open Source Python Package",
         description: "An open-source Python library to track 80+ objects and body movements with a single function call.",
         para: "Built with Sriram Kannan, PyTrackX is my first open-source Python library. It's an automated tool that tracks up to 80 different objects and body movements from a simple video input, returning real-time coordinates with minimal setup. We were inspired to simplify the complex process of posture and object tracking into a single, easy-to-use function call. The package is published on PyPI and available for anyone to use in their projects.",
         github_link: "https://github.com/swetha4444/PyTrackX",
         link: "https://pypi.org/project/PytrackX/",
+        linkLabel: "More Info",
         video: process.env.PUBLIC_URL + "/images/projects/pytrackx.mp4",
         tags: ["Python", "Open Source", "Computer Vision", "YOLO", "Mediapipe", "PyPI"],
     },
@@ -185,6 +195,7 @@ const projects = [
         para: "Engineered and benchmarked a suite of advanced AI agents for No-Limit Texas Hold'em. This project features an Expectiminimax agent enhanced with statistical opponent modeling to exploit player tendencies, a Q-learning agent using strategic state abstraction to navigate the vast decision space, and a novel hybrid MCTS-Minimax agent.",
         github_link: "https://github.com/swetha4444/Poker-AI-Agent",
         link: "https://drive.google.com/file/d/1hCysYV0ltOEmch1f2bd1Zy1_hpisVHWJ/view?usp=sharing",
+        linkLabel: "More Info",
         images: [
             process.env.PUBLIC_URL + "/images/projects/poker1.png",
             process.env.PUBLIC_URL + "/images/projects/poker2.png",
@@ -197,7 +208,8 @@ const projects = [
         para: "TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. The system is built on a microservices architecture, featuring a Flutter app for the frontend and a robust backend powered by Spring Boot and Java.",
         github_link: "https://github.com/swetha4444/TeamX-Backend",
         github_link_frontend: "https://github.com/hrudayaditya/TeamX",
-        link: "https://docs.google.com/document/d/1kH71CbY-JrtyedcGC9QoNfQPBbfgOBDhLb7ANw45fxY/edit?tab=t.0",
+        link: "https://drive.google.com/drive/folders/1fk1Zr_XQ_SoOmo6TTpFnDIjrtAWQG4ht?usp=share_link",
+        linkLabel: "Live Demo",
         images: [
             process.env.PUBLIC_URL + "/images/projects/teamx1.png",
             process.env.PUBLIC_URL + "/images/projects/teamx2.png",
@@ -220,6 +232,7 @@ const projects = [
         para: "This project conducts an in-depth analysis of the factors affecting house prices in the United States. By integrating diverse datasets—including Zillow home prices, national GDP, mortgage rates, employment statistics, income ratios, and commodity prices—it uncovers key correlations and trends.",
         github_link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/tree/main/notebooks",
         link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/blob/main/US%20House%20Price%20Factors%20Report.pdf",
+        linkLabel: "More Info",
         images: [
             process.env.PUBLIC_URL + "/images/projects/house1.png",
             process.env.PUBLIC_URL + "/images/projects/house2.png",
@@ -242,6 +255,27 @@ const projects = [
         github_link: "https://github.com/swetha4444/OpenCV-Project",
         video: process.env.PUBLIC_URL + "/images/projects/mediapipe.mp4",
         tags: ["Python", "OpenCV", "Mediapipe", "Tkinter", "Animation"],
+    },
+    {
+        title: "Path Finding Visualizer",
+        description: "A visualization tool for various pathfinding algorithms like A*, BFS, and DFS.",
+        para: "A visualization tool for pathfinding algorithms with options for randomized maze, algorithm selection, and heuristic choice. Supported algorithms include A* Search, Breadth First Search, Depth First Search, Greedy Search, and Uniform Cost Search.",
+        github_link: "",
+        images: [process.env.PUBLIC_URL + "/images/projects/ai1.gif"],
+        tags: ["Python", "Pygame", "TKinter", "Pathfinding", "A* Search", "BFS", "DFS", "Visualization"],
+    },
+    {
+        title: "MERN Stack Project - Expense-Tracker",
+        description: "A MERN stack application to track expenses and visualize spending habits.",
+        para: "MERN stack application for expense tracking with graphical insights using Chart.js. React frontend, Node.js/Express backend, MongoDB database.",
+        github_link: "",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/expense1.png",
+            process.env.PUBLIC_URL + "/images/projects/expense2.gif",
+            process.env.PUBLIC_URL + "/images/projects/expense3.gif",
+            process.env.PUBLIC_URL + "/images/projects/expense4.gif",
+        ],
+        tags: ["MERN", "MongoDB", "Express", "React", "Node.js", "Chart.js", "Bootstrap"],
     },
 ];
 
@@ -275,74 +309,53 @@ const publications = [
 const experienceData = [
     {
         company: 'UMass Amherst',
-        role: 'Software Engineering Intern',
-        period: 'Mar 2025 – Present',
+        role: 'Research Assistant, Advanced Human and Health Analytics Lab',
+        period: 'Sept 2025 – Present',
         description: [
-            'Designed and developed a full-stack Android solution for Bluetooth-based sensor data acquisition for stroke rehabilitation, featuring a custom SPP file transfer protocol and dual-mode file persistence (local & AWS S3).',
-            'Deployed an R-based API on AWS EC2 using Docker and a CI/CD pipeline for data analytics and avian flu prediction.',
+            'Collaborating with Harvard Medical School and Mass General Brigham on post-stroke motor/cognitive impairment research under Prof. Ivan Lee\'s guidance. Building scalable models on GPU to automatically annotate linear movement in egocentric video using V-LLaMA and RLHF.',
         ],
-        skills: ['Android', 'AWS S3', 'FastAPI', 'Docker', 'CI/CD', 'R', 'Data Analytics'],
+        skills: ['V-LLaMA', 'RLHF', 'Computer Vision', 'GPU', 'Research'],
     },
     {
-        company: 'Citi',
+        company: 'UMass Amherst',
+        role: 'Software Engineering Intern, Center for Data Science',
+        period: 'Mar 2025 – Present',
+        description: [
+            'Built and led a production LLM platform (LiteLLM-based) integrating multiple AI providers; deployed on AWS via Terraform (ECS/Fargate, Aurora Serverless), scaled to 2,000+ users.',
+            'Engineered Android solution for Bluetooth-based sensor data acquisition from Shimmer devices; cloud sync APIs via FastAPI on AWS Lambda. Medical trials in progress at Northwestern Feinberg School of Medicine.',
+            'Deployed R-based API for avian flu analytics on AWS EC2; React dashboard; ECS Fargate and EventBridge for automation. Optimized API by slashing CPU I/O wait time by 70% through in-memory caching.',
+        ],
+        skills: ['LiteLLM', 'AWS', 'Terraform', 'FastAPI', 'Android', 'React', 'R'],
+    },
+    {
+        company: 'Citi, Chennai',
         role: 'Technology Analyst',
         period: 'Aug 2022 – Dec 2024',
         description: [
-            'Achieved a 60% reduction in API response time by creating an API connector service with Asynchronous Data Streams.',
-            'Enhanced configuration management by developing a tool with the DFS algorithm to compare YML config files, integrated into the DevOps Pipeline.',
-            'Played a key role in a UI/UX migration, reducing user churn by 22% and mitigating rage clicks by 18%.',
-            'Designed a tool to create real-time mock APIs from spec files, significantly reducing development time.',
+            'Achieved 60% reduction in API response time via API connector with asynchronous data streams; designed proxy bridge service for whitelisted APIs.',
+            'Developed tool with DFS algorithm to compare multiple YML config files, integrated into DevOps pipeline improving deployment time by 22%.',
+            'Designed real-time mock APIs from OpenAPI spec files; created API to monitor services, achieving 90% code quality rating. Statistical APIs for financial markets with Tableau for algorithmic trading and risk modeling.',
         ],
-        skills: ['API Optimization', 'Java', 'DevOps', 'Figma', 'UI/UX', 'Data Analysis', 'Tableau'],
+        skills: ['API Optimization', 'Java', 'DevOps', 'OpenAPI', 'Tableau', 'Data Analysis'],
     },
     {
-        company: 'Citi JAC',
-        role: 'Committee Member, Junior Analyst Council',
-        period: 'Mar 2023 – Dec 2024',
-        description: [
-            'Selected as one of 20 analysts nationwide to represent all analysts.',
-            'Led initiatives to enhance peer learning, coordinated townhalls with senior leadership, and conducted tech sessions with SMEs.',
-        ],
-        skills: ['Leadership', 'Event Coordination', 'Public Speaking', 'Mentorship'],
-    },
-    {
-        company: 'ACM SSN',
-        role: 'Alumni Relations Head',
-        period: 'Jun 2021 – Apr 2022',
-        description: [
-            'Cultivated strong alumni relationships by fostering communication and coordinating engaging events.',
-            'Created competitive coding questions for contests.',
-        ],
-        skills: ['Community Management', 'Event Planning', 'Problem Setting', 'Networking'],
-    },
-    {
-        company: 'First Insight',
+        company: 'First Insight, Chennai',
         role: 'Data Science Intern',
         period: 'Jul 2021 – Dec 2021',
         description: [
-            'Developed an Aspect-Based Sentiment Analysis System using LDA and BERT Transformers, improving Topic Coherence by 20%.',
-            'Customized the system for user-defined aspects and deployed it as a REST API within a machine-learning pipeline.',
+            'Developed aspect-based sentiment analysis using LDA and BERT Transformers, improving topic coherence by 20%. Deployed as REST API within ML pipeline.',
         ],
         skills: ['Sentiment Analysis', 'NLP', 'BERT', 'LDA', 'Python', 'REST API'],
     },
     {
-        company: 'SRIC-IIT Madras',
+        company: 'SRIC, IIT Madras',
         role: 'Computer Vision Research Intern',
         period: 'May 2021 – Nov 2021',
         description: [
-            'Developed a motion analysis system for athlete biomechanics using OpenCV, Mediapipe, and YOLO, achieving 82% accuracy.',
-            'Led and mentored a team of 5+ research assistants through teaching sessions and academic guidance.',
+            'Developed motion analysis system for athlete biomechanics using OpenCV, Mediapipe, and YOLO, deployed via Flask API, 82% accuracy on custom basketball dataset.',
+            'Led and mentored a team of 5+ RAs through technical sessions and guidance.',
         ],
-        skills: ['Computer Vision', 'OpenCV', 'YOLO', 'Flask', 'Mentorship', 'Research'],
-    },
-    {
-        company: 'GUVI Geek Network',
-        role: 'Full Stack Developer Intern',
-        period: 'Feb 2021 – Mar 2021',
-        description: [
-            'Collaborated with a team of developers to implement an online learning and teaching marketplace using HTML, CSS, jQuery-AJAX, Bootstrap, PHP, and MySQL.',
-        ],
-        skills: ['Full Stack', 'PHP', 'MySQL', 'HTML/CSS', 'jQuery', 'Bootstrap'],
+        skills: ['Computer Vision', 'OpenCV', 'MediaPipe', 'YOLO', 'Flask', 'Mentorship', 'Research'],
     },
 ];
 
@@ -527,13 +540,13 @@ function ProjectCarousel({ projects }) {
 
     return (
         <div className="relative">
-            {/* Carousel Container */}
-            <div className="relative overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-opacity duration-500 items-stretch">
+            {/* Carousel Container - fixed height so slider doesn't jump */}
+            <div className="relative overflow-hidden min-h-[640px]">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 transition-opacity duration-500 items-stretch min-h-[640px]">
                     {getVisibleProjects().map((project, index) => (
                         <div
                             key={currentIndex * projectsPerPage + index}
-                            className="group/card relative backdrop-blur-xl bg-gradient-to-br from-white/8 via-white/5 to-white/8 border border-pink-500/30 rounded-3xl p-8 hover:border-rose-500/60 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 flex flex-col min-h-[550px] overflow-hidden"
+                            className="group/card relative backdrop-blur-xl bg-gradient-to-br from-white/8 via-white/5 to-white/8 border border-pink-500/30 rounded-3xl p-8 hover:border-rose-500/60 hover:shadow-2xl hover:shadow-pink-500/20 transition-all duration-500 flex flex-col min-h-[600px] h-full overflow-hidden"
                         >
                             {/* Gradient overlay on hover */}
                             <div className="absolute inset-0 bg-gradient-to-br from-pink-500/0 via-rose-500/0 to-pink-500/0 group-hover/card:from-pink-500/10 group-hover/card:via-rose-500/5 group-hover/card:to-pink-500/10 transition-all duration-500 rounded-3xl"></div>
@@ -602,7 +615,7 @@ function ProjectCarousel({ projects }) {
                                             className="group/btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 text-white rounded-xl hover:from-pink-500 hover:via-rose-500 hover:to-pink-500 shadow-lg hover:shadow-2xl hover:shadow-pink-500/50 transition-all duration-300 font-semibold hover:scale-105"
                                         >
                                             <FaGithub className="group-hover/btn:scale-110 transition-transform duration-300" />
-                                            <span>GitHub</span>
+                                            <span>{project.github_link_frontend ? "Backend" : "GitHub"}</span>
                                         </a>
                                     )}
                                     {project.github_link_frontend && (
@@ -624,7 +637,7 @@ function ProjectCarousel({ projects }) {
                                             className="group/btn flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-rose-600 via-pink-600 to-rose-600 text-white rounded-xl hover:from-rose-500 hover:via-pink-500 hover:to-rose-500 shadow-lg hover:shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 font-semibold hover:scale-105"
                                         >
                                             <FaExternalLinkAlt className="group-hover/btn:translate-x-1 transition-transform duration-300" />
-                                            <span>Live Demo</span>
+                                            <span>{project.linkLabel || "More Info"}</span>
                                         </a>
                                     )}
                                 </div>
@@ -1058,7 +1071,9 @@ export default function Home() {
                         "url": "https://swetha4444.github.io/Personal_Website/",
                         "image": "https://swetha4444.github.io/Personal_Website/images/me.jpg",
                         "sameAs": [
-                            "https://github.com/swetha4444"
+                            "https://github.com/swetha4444",
+                            "https://www.linkedin.com/in/swetha-saseendran-794749194/",
+                            "https://scholar.google.com/citations?user=CmC9cIoAAAAJ"
                         ],
                         "description": "Software Developer & AI Enthusiast specializing in full-stack development, AI/ML, computer vision, and cloud solutions.",
                         "knowsAbout": [
@@ -1077,11 +1092,18 @@ export default function Home() {
                             "@type": "Organization",
                             "name": "IIT Madras"
                         },
-                        "worksFor": {
+                        "worksFor": [
+                        {
+                            "@type": "Organization",
+                            "name": "UMass Amherst",
+                            "jobTitle": "Research Assistant"
+                        },
+                        {
                             "@type": "Organization",
                             "name": "UMass Amherst",
                             "jobTitle": "Software Engineering Intern"
                         }
+                    ]
                     })
                 }}
             />
@@ -1154,6 +1176,16 @@ export default function Home() {
             >
                                 <FaFileDownload size={28} className="text-pink-400 group-hover:text-rose-400 transition-colors" />
                                 <span className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-semibold">Resume</span>
+            </a>
+            <a
+              href="https://scholar.google.com/citations?user=CmC9cIoAAAAJ"
+              target="_blank"
+              rel="noopener noreferrer"
+                                className="group relative p-4 rounded-full bg-white/5 backdrop-blur-sm border border-pink-500/30 hover:border-rose-500/50 transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-pink-500/30"
+              aria-label="Google Scholar"
+            >
+                                <FaGraduationCap size={28} className="text-pink-400 group-hover:text-rose-400 transition-colors" />
+                                <span className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 text-xs text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap font-semibold">Google Scholar</span>
             </a>
                         </div>
                         

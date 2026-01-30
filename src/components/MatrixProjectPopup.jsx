@@ -139,7 +139,7 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                       >
-                        <FaGithub /> View Backend
+                        <FaGithub /> Backend
                       </a>
                     )}
                     <a
@@ -148,7 +148,7 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                     >
-                      <FaGithub /> View Frontend
+                      <FaGithub /> Frontend
                     </a>
                   </>
                 ) : (
@@ -170,7 +170,7 @@ export default function MatrixProjectPopup({ open, onClose, project }) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                   >
-                    <FaExternalLinkAlt /> More Details
+                    <FaExternalLinkAlt /> {project.linkLabel || "More Info"}
                   </a>
                 )}
               </div>

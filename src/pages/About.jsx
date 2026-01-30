@@ -1,7 +1,7 @@
 import React, { useRef, useState, Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
-import { FaLightbulb, FaLaptopCode, FaAward, FaGithub, FaLinkedin, FaFileDownload, FaEllipsisH } from "react-icons/fa";
+import { FaLightbulb, FaLaptopCode, FaAward, FaGithub, FaLinkedin, FaFileDownload, FaEllipsisH, FaGraduationCap } from "react-icons/fa";
 import NavBar from "../components/navbar";
 import SkillsPopup from "../components/SkillsPopup";
 
@@ -149,6 +149,7 @@ export default function About() {
                   <button onClick={handleCertificationsClick} className="text-[#5dff4e]"><FaAward size={28} /></button>
                   <a href="https://github.com/swetha4444" target="_blank" rel="noopener noreferrer" className="text-[#5dff4e]"><FaGithub size={28} /></a>
                   <a href="https://www.linkedin.com/in/swetha-saseendran-794749194/" target="_blank" rel="noopener noreferrer" className="text-[#5dff4e]"><FaLinkedin size={28} /></a>
+                  <a href="https://scholar.google.com/citations?user=CmC9cIoAAAAJ" target="_blank" rel="noopener noreferrer" className="text-[#5dff4e]"><FaGraduationCap size={28} /></a>
                   <a href={process.env.PUBLIC_URL + "/resume/Swetha_Saseendran_Resume.pdf"} download className="text-[#5dff4e]"><FaFileDownload size={28} /></a>
                 </div>
               )}
@@ -201,6 +202,18 @@ export default function About() {
                 <FaLinkedin size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
                 <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
                     Go to my LinkedIn
+                </span>
+            </a>
+            <a
+                href="https://scholar.google.com/citations?user=CmC9cIoAAAAJ"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative bg-black/60 rounded-full p-3 border-2 border-[#5dff4e] shadow-lg hover:bg-[#222] transition-all"
+                aria-label="Google Scholar"
+            >
+                <FaGraduationCap size={28} className="text-[#5dff4e] drop-shadow-[0_0_8px_#5dff4e]" />
+                <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap opacity-0 group-hover:opacity-100 bg-[#111]/90 text-[#5dff4e] text-xs font-mono px-3 py-1 rounded shadow-lg transition pointer-events-none z-50">
+                    Google Scholar
                 </span>
             </a>
             <a

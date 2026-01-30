@@ -10,11 +10,21 @@ import NavBar from "../components/navbar"
 
 const projects = [
     {
+        title: "AirgapAgentLite - Privacy-Preserving LLM Framework",
+        description: "RL-based two-LLM AirGapAgent pipeline for PII sharing decisions; 11–14× faster inference, +48% utility and +10% privacy.",
+        para: "Built a RL-based two-LLM AirGapAgent pipeline using Mistral-7B on GPU and enforced contextual privacy via a hybrid, lightweight data minimizer (rule-based + small LLM/transformer) optimized with GRPO, Grouped PPO, RL, targeting privacy retention under adversarial prompt attacks while preserving utility. Achieved 11–14× faster inference than the LLM baseline, +48% utility and +10% privacy, and near-perfect utility and privacy with deterministic outputs versus high-variance LLM decisions. Evaluated baseline LLM minimizers (Qwen2.5, Mistral, Llama) on 2K+ samples.",
+        github_link: "https://github.com/swetha4444/AirGapLite-RL-Pipeline-for-PII-Sharing-Decisions",
+        link: "https://drive.google.com/file/d/1f-h5DRFUigan5_noC8H2RUyELZYG1fjw/view?usp=sharing",
+        linkLabel: "More Info",
+        tags: ["RL", "Privacy", "Mistral-7B", "GRPO", "PPO", "Python", "GPU"],
+    },
+    {
         title: "PyTrackX: Open Source Python Package",
         description: "An open-source Python library to track 80+ objects and body movements with a single function call.",
         para: "Built with Sriram Kannan, PyTrackX is my first open-source Python library. It's an automated tool that tracks up to 80 different objects and body movements from a simple video input, returning real-time coordinates with minimal setup. We were inspired to simplify the complex process of posture and object tracking into a single, easy-to-use function call. The package is published on PyPI and available for anyone to use in their projects.",
         github_link: "https://github.com/swetha4444/PyTrackX",
         link: "https://pypi.org/project/PytrackX/",
+        linkLabel: "More Info",
         video: process.env.PUBLIC_URL + "/images/projects/pytrackx.mp4",
         tags: ["Python", "Open Source", "Computer Vision", "YOLO", "Mediapipe", "PyPI"],
     },
@@ -24,10 +34,10 @@ const projects = [
         para: "Engineered and benchmarked a suite of advanced AI agents for No-Limit Texas Hold’em. This project features an Expectiminimax agent enhanced with statistical opponent modeling to exploit player tendencies, a Q-learning agent using strategic state abstraction to navigate the vast decision space, and a novel hybrid MCTS-Minimax agent. This hybrid model integrates Monte Carlo Tree Search for robust long-term planning with a dynamic Bayesian network for real-time opponent profiling, allowing it to adapt its strategy against a wide range of playing styles.",
         github_link: "https://github.com/swetha4444/Poker-AI-Agent",
         link: "https://drive.google.com/file/d/1hCysYV0ltOEmch1f2bd1Zy1_hpisVHWJ/view?usp=sharing",
+        linkLabel: "More Info",
         images: [
             process.env.PUBLIC_URL + "/images/projects/poker1.png",
             process.env.PUBLIC_URL + "/images/projects/poker2.png",
-            // process.env.PUBLIC_URL + "/images/projects/poker3.png",
         ],
         tags: ["AI", "Game Theory", "Python", "Reinforcement Learning"],
     },
@@ -53,6 +63,7 @@ const projects = [
         para: "This project conducts an in-depth analysis of the factors affecting house prices in the United States. By integrating diverse datasets—including Zillow home prices, national GDP, mortgage rates, employment statistics, income ratios, and commodity prices—it uncovers key correlations and trends. The analysis uses time-series techniques and statistical modeling to explain the dynamics of the housing market, providing insights into how macroeconomic indicators and social trends impact property values. The findings are compiled in a detailed report with visualizations and statistical evidence.",
         github_link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/tree/main/notebooks",
         link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/blob/main/US%20House%20Price%20Factors%20Report.pdf",
+        linkLabel: "More Info",
         images: [
             process.env.PUBLIC_URL + "/images/projects/house1.png",
             process.env.PUBLIC_URL + "/images/projects/house2.png",
@@ -98,7 +109,8 @@ const projects = [
         para: "TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. The system is built on a microservices architecture, featuring a Flutter app for the frontend and a robust backend powered by Spring Boot and Java. Real-time data processing is handled by a Kafka cluster, which streams live match updates and point calculations. Data is stored across multiple MongoDB databases for scalability and integrity. A key innovation was developing a mock data generator to simulate live sports data, overcoming API rate limits during development and ensuring continuous testing of the real-time scoring and leaderboard features.",
         github_link: "https://github.com/swetha4444/TeamX-Backend",
         github_link_frontend: "https://github.com/hrudayaditya/TeamX",
-        link: "https://docs.google.com/document/d/1kH71CbY-JrtyedcGC9QoNfQPBbfgOBDhLb7ANw45fxY/edit?tab=t.0",
+        link: "https://drive.google.com/drive/folders/1fk1Zr_XQ_SoOmo6TTpFnDIjrtAWQG4ht?usp=share_link",
+        linkLabel: "Live Demo",
         images: [
             process.env.PUBLIC_URL + "/images/projects/teamx1.png",
             process.env.PUBLIC_URL + "/images/projects/teamx2.png",
@@ -229,7 +241,7 @@ export default function Projects() {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                                       >
-                                        <FaGithub /> View Backend
+                                        <FaGithub /> Backend
                                       </a>
                                     )}
                                     {projects[page].github_link_frontend && (
@@ -239,7 +251,7 @@ export default function Projects() {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                                       >
-                                        <FaGithub /> View Frontend
+                                        <FaGithub /> Frontend
                                       </a>
                                     )}
                                     {projects[page].link && projects[page].link !== "#" && (
@@ -249,7 +261,7 @@ export default function Projects() {
                                         rel="noopener noreferrer"
                                         className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
                                       >
-                                        <FaExternalLinkAlt /> More Details
+                                        <FaExternalLinkAlt /> {projects[page].linkLabel || "More Info"}
                                       </a>
                                     )}
                                     {!projects[page].github_link && (!projects[page].link || projects[page].link === "#") && (
