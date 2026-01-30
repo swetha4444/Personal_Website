@@ -1,41 +1,115 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaExternalLinkAlt, FaChevronLeft, FaChevronRight, FaGithub } from "react-icons/fa";
 import MatrixSection from "../components/MatrixSection";
 import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "../components/StaticPixelOverlay";
 import MatrixProjectPopup from "../components/MatrixProjectPopup";
-import SentinelleScene from "../components/SentinelleScene"; // Add this import at the top
-
+import MatrixBoxTV from "../components/MatrixBoxTV";
+import NavBar from "../components/navbar"
 
 const projects = [
-	{
-		title: "Sentinelle 3D",
-		description:
-			"A 3D interactive Matrix Sentinelle model using Blender and Three.js.",
-		link: "#",
-		tags: ["3D", "Blender", "Three.js"],
-	},
-	{
-		title: "Matrix Rain Background",
-		description:
-			"Animated Matrix code rain effect with React and Canvas.",
-		link: "#",
-		tags: ["React", "Canvas", "Animation"],
-	},
-	{
-		title: "AI Chatbot",
-		description: "Conversational AI assistant with a Matrix-inspired UI.",
-		link: "#",
-		tags: ["AI", "Chatbot", "UI"],
-	},
-	{
-		title: "Portfolio Hallway",
-		description:
-			"A 3D hallway portfolio experience built with Blender and react-three-fiber.",
-		link: "#",
-		tags: ["3D", "Portfolio", "react-three-fiber"],
-	},
+    {
+        title: "PyTrackX: Open Source Python Package",
+        description: "An open-source Python library to track 80+ objects and body movements with a single function call.",
+        para: "Built with Sriram Kannan, PyTrackX is my first open-source Python library. It's an automated tool that tracks up to 80 different objects and body movements from a simple video input, returning real-time coordinates with minimal setup. We were inspired to simplify the complex process of posture and object tracking into a single, easy-to-use function call. The package is published on PyPI and available for anyone to use in their projects.",
+        github_link: "https://github.com/swetha4444/PyTrackX",
+        link: "https://pypi.org/project/PytrackX/",
+        video: process.env.PUBLIC_URL + "/images/projects/pytrackx.mp4",
+        tags: ["Python", "Open Source", "Computer Vision", "YOLO", "Mediapipe", "PyPI"],
+    },
+    {
+        title: "Poker AI Agent",
+        description: "AI agents for Texas Hold’em, including Expectiminimax, Q-learning, and a hybrid MCTS-Minimax agent.",
+        para: "Engineered and benchmarked a suite of advanced AI agents for No-Limit Texas Hold’em. This project features an Expectiminimax agent enhanced with statistical opponent modeling to exploit player tendencies, a Q-learning agent using strategic state abstraction to navigate the vast decision space, and a novel hybrid MCTS-Minimax agent. This hybrid model integrates Monte Carlo Tree Search for robust long-term planning with a dynamic Bayesian network for real-time opponent profiling, allowing it to adapt its strategy against a wide range of playing styles.",
+        github_link: "https://github.com/swetha4444/Poker-AI-Agent",
+        link: "https://drive.google.com/file/d/1hCysYV0ltOEmch1f2bd1Zy1_hpisVHWJ/view?usp=sharing",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/poker1.png",
+            process.env.PUBLIC_URL + "/images/projects/poker2.png",
+            // process.env.PUBLIC_URL + "/images/projects/poker3.png",
+        ],
+        tags: ["AI", "Game Theory", "Python", "Reinforcement Learning"],
+    },
+    {
+        title: "OpenCV Project - Posture Tracking",
+        description: "A fun Tkinter animation that mimics your actions using Mediapipe for real-time posture tracking.",
+        para: "A fun animation built using Tkinter that imitates your actions. The posture is tracked using the Mediapipe library, an open-source framework by Google. The coordinates of certain landmarks such as knees, elbows, etc., are passed to the animation, and it changes according to your actions following some basic rules of geometry.",
+        github_link: "https://github.com/swetha4444/OpenCV-Project",
+        video: process.env.PUBLIC_URL + "/images/projects/mediapipe.mp4",
+        tags: ["Python", "OpenCV", "Mediapipe", "Tkinter", "Animation"],
+    },
+    {
+        title: "Resume Analyser Software",
+        description: "A Python-based tool to parse, analyze, and categorize resumes using NLP and machine learning.",
+        para: "A comprehensive tool designed to streamline recruitment by converting unstructured resume data into a structured format. It leverages regular expressions and NLP techniques to parse resumes, summarize work experience, and extract keywords using TF-IDF and Distilbert. The software can batch process multiple resumes, categorizing applicants and generating a CSV for easy filtering. It also provides data analysis features, including graphical insights, a knowledge graph of skills, and a CNN-based model for job classification.",
+        github_link: "https://github.com/swetha4444/Resume-Analyser-Software",
+        video: process.env.PUBLIC_URL + "/images/projects/resume.mp4",
+        tags: ["Python", "NLP", "Machine Learning", "TF-IDF", "Distilbert", "CNN", "Knowledge Graph", "Data Analysis", "HTML5", "CSS3"],
+    },
+    {
+        title: "Analysing Factors Affecting House Prices in the US",
+        description: "A data analytics project exploring the economic and social factors that influence the US housing market.",
+        para: "This project conducts an in-depth analysis of the factors affecting house prices in the United States. By integrating diverse datasets—including Zillow home prices, national GDP, mortgage rates, employment statistics, income ratios, and commodity prices—it uncovers key correlations and trends. The analysis uses time-series techniques and statistical modeling to explain the dynamics of the housing market, providing insights into how macroeconomic indicators and social trends impact property values. The findings are compiled in a detailed report with visualizations and statistical evidence.",
+        github_link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/tree/main/notebooks",
+        link: "https://github.com/swetha4444/Analysing-Factors-affecting-House-Prices-in-the-US/blob/main/US%20House%20Price%20Factors%20Report.pdf",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/house1.png",
+            process.env.PUBLIC_URL + "/images/projects/house2.png",
+            process.env.PUBLIC_URL + "/images/projects/house3.png",
+            process.env.PUBLIC_URL + "/images/projects/house4.png",
+        ],
+        tags: ["Python", "Data Analysis", "Machine Learning", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter"],
+    },
+    {
+        title: "Product Review Analysis",
+        description: "An NLP project to classify and analyze product reviews from social media using Transformers.",
+        para: "This project helps users determine product quality by analyzing social media reviews. It uses a robust pipeline of web scraping, data cleaning, and transformation to prepare the data for analysis. The core of the project is built around Transformer models, specifically fine-tuned BERT variants, to classify reviews into positive, negative, or neutral sentiments. Additionally, it extracts key topics and trends from the reviews using advanced NLP techniques, providing valuable insights into customer opinions and product performance.",
+        github_link: "https://github.com/swetha4444/Product-Review-Analysis",
+        video: process.env.PUBLIC_URL + "/images/projects/review.mp4",
+        tags: ["Python", "NLP", "Transformers", "BERT", "Data Analysis", "Web Scraping"],
+    },
+    {
+        title: "Path Finding Visualizer",
+        description: "A visualization tool for various pathfinding algorithms like A*, BFS, and DFS.",
+        para: "This is a visualization tool to visualize various pathfinding algorithms. There are various options to choose, like creating a randomized maze, choosing an algorithm to visualize, and selecting a heuristic to calculate. The visualization starts when the SPACE key is pressed. Supported algorithms include A* Search, Breadth First Search, Depth First Search, Greedy Search, and Uniform Cost Search.",
+        github_link: "",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/ai1.gif",
+        ],
+        tags: ["Python", "Pygame", "TKinter", "Pathfinding", "A* Search", "BFS", "DFS", "Visualization"],
+    },
+    {
+        title: "MERN Stack Project - Expense-Tracker",
+        description: "A MERN stack application to track expenses and visualize spending habits.",
+        para: "Keeping track of your expenses is an important part of managing your overall finances. This MERN stack application allows users to keep a detailed account of their expenses and gain graphical insights into their spending habits using Chart.js. The system is built with a React frontend, styled with Bootstrap, and powered by a Node.js/Express backend and a MongoDB database.",
+        github_link: "",
+        images: [
+            process.env.PUBLIC_URL +"/images/projects/expense1.png",
+            process.env.PUBLIC_URL +"/images/projects/expense2.gif",
+            process.env.PUBLIC_URL +"/images/projects/expense3.gif",
+            process.env.PUBLIC_URL +"/images/projects/expense4.gif",
+        ],
+        tags: ["MERN", "MongoDB", "Express", "React", "Node.js", "Chart.js", "Bootstrap", "HTML", "CSS"],
+    },
+    {
+        title: "TeamX: Fantasy Sports Platform",
+        description: "A full-stack fantasy sports platform with real-time scoring, built with Flutter, Spring Boot, and Kafka.",
+        para: "TeamX is a full-stack fantasy sports platform where users create virtual teams and compete based on real-time player performance. The system is built on a microservices architecture, featuring a Flutter app for the frontend and a robust backend powered by Spring Boot and Java. Real-time data processing is handled by a Kafka cluster, which streams live match updates and point calculations. Data is stored across multiple MongoDB databases for scalability and integrity. A key innovation was developing a mock data generator to simulate live sports data, overcoming API rate limits during development and ensuring continuous testing of the real-time scoring and leaderboard features.",
+        github_link: "https://github.com/swetha4444/TeamX-Backend",
+        github_link_frontend: "https://github.com/hrudayaditya/TeamX",
+        link: "https://docs.google.com/document/d/1kH71CbY-JrtyedcGC9QoNfQPBbfgOBDhLb7ANw45fxY/edit?tab=t.0",
+        images: [
+            process.env.PUBLIC_URL + "/images/projects/teamx1.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx2.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx3.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx4.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx5.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx6.png",
+            process.env.PUBLIC_URL + "/images/projects/teamx7.png",
+        ],
+        tags: ["Full-Stack", "System Design", "Microservices", "Flutter", "Spring Boot", "Java", "Kafka", "Python", "MongoDB"],
+    }
 ];
 
 const tvVariants = {
@@ -117,38 +191,77 @@ export default function Projects() {
             <MatrixRain />
             <main className="relative z-10 flex flex-col items-center justify-center min-h-screen w-screen h-screen">
                 <MatrixSection className="w-full h-full flex flex-col items-center justify-center bg-transparent border-[#5dff4e]/50 shadow-2xl ">
+                    <NavBar />
                     <h1 className="text-4xl font-extrabold text-[#5dff4e] mb-8 text-center matrix-font tracking-widest drop-shadow-lg p-2">
                         Projects
                     </h1>
                     <div className="flex-1 flex flex-col items-center justify-center w-full h-full relative">
                         {/* TV Frame */}
-                        <div className="w-full max-w-6xl mx-auto flex flex-row items-center justify-center gap-2 relative">
-                          {/* Left: Sentinelle 3D Model */}
-                          <div className="hidden md:flex items-center justify-end w-[300px] h-[520px] pr-4">
-                            <SentinelleScene />
-                          </div>
-                          {/* Right: TV Frame and controls */}
-                          <div className="relative w-full max-w-xl flex flex-col items-center justify-center">
-                            <div className="relative w-full h-[420px] flex items-center justify-center">
-                              {/* Retro TV Outer Frame with feet */}
-                              <div className="absolute inset-0 rounded-[3rem] border-[12px] border-[#2a2a2a] bg-gradient-to-b from-[#232323] to-[#0d0d0d] shadow-[0_0_80px_#5dff4e33] z-0" />
-                              {/* TV Wood Paneling */}
-                              <div className="absolute inset-2 rounded-[2.7rem] border-[6px] border-[#35984c] bg-gradient-to-b from-[#4de079] to-[#0a6129] z-0" />
-                              {/* TV Inner Bezel */}
-                              <div className="absolute inset-6 rounded-[2.2rem] border-4 border-[#5dff4e] bg-black z-0" />
-                              {/* TV Glass Reflection */}
-                              <div className="absolute inset-8 rounded-[2rem] pointer-events-none z-10"
-                                style={{
-                                  background: "linear-gradient(120deg, #fff2 10%, #fff1 30%, transparent 70%)",
-                                  opacity: 0.18,
-                                  mixBlendMode: "screen"
-                                }}
-                              />
-                              {/* TV Stand */}
-                              <div className="absolute bottom-[-36px] left-1/2 -translate-x-1/2 w-36 h-8 bg-[#2a2a2a] rounded-b-3xl shadow-lg z-0 border-t-4 border-[#59b941]" />
-                     
-                              {/* Animated Project Card as TV Screen */}
-                              <div className="absolute inset-10 rounded-[1.7rem] overflow-hidden flex items-center justify-center z-20 bg-black border-2 border-[#5dff4e]">
+                        <div className="w-full max-w-6xl mx-auto flex flex-col items-center justify-center relative">
+                          {/* TVs row */}
+                          <div className="flex flex-row items-center justify-center gap-8 w-full">
+                            {/* Left TV (hidden on small screens) */}
+                            <div
+                              className="hidden md:flex items-center justify-end flex-shrink-0"
+                              style={{ width: 340, height: 520 }}
+                            >
+                               <MatrixBoxTV
+                              style={{
+                                // Remove hardcoded rotateY here, let parent decide:
+                                width: "100%",
+                                height: "100%",
+                                minWidth: "440px",
+                                minHeight: "350px",
+                                maxWidth: "440px",
+                                maxHeight: "350px",
+                              }}
+                              rotateY={14} // Pass the desired rotateY as a prop
+                            >
+                                <div className="w-full h-full flex flex-col items-center justify-center p-4 matrix-font">
+                                  <h3 className="text-xl text-[#5dff4e] font-bold mb-4 tracking-wider drop-shadow text-center z-10">
+                                      Additional Details
+                                  </h3>
+                                  <div className="flex flex-col items-center gap-4">
+                                    {projects[page].github_link && (
+                                      <a
+                                        href={projects[page].github_link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                                      >
+                                        <FaGithub /> View Backend
+                                      </a>
+                                    )}
+                                    {projects[page].github_link_frontend && (
+                                      <a
+                                        href={projects[page].github_link_frontend}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                                      >
+                                        <FaGithub /> View Frontend
+                                      </a>
+                                    )}
+                                    {projects[page].link && projects[page].link !== "#" && (
+                                      <a
+                                        href={projects[page].link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="inline-flex items-center gap-2 px-4 py-2 bg-[#181c1f] border-2 border-[#5dff4e] text-[#5dff4e] rounded-lg font-bold hover:bg-[#222] transition w-max"
+                                      >
+                                        <FaExternalLinkAlt /> More Details
+                                      </a>
+                                    )}
+                                    {!projects[page].github_link && (!projects[page].link || projects[page].link === "#") && (
+                                      <p className="text-green-300 opacity-70 text-center">No additional links for this project.</p>
+                                    )}
+                                  </div>
+                                </div>
+                              </MatrixBoxTV>
+                            </div>
+                            {/* Right TV (always visible) */}
+                            <div className="flex flex-col items-center justify-center flex-1">
+                              <MatrixBoxTV>
                                 <AnimatePresence initial={false} custom={direction}>
                                   <motion.div
                                     key={page}
@@ -164,6 +277,7 @@ export default function Projects() {
                                       duration: 0.18,
                                     }}
                                     className="matrix-font w-full h-full flex flex-col items-center justify-center relative"
+                                     rotateY={14}
                                   >
                                     {/* Channel number inside TV */}
                                     <div className="absolute top-4 right-6 bg-[#111] bg-opacity-70 px-4 py-1 rounded-full border border-[#5dff4e] text-[#5dff4e] text-sm font-mono z-20 shadow">
@@ -195,7 +309,7 @@ export default function Projects() {
                                     <p className="text-green-200 text-center mb-6 z-10">
                                       {projects[page].description}
                                     </p>
-                                    <div className="flex flex-wrap justify-center gap-2 mb-6 z-10">
+                                    <div className="hidden md:flex flex-wrap justify-center gap-2 mb-6 z-10">
                                       {projects[page].tags.map((tag, idx) => (
                                         <span
                                           key={tag}
@@ -260,49 +374,49 @@ export default function Projects() {
                                     </div>
                                   </motion.div>
                                 </AnimatePresence>
-                              </div>
+                              </MatrixBoxTV>
                             </div>
-                            {/* Knob and dots go here, directly below TV */}
-                            <div className="flex flex-col items-center mt-10">
-                              <motion.div
-                                className="w-16 h-16 bg-[#181c1f] border-4 border-[#5dff4e] rounded-full shadow-[0_0_24px_#5dff4e66] flex items-center justify-center z-20 relative"
-                                animate={{ rotate: page * 36 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                              >
-                                {/* Knob inner circle */}
-                                <div className="w-10 h-10 bg-[#222] rounded-full border-2 border-[#5dff4e] flex items-center justify-center relative">
-                                  {/* Notch indicator */}
-                                  <div className="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#5dff4e] rounded-full shadow-[0_0_8px_#5dff4e]" />
-                                </div>
-                                {/* Channel change buttons around the knob */}
-                                <button
-                                  onClick={() => paginate(-1)}
-                                  aria-label="Previous Channel"
-                                  className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
-                                  style={{ boxShadow: "0 0 8px #5dff4e88" }}
-                                >
-                                  <FaChevronLeft size={14} />
-                                </button>
-                                <button
-                                  onClick={() => paginate(1)}
-                                  aria-label="Next Channel"
-                                  className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
-                                  style={{ boxShadow: "0 0 8px #5dff4e88" }}
-                                >
-                                  <FaChevronRight size={14} />
-                                </button>
-                              </motion.div>
-                              {/* Channel dots */}
-                              <div className="flex justify-center mt-4 gap-2">
-                                {projects.map((_, idx) => (
-                                  <span
-                                    key={idx}
-                                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                                      idx === page ? "bg-[#5dff4e] shadow" : "bg-[#15641e]"
-                                    }`}
-                                  />
-                                ))}
+                          </div>
+                          {/* Knob centered below both TVs */}
+                          <div className="flex flex-col items-center justify-center w-full absolute left-0 right-0 mx-auto" style={{ bottom: -90 }}>
+                            <motion.div
+                              className="w-16 h-16 bg-[#181c1f] border-4 border-[#5dff4e] rounded-full shadow-[0_0_24px_#5dff4e66] flex items-center justify-center z-20 relative mx-auto"
+                              animate={{ rotate: page * 36 }}
+                              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            >
+                              {/* Knob inner circle */}
+                              <div className="w-10 h-10 bg-[#222] rounded-full border-2 border-[#5dff4e] flex items-center justify-center relative">
+                                {/* Notch indicator */}
+                                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-[#5dff4e] rounded-full shadow-[0_0_8px_#5dff4e]" />
                               </div>
+                              {/* Channel change buttons around the knob */}
+                              <button
+                                onClick={() => paginate(-1)}
+                                aria-label="Previous Channel"
+                                className="absolute left-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
+                                style={{ boxShadow: "0 0 8px #5dff4e88" }}
+                              >
+                                <FaChevronLeft size={14} />
+                              </button>
+                              <button
+                                onClick={() => paginate(1)}
+                                aria-label="Next Channel"
+                                className="absolute right-0 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center rounded-full bg-[#111] border-2 border-[#5dff4e] text-[#5dff4e] hover:bg-[#5dff4e]/20 active:scale-90 transition"
+                                style={{ boxShadow: "0 0 8px #5dff4e88" }}
+                              >
+                                <FaChevronRight size={14} />
+                              </button>
+                            </motion.div>
+                            {/* Channel dots */}
+                            <div className="flex justify-center mt-4 gap-2">
+                              {projects.map((_, idx) => (
+                                <span
+                                  key={idx}
+                                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                                    idx === page ? "bg-[#5dff4e] shadow" : "bg-[#15641e]"
+                                  }`}
+                                />
+                              ))}
                             </div>
                           </div>
                         </div>
@@ -310,7 +424,7 @@ export default function Projects() {
 
                
                     </div>
-                    <div className="text-green-400 text-xs mt-4 opacity-70 text-center">
+                    <div className="text-green-400 text-md mt-4 opacity-70 text-center">
                         Tip: Use <span className="font-bold">←</span> / <span className="font-bold">→</span> or use the knob below the TV to go to next project
                     </div>
                 </MatrixSection>
