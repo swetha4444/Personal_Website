@@ -172,11 +172,6 @@ export default function Projects() {
     const [[page, direction], setPage] = useState([0, 0]);
     const [popupOpen, setPopupOpen] = useState(false);
 
-    const playClick = useCallback(() => {
-        const audio = new Audio(process.env.PUBLIC_URL + "/music/click.mp3");
-        audio.play();
-    }, []);
-
     const paginate = useCallback(
         (newDirection) => {
             playKnobTurn();

@@ -207,7 +207,7 @@ const NavBar = () => {
                                             rel={item.external ? "noopener noreferrer" : ""}
                                             download={item.download}
                                             className="absolute"
-                                            style={getCirclePos(i, circleNavItems.length)}
+                                            style={getCirclePos(i, circleNavItems.length, radius)}
                                             onClick={playClick}
                                             onMouseEnter={playSwing}
                                         >
@@ -221,7 +221,7 @@ const NavBar = () => {
                                         key={item.label}
                                         to={item.path}
                                         className="absolute"
-                                        style={getCirclePos(i, circleNavItems.length)}
+                                        style={getCirclePos(i, circleNavItems.length, radius)}
                                         onClick={() => {
                                             playClick();
                                             setOpen(false);

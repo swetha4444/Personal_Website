@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import { Html } from '@react-three/drei';
-import * as THREE from 'three';
 
 // 🔹 Glowing grid boxes
 function TunnelBoxes() {

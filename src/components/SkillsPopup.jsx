@@ -2,7 +2,7 @@ import React from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { FaTimes, FaJava, FaAws } from "react-icons/fa";
 import {
-  SiPython, SiJavascript, SiC, SiTypescript, SiHtml5, SiCss3, 
+  SiPython, SiC, SiTypescript, 
   SiReact, SiNextdotjs, SiAngular, SiNodedotjs, SiSpringboot, SiFlask, SiDjango, SiFastapi, SiPhp, SiAndroid,
   SiTensorflow, SiPytorch, SiOpencv, SiMediapipe, SiHuggingface,
   SiMysql, SiMongodb, SiElasticsearch, SiApachekafka, SiRedis, SiTableau,

@@ -1,6 +1,6 @@
 import React, { useRef, useState, Suspense, useEffect } from "react";
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Environment, Html } from "@react-three/drei";
+import { OrbitControls, useGLTF, Environment } from "@react-three/drei";
 import { FaLightbulb, FaLaptopCode, FaAward, FaGithub, FaLinkedin, FaFileDownload, FaEllipsisH, FaGraduationCap } from "react-icons/fa";
 import NavBar from "../components/navbar";
 import SkillsPopup from "../components/SkillsPopup";

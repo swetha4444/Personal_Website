@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { FaChevronLeft, FaChevronRight, FaGithub, FaTimes, FaExternalLinkAlt } from "react-icons/fa";
-import MatrixRain from "../backgrounds/matrixRain";
 import StaticPixelOverlay from "./StaticPixelOverlay";
 
 export default function MatrixProjectPopup({ open, onClose, project }) {

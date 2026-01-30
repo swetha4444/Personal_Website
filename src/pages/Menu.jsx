@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { FaChevronLeft, FaChevronRight, FaHome } from 'react-icons/fa';
-import { Canvas, useFrame } from '@react-three/fiber';
+import { Canvas } from '@react-three/fiber';
 import { OrbitControls, useGLTF } from '@react-three/drei';
 import MatrixRain from '../backgrounds/matrixRain';
 import MatrixSection from '../components/MatrixSection';

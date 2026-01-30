@@ -50,7 +50,6 @@ function AnimatedName({ name }) {
     const [currentStyle, setCurrentStyle] = useState(0);
     const [isGlitching, setIsGlitching] = useState(false);
     const [flashColor, setFlashColor] = useState(null); // 'green' or 'pink' or null
-    const [visibleLetters, setVisibleLetters] = useState([]);
     const [allRevealed, setAllRevealed] = useState(false);
     
     const fontStyles = [
@@ -64,11 +63,6 @@ function AnimatedName({ name }) {
 
     // Letter-by-letter reveal animation - fast and snappy
     useEffect(() => {
-        const letters = name.split('');
-        // Show all letters immediately, then animate them in
-        const allIndices = letters.map((_, i) => i);
-        setVisibleLetters(allIndices);
-        
         // Start style cycling after a brief delay
         setTimeout(() => {
             setAllRevealed(true);
@@ -79,6 +73,7 @@ function AnimatedName({ name }) {
             }, 1500);
             return () => clearInterval(styleInterval);
         }, 1000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- fontStyles is stable
     }, [name]);
 
     // Occasional glitch effect (less frequent)
@@ -143,7 +138,6 @@ function AnimatedName({ name }) {
                 }}
             >
                 {letters.map((letter, index) => {
-                    const isVisible = visibleLetters.includes(index);
                     return (
                         <span
                             key={index}
@@ -389,6 +383,7 @@ function useScrollAnimation(options = {}) {
     const { threshold = 0.05, rootMargin = '0px 0px -50px 0px' } = options;
 
     useEffect(() => {
+        const node = ref.current;
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting && !isVisible) {
@@ -398,14 +393,12 @@ function useScrollAnimation(options = {}) {
             { threshold, rootMargin }
         );
 
-        if (ref.current) {
-            observer.observe(ref.current);
+        if (node) {
+            observer.observe(node);
         }
 
         return () => {
-            if (ref.current) {
-                observer.unobserve(ref.current);
-            }
+            if (node) observer.unobserve(node);
         };
     }, [isVisible, threshold, rootMargin]);
 
@@ -717,7 +710,7 @@ function RotatingImageCarousel({ images, interval = 3000 }) {
                     <img
                         key={index}
                         src={image}
-                        alt={`Swetha Saseendran - Software Developer & AI Enthusiast - Profile Photo ${index + 1}`}
+                        alt={`Swetha Saseendran portrait ${index + 1}`}
                         title="Swetha Saseendran - Software Developer & AI Enthusiast"
                         loading={index === 0 ? "eager" : "lazy"}
                         className={`absolute inset-0 w-full h-full object-cover rounded-full transition-opacity duration-1000 ${
@@ -749,6 +742,7 @@ export default function Home() {
         audio.src = '';
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- init only, volume updated in separate effect
   }, []);
 
   // Update volume when it changes

@@ -1,5 +1,4 @@
 import React from "react";
-import NavBar from "./navbar"; // Adjust the path if needed
 
 export default function MatrixSection({ children, className = "", ...props }) {
   return (
